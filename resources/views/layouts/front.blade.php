@@ -18,147 +18,50 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
   <link href="{{asset('assets/css/material-dashboard.css?v=2.1.0')}}" rel="stylesheet" />
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style type="text/css">
   </style>
 </head>
 
 <body class="">
-  <div class="wrapper ">
-    <div class="sidebar" data-color="azure" data-background-color="black" data-image="{{asset('/img/sidebar-1.jpg')}}">
-      <!--
-        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-
-        Tip 2: you can also add an image using data-image tag
-    -->
-      <div class="logo">
-          <a href="#" class="simple-text logo-mini">
-            SP
-          </a>
-          <a href="@if(!Auth::check()) {{route('login')}} @else {{route('home')}} @endif " class="simple-text logo-normal">
-            Sripuja
-          </a>
-      </div>
-      <div class="sidebar-wrapper">
-        @if(Auth::check())
-        <div class="user">
-            <div class="user-info">
-                <a data-toggle="collapse" href="#collapseProfile" class="username">
-                    <span>
-                        {!! Auth::user()->nama !!}
-                    </span>
-                    <b class="caret"></b>
-                </a>
-                <div class="collapse" id="collapseProfile">
-                    <ul class="nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> EP </span>
-                                <span class="sidebar-normal"> Edit Profile </span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span class="sidebar-mini"> S </span>
-                                <span class="sidebar-normal"> Settings </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        @endif
-
-        <ul class="nav">
-        @if(Auth::check())
-          <li class="nav-item" id="dashboard">
-            <a class="nav-link" href="{{route('home')}}">
-              <i class="material-icons">dashboard</i>
-              <p>Dashboard</p>
-            </a>
-          </li>
-
-          <li class="nav-item" id="nav_barang">
-            <a class="nav-link" data-toggle="collapse" href="#side_bar_barang" id="barang">
-              <i class="material-icons">card_travel</i>
-              <p>
-                Barang
-                <b class="caret"></b>
-              </p>
-            </a>
-            <div class="collapse" id="side_bar_barang">
-              <ul class="nav">
-                <li class="nav-item " id="barang_all">
-                  <a class="nav-link" href="{!! route('barang.index') !!}">
-                    <i class="material-icons">list</i>
-                    <span class="sidebar-normal"> Tampilkan Semua </span>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav">
-                <li class="nav-item " id="barang_add">
-                  <a class="nav-link" href="{!! route('barang.create') !!}">
-                    <i class="material-icons">add</i>
-                    <span class="sidebar-normal"> Tambah Barang </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-
-          <li class="nav-item " id="barang">
-            <a class="nav-link" href="{{route('barang.index')}}">
-              <i class="material-icons">content_paste</i>
-              <p>Barang Bawaan</p>
-            </a>
-          </li>
-
-          <li class="nav-item " id="logout">
-            <form method="post" action="{!! route('logout') !!}" id="form_logout" hidden>
-              {{ csrf_field() }}
-            </form>
-            <a class="nav-link" href="#" onclick="logout()">
-              <i class="material-icons">exit_to_app</i>
-              <p>Logout</p>
-            </a>
-          </li>
-        @endif
-        </ul>
-      </div>
-    </div>
-    <div class="main-panel">
-      <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
-          <div class="container-fluid">
-            <div class="navbar-wrapper">
-              <div class="navbar-minimize">
-                <button id="minimizeSidebar" class="btn btn-just-icon btn-white btn-fab btn-round">
-                  <i class="material-icons text_align-center visible-on-sidebar-regular">more_vert</i>
-                  <i class="material-icons design_bullet-list-67 visible-on-sidebar-mini">view_list</i>
-                </button>
-              </div>
-              <a class="navbar-brand" href="#">
-                @if(Auth::check())
-                    Dashboard
-                @else
-                    Login
-                @endif
-              </a>
-            </div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="navbar-toggler-icon icon-bar"></span>
-              <span class="navbar-toggler-icon icon-bar"></span>
-              <span class="navbar-toggler-icon icon-bar"></span>
-            </button>
-          </div>
-        </nav>
-      <!-- End Navbar -->
-      <div class="content">
+  <div class="wrapper wrapper-full-page">
+    <div class="page-header login-page header-filter" filter-color="black" style="background-image: url('../../assets/img/login.jpg'); background-size: cover; background-position: top center;">
+      <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
+      <div class="container">
         @yield('content')
       </div>
       <footer class="footer">
-        <div class="container-fluid">
+        <div class="container">
+          <nav class="float-left">
+            <ul>
+              <li>
+                <a href="https://www.creative-tim.com">
+                  Creative Tim
+                </a>
+              </li>
+              <li>
+                <a href="https://creative-tim.com/presentation">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="http://blog.creative-tim.com">
+                  Blog
+                </a>
+              </li>
+              <li>
+                <a href="https://www.creative-tim.com/license">
+                  Licenses
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <div class="copyright float-right">
+            &copy;
+            <script>
+              document.write(new Date().getFullYear())
+            </script>, made with <i class="material-icons">favorite</i> by
+            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+          </div>
         </div>
       </footer>
     </div>
@@ -216,30 +119,7 @@
 
   <script src="{{asset('js/bootstrap-table.js')}}"></script>
   <!-- BOOTSTRAP TABLE --> 
-
   <script type="text/javascript">
-    Number.prototype.format = function(n, x, s, c) {
-        var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
-            num = this.toFixed(Math.max(0, ~~n));
-
-        return (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
-    };
-
-    function number_format(e)
-    {
-      e.value = e.value.replace(/\D/g, "");
-
-      var num = e.value.replace(/\./g, '');
-      if(num == null || num == "")
-        console.log('Is Null');
-      else
-        e.value = parseInt(num).format(0,3,'.', ',');
-    }
-
-    function logout()
-    {
-      $('#form_logout').submit();
-    }
     function delete_confirmation(e, link)
     {
       e.preventDefault();
@@ -323,13 +203,13 @@
       
       @if(\Session::has('status'))
       swal({
-        @if (\Session::has('status') && explode('||', \Session::get('status'))[0] == "0")
+        @if (\Session::has('status') && explode(';', \Session::get('status'))[0] == "0")
           type: 'error',
         @else
           type: 'success',
         @endif
-        title: '{!! explode("||", \Session::get("status"))[1] !!}',
-        text: '{!! explode("||", \Session::get("status"))[2] !!}',
+        title: '{!! explode(";", \Session::get("status"))[1] !!}',
+        text: '{!! explode(";", \Session::get("status"))[2] !!}',
       });
       @endif
     });

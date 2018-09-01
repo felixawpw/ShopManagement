@@ -18,8 +18,8 @@ class M2mBarangPembelianTable extends Migration
             $table->integer('barang_id')->unsigned()->index();
             $table->integer('pembelian_id')->unsigned()->index();
             
-            $table->foreign('barang_id')->references('id')->on('barangs')->onDelete('cascade');
-            $table->foreign('pembelian_id')->references('id')->on('pembelians')->onDelete('cascade');
+            $table->foreign('barang_id')->references('id')->on('barangs');
+            $table->foreign('pembelian_id')->references('id')->on('pembelians');
 
             $table->integer('quantity');
             $table->integer('hbeli');

@@ -41,5 +41,11 @@ Route::middleware(['auth'])->group(function(){
 	
 	Route::get('/test', 'AjaxController@test');
 });
-Auth::routes();
 
+Route::get('login', 'AuthController@showLogin')->name('login');
+Route::post('login', 'AuthController@login')->name('do_login');
+
+Route::get('lock', 'AuthController@showLock');
+Route::post('lock', 'AuthController@lock');
+
+Route::post('logout', 'AuthController@logout')->name('logout');

@@ -124,13 +124,21 @@ class BarangController extends Controller
         $barang->kode = $request->kode;
         $barang->nama = $request->nama;
         $barang->kodeharga = $request->kodeharga;
-        $barang->hbeli = $request->hbeli;
-        $barang->hjual = $request->hjual;
-        $barang->stoktotal = $request->stoktotal;
-        $barang->hgrosir = $request->hgrosir;
+        $barang->hbeli = str_replace('.', '', $request->hbeli);
+        $barang->hjual = str_replace('.', '', $request->hjual);
+        $barang->stoktotal = str_replace('.', '', $request->stoktotal);
+        $barang->hgrosir = str_replace('.', '', $request->hgrosir);
 
-        $barang->save();
-        return redirect()->action('BarangController@index');
+        $status = "1||Success||Berhasil menambahkan barang $barang->kode : $barang->nama";
+        try
+        {
+            $barang->save();
+        }
+        catch(\Exception $e)
+        {
+            
+        }
+        return redirect()->action('BarangController@index')->with('status', $status);
     }
 
     /**
