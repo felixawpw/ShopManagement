@@ -33,6 +33,12 @@ Route::middleware(['auth'])->group(function(){
 
 
 	Route::post('/ajax/barang/load', 'BarangController@json')->name('barang_load');
+	Route::post('/ajax/supplier/load', 'SupplierController@json')->name('supplier_load');
+	Route::post('/ajax/customer/load', 'CustomerController@json')->name('customer_load');
+	Route::post('/ajax/pembelian/load', 'PembelianController@json')->name('pembelian_load');
+	Route::post('/ajax/penjualan/load', 'PenjualanController@json')->name('penjualan_load');
+
+
 	Route::get('/ajax/add/supplier', 'AjaxController@addSupplier');
 	Route::post('/ajax/add/supplier', 'AjaxController@storeSupplier');
 

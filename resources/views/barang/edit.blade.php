@@ -2,94 +2,102 @@
 
 @section('content')
 <div class="container-fluid">
-	<div class="row">
-    	<div class="col-md-12">
+  <div class="row">
+      <div class="col-md-12">
           <div class="card ">
-            <div class="card-header card-header-rose card-header-icon">
+            <div class="card-header card-header-primary card-header-icon">
               <div class="card-icon">
                 <i class="material-icons">contacts</i>
               </div>
               <h4 class="card-title">Tambah Barang</h4>
             </div>
             <div class="card-body ">
-              <form class="form-horizontal" action="{!! route('barang.update', $barang->id) !!}" method="POST">
-              	{{csrf_field()}}
-              	@method('PUT')
+              <form class="form-horizontal" method="POST" action="{{ route('barang.update', $barang->id) }}">
+                {{csrf_field()}}
+                @method('PUT')
                 <div class="row">
-                  <label class="col-md-3 col-form-label">Kode Barang</label>
-                  <div class="col-md-9">
+                  <label class="col-md-3 col-form-label" for="kode">Kode Barang</label>
+                  <div class="col-md-7">
                     <div class="form-group has-default">
-                      <input type="text" class="form-control" name="kode" value="{!! $barang->kode !!}">
+                      <input type="text" class="form-control" name="kode" id="kode" required value="{!! $barang->kode !!}">
                     </div>
                   </div>
                 </div>
                 <div class="row">
-                  <label class="col-md-3 col-form-label">Nama Barang</label>
-                  <div class="col-md-9">
+                  <label class="col-md-3 col-form-label" for="nama">Nama Barang</label>
+                  <div class="col-md-7">
                     <div class="form-group">
-                      <input type="text" class="form-control" name="nama" value="{!! $barang->nama !!}">
+                      <input type="text" class="form-control" name="nama" id="nama" required value="{!! $barang->nama !!}">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <label class="col-md-3 col-form-label" for="kodeharga">Kode Harga</label>
+                  <div class="col-md-7">
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="kodeharga" id="kodeharga" required value="{!! $barang->kodeharga !!}">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <label class="col-md-3 col-form-label" for="hbeli">Harga Beli</label>
+                  <div class="col-md-7">
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="hbeli" id="hbeli" oninput="number_format(this)" required value="{!! number_format($barang->hbeli, 0, '.', '.') !!}">
                     </div>
                   </div>
                 </div>
                 <div class="row">
-                  <label class="col-md-3 col-form-label">Kode Harga</label>
-                  <div class="col-md-9">
+                  <label class="col-md-3 col-form-label" for="hjual">Harga Jual</label>
+                  <div class="col-md-7">
                     <div class="form-group">
-                      <input type="text" class="form-control" name="kodeharga" value="{!! $barang->kodeharga !!}">
+                      <input type="text" class="form-control" name="hjual" id="hjual" oninput="number_format(this)" required value="{!! number_format($barang->hjual, 0, '.', '.') !!}">
                     </div>
                   </div>
                 </div>
                 <div class="row">
-                  <label class="col-md-3 col-form-label">Harga Beli</label>
-                  <div class="col-md-9">
+                  <label class="col-md-3 col-form-label" for="stoktotal">Stok Total</label>
+                  <div class="col-md-7">
                     <div class="form-group">
-                      <input type="number" class="form-control" name="hbeli" value="{!! $barang->hbeli !!}">
+                      <input type="text" class="form-control" name="stoktotal" id="stoktotal" oninput="number_format(this)" required value="{!! number_format($barang->stoktotal, 0, '.', '.') !!}">
                     </div>
                   </div>
                 </div>
                 <div class="row">
-                  <label class="col-md-3 col-form-label">Harga Jual</label>
-                  <div class="col-md-9">
+                  <label class="col-md-3 col-form-label" for="hgrosir">Harga Grosir</label>
+                  <div class="col-md-7">
                     <div class="form-group">
-                      <input type="number" class="form-control" name="hjual" value="{!! $barang->hjual !!}">
+                      <input type="text" class="form-control" name="hgrosir" id="hgrosir" oninput="number_format(this)" required value="{!! number_format($barang->hgrosir, 0, '.', '.') !!}">
                     </div>
                   </div>
-                </div>
+                </div>  
                 <div class="row">
-                  <label class="col-md-3 col-form-label">Stok Total</label>
-                  <div class="col-md-9">
+                  <div class="col-md-7 offset-md-3">
                     <div class="form-group">
-                      <input type="number" class="form-control" name="stoktotal" value="{!! $barang->stoktotal !!}">
+                      <button type="submit" class="btn btn-fill btn-primary col-md-12">Submit</button>
                     </div>
                   </div>
                 </div>
-                <div class="row">
-                  <label class="col-md-3 col-form-label">Harga Grosir</label>
-                  <div class="col-md-9">
-                    <div class="form-group">
-                      <input type="number" class="form-control" name="hgrosir" value="{!! $barang->hgrosir !!}">
-                    </div>
-                  </div>
-                </div>
-				<div class="row">
-					<div class="col-md-12">
-						<button type="submit" class="btn btn-fill btn-rose form-control">Submit</button>
-					</div>
-				</div>
               </form>
             </div>
             <div class="card-footer ">
+              <div class="row">
+                <div class="col-md-7">
+                </div>
+              </div>
             </div>
           </div>
         </div>
-	</div>
+  </div>
 </div>
 @endsection
 
 @section('scripts')
 <script type="text/javascript">
-	$(document).ready(function(){
-		$('#nav_barang').addClass('active');
-	});
+  $(document).ready(function(){
+    $('#nav_barang').addClass('active');
+  });
 </script>
 @endsection

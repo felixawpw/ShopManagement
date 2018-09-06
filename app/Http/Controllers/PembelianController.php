@@ -4,17 +4,95 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Pembelian, App\Supplier, App\Barang, Auth;
+
 class PembelianController extends Controller
 {
-    public function json()
+    public function json(Request $request)
     {
-        $pembelians = Pembelian::all();
-        foreach ($pembelians as $pembelian)
-        {
-            $pembelian->nama_supplier = $pembelian->supplier->nama;
+        return "";
+        $columns = array( 
+            0 =>'id', 
+            1 =>'no_nota',
+            2 => 'tanggal',
+            3 => 'tanggal_due',
+            4 => 'total',
+            5 => 'no_faktur',
+            6 => 'nama_supplier',
+            7 => 'nama_user',
+            8 => 'status_pembayaran',
+            9 => 'options'
+        );
+  
+        $totalData = Pembelian::count();
+            
+        $totalFiltered = $totalData; 
+
+        $limit = $request->input('length');
+        $start = $request->input('start');
+
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+        
+        if(empty($request->input('search.value')))
+        {            
+            $pembelians = Pembelian::offset($start)
+                         ->limit($limit)
+                         ->orderBy($order,$dir)
+                         ->get();
         }
-        return $pembelians;
+        else {
+            $search = $request->input('search.value'); 
+
+            $pembelians =  Pembelian::where('id','LIKE',"%{$search}%")
+                            ->orWhere('nama', 'LIKE',"%{$search}%")
+                            ->orWhere('kode', 'LIKE',"%{$search}%")
+                            ->offset($start)
+                            ->limit($limit)
+                            ->orderBy($order,$dir)
+                            ->get();
+
+            $totalFiltered = Pembelian::where('id','LIKE',"%{$search}%")
+                             ->orWhere('nama', 'LIKE',"%{$search}%")
+                             ->orWhere('kode', 'LIKE',"%{$search}%")
+                             ->count();
+        }
+
+        $data = array();
+        if(!empty($pembelians))
+        {
+            foreach ($pembelians as $b)
+            {
+                $show =  route('pembelian.show',$b->id);
+                $edit =  route('pembelian.edit',$b->id);
+                $delete = route('pembelian.destroy',$b->id);
+
+                $nestedData['id'] = $b->id;
+                $nestedData['no_nota'] = $b->no_nota;
+                $nestedData['tanggal'] = $b->tanggal->toDateTimeString();
+                $nestedData['tanggal_due'] = $b->tanggal_due->toDateTimeString();
+                $nestedData['total'] = number_format($b->total, 0, '.', '.');
+                $nestedData['no_faktur'] = $b->no_faktur;
+                $nestedData['nama_supplier'] = $b->supplier->nama;
+                $nestedData['nama_user'] = $b->user->nama;
+                $nestedData['status_pembayaran'] = $b->status_pembayaran == 1 ? "Lunas" : "Belum Lunas";
+                $nestedData['options'] = 
+                "<a href='$show' class='btn btn-link btn-info btn-just-icon show'><i class='material-icons'>favorite</i></a>
+                <a href='$edit' class='btn btn-link btn-warning btn-just-icon edit'><i class='material-icons'>dvr</i></a>
+                <button type='submit' class='btn btn-link btn-danger btn-just-icon remove' onclick='delete_confirmation(event,\"$delete\" )'><i class='material-icons'>close</i></button>";
+                $data[] = $nestedData;
+            }
+        }
+
+        $json_data = array(
+            "draw"            => intval($request->input('draw')),  
+            "recordsTotal"    => intval($totalData),  
+            "recordsFiltered" => intval($totalFiltered), 
+            "data"            => $data   
+        );
+            
+        return json_encode($json_data);    
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -67,7 +145,7 @@ class PembelianController extends Controller
             $pembelian->barangs()->attach($idBarang, 
                 ['quantity' => $qty, 'hbeli' => $harga, "subtotal" => $subTotal, "sisa" => $qty]);
 
-            $barang = Barang::find($idBarang);
+            $barang = Pembelian::find($idBarang);
             $barang->stokTotal += $qty;
             $barang->save();
             $counter++;

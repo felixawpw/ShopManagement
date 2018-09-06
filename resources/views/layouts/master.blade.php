@@ -106,12 +106,121 @@
             </div>
           </li>
 
-          <li class="nav-item " id="barang">
-            <a class="nav-link" href="{{route('barang.index')}}">
-              <i class="material-icons">content_paste</i>
-              <p>Barang Bawaan</p>
+          <li class="nav-item" id="nav_supplier">
+            <a class="nav-link" data-toggle="collapse" href="#side_bar_supplier" id="supplier">
+              <i class="material-icons">person</i>
+              <p>
+                Supplier
+                <b class="caret"></b>
+              </p>
             </a>
+            <div class="collapse" id="side_bar_supplier">
+              <ul class="nav">
+                <li class="nav-item " id="supplier_all">
+                  <a class="nav-link" href="{!! route('supplier.index') !!}">
+                    <i class="material-icons">list</i>
+                    <span class="sidebar-normal"> Tampilkan Semua </span>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav">
+                <li class="nav-item " id="supplier_add">
+                  <a class="nav-link" href="{!! route('supplier.create') !!}">
+                    <i class="material-icons">add</i>
+                    <span class="sidebar-normal"> Tambah Supplier </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </li>
+
+          <li class="nav-item" id="nav_customer">
+            <a class="nav-link" data-toggle="collapse" href="#side_bar_customer" id="customer">
+              <i class="material-icons">face</i>
+              <p>
+                Customer
+                <b class="caret"></b>
+              </p>
+            </a>
+            <div class="collapse" id="side_bar_customer">
+              <ul class="nav">
+                <li class="nav-item " id="customer_all">
+                  <a class="nav-link" href="{!! route('customer.index') !!}">
+                    <i class="material-icons">list</i>
+                    <span class="sidebar-normal"> Tampilkan Semua </span>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav">
+                <li class="nav-item " id="customer_add">
+                  <a class="nav-link" href="{!! route('customer.create') !!}">
+                    <i class="material-icons">add</i>
+                    <span class="sidebar-normal"> Tambah Customer </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item" id="nav_penjualan">
+            <a class="nav-link" data-toggle="collapse" href="#side_bar_penjualan" id="penjualan">
+              <i class="material-icons">store</i>
+              <p>
+                Penjualan
+                <b class="caret"></b>
+              </p>
+            </a>
+            <div class="collapse" id="side_bar_penjualan">
+              <ul class="nav">
+                <li class="nav-item " id="penjualan_all">
+                  <a class="nav-link" href="{!! route('penjualan.index') !!}">
+                    <i class="material-icons">list</i>
+                    <span class="sidebar-normal"> Tampilkan Semua </span>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav">
+                <li class="nav-item " id="penjualan_add">
+                  <a class="nav-link" href="{!! route('penjualan.create') !!}">
+                    <i class="material-icons">add</i>
+                    <span class="sidebar-normal"> Tambah Penjualan </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item" id="nav_pembelian">
+            <a class="nav-link" data-toggle="collapse" href="#side_bar_pembelian" id="pembelian">
+              <i class="material-icons">shopping_basket</i>
+              <p>
+                Pembelian
+                <b class="caret"></b>
+              </p>
+            </a>
+            <div class="collapse" id="side_bar_pembelian">
+              <ul class="nav">
+                <li class="nav-item " id="pembelian_all">
+                  <a class="nav-link" href="{!! route('pembelian.index') !!}">
+                    <i class="material-icons">list</i>
+                    <span class="sidebar-normal"> Tampilkan Semua </span>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav">
+                <li class="nav-item " id="pembelian_add">
+                  <a class="nav-link" href="{!! route('pembelian.create') !!}">
+                    <i class="material-icons">add</i>
+                    <span class="sidebar-normal"> Tambah Pembelian </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+
+
+
 
           <li class="nav-item " id="logout">
             <form method="post" action="{!! route('logout') !!}" id="form_logout" hidden>
