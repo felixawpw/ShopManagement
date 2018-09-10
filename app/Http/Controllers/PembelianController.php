@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Pembelian, App\Supplier, App\Barang, Auth;
-
+use Carbon\Carbon;
 class PembelianController extends Controller
 {
     public function json(Request $request)
     {
-        return "";
         $columns = array( 
             0 =>'id', 
             1 =>'no_nota',
@@ -112,8 +111,12 @@ class PembelianController extends Controller
     public function create()
     {
         //
+        $p = Pembelian::where('created_at', 'like', Carbon::now()->format("Y-m-d"))->count() + 1;
+        $p = sprintf('%03d', $p);
+        $date = Carbon::now()->format("d-m-Y");
+        $no_nota = "SP/PB/$date/$p";
         $suppliers = Supplier::all();
-        return view('pembelian.create', compact('suppliers'));
+        return view('pembelian.create', compact('no_nota' , 'suppliers'));
     }
 
     /**
@@ -127,6 +130,7 @@ class PembelianController extends Controller
         $pembelian = new Pembelian;
         $pembelian->no_nota = $request->no_nota;
         $pembelian->tanggal = $request->tanggal;
+        $pembelian->tanggal_due = $request->tanggal_due;
         $pembelian->total = 0;
         $pembelian->no_faktur = $request->no_faktur;
         $pembelian->supplier_id = $request->supplier_id;

@@ -84,10 +84,10 @@
 
 	  // Delete a record
 	  table.on('click', '.remove', function(e) {
-	    $tr = $(this).closest('tr');
-	    table.row($tr).remove().draw();
-	    e.preventDefault();
-	  });
+  	    $tr = $(this).closest('tr');
+  	    table.row($tr).remove().draw();
+  	    e.preventDefault();
+  	  });
     });
 </script>
 @endsection
