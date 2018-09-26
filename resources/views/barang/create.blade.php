@@ -32,6 +32,28 @@
                 </div>
 
                 <div class="row">
+                  <label class="col-md-3 col-form-label" for="hjual">Brand</label>
+                  <div class="col-md-7">
+                    <div class="form-group">
+                      <select class="selectpicker col-md-auto" data-style="select-with-transition" multiple title="Choose Brand" data-size="5" name="supplier" id="brand">
+                      </select>
+                      <a href="#" class="btn btn-primary col-md-auto">New Brand</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <label class="col-md-3 col-form-label" for="hjual">Product Type</label>
+                  <div class="col-md-7">
+                    <div class="form-group">
+                      <select class="selectpicker" data-style="select-with-transition" multiple title="Choose Product Type" data-size="5" name="supplier" id="brand">
+                      </select>
+                      <a href="#" class="btn btn-primary col-md-auto">New Product Type</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
                   <label class="col-md-3 col-form-label" for="kodeharga">Kode Harga</label>
                   <div class="col-md-7">
                     <div class="form-group">
@@ -42,19 +64,19 @@
 
                 <div class="row">
                   <label class="col-md-3 col-form-label" for="hbeli">Harga Beli</label>
-                  <div class="col-md-7">
+                  <div class="col-md-3">
                     <div class="form-group">
                       <input type="text" class="form-control" name="hbeli" id="hbeli" oninput="number_format(this)" required>
                     </div>
                   </div>
-                </div>
-                <div class="row">
-                  <label class="col-md-3 col-form-label" for="hjual">Harga Jual</label>
-                  <div class="col-md-7">
+
+                  <label class="col-md-1 col-form-label" for="hjual">Harga Jual</label>
+                  <div class="col-md-3">
                     <div class="form-group">
                       <input type="text" class="form-control" name="hjual" id="hjual" oninput="number_format(this)" required>
                     </div>
                   </div>
+
                 </div>
                 <div class="row">
                   <label class="col-md-3 col-form-label" for="stoktotal">Stok Total</label>

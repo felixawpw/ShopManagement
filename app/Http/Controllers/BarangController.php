@@ -13,11 +13,13 @@ class BarangController extends Controller
             0 =>'id', 
             1 =>'kode',
             2 => 'nama',
-            3 => 'hbeli',
-            4 => 'hjual',
-            5 => 'stoktotal',
-            6 => 'updated_at',
-            7 => 'options',
+            3 => 'brand',
+            4 => 'product_type',
+            5 => 'hbeli',
+            6 => 'hjual',
+            7 => 'stoktotal',
+            8 => 'updated_at',
+            9 => 'options',
         );
   
         $totalData = Barang::count();
@@ -66,6 +68,8 @@ class BarangController extends Controller
                 $nestedData['id'] = $b->id;
                 $nestedData['kode'] = $b->kode;
                 $nestedData['nama'] = $b->nama;
+                $nestedData['brand'] = $b->brand->nama;
+                $nestedData['product_type'] = $b->product_type->nama;
                 $nestedData['hbeli'] = number_format($b->hbeli, 0, '.', '.');
                 $nestedData['hjual'] = number_format($b->hjual, 0, '.', '.');
                 $nestedData['stoktotal'] = number_format($b->stoktotal, 0, '.', '.');

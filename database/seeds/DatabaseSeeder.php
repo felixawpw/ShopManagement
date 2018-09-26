@@ -10,6 +10,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(BarangSeeder::class);
+        $this->call(AuthSeeder::class);
     }
 }
