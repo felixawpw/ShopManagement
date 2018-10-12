@@ -29,7 +29,7 @@ class AuthController extends Controller
             ]);
 
             $status = "1||Login Success||Welcome to Sripuja Elektronik admin panel!";
-    		return redirect()->route('home');
+    		return redirect()->route('home')->with('status', $status);
     	}
         Log::create([
             'level' => "Info",
