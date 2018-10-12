@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Pembelian extends Model
 {
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
+
     //
     
     public function user()
@@ -20,6 +24,6 @@ class Pembelian extends Model
 
     public function barangs()
     {
-    	return $this->belongsToMany('App\Barang')->withPivot('hbeli', 'quantity', 'subtotal', 'sisa');
+    	return $this->belongsToMany('App\Barang')->withPivot('hbeli', 'quantity', 'sisa');
     }
 }

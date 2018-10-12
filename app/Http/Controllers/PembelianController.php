@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Pembelian, App\Supplier, App\Barang, Auth;
-use Carbon\Carbon;
+use App\Pembelian, App\Supplier, App\Barang, App\Log, Auth;
+use Carbon\Carbon, DB;
 class PembelianController extends Controller
 {
     public function json(Request $request)
@@ -43,7 +43,7 @@ class PembelianController extends Controller
             $search = $request->input('search.value'); 
 
             $pembelians =  Pembelian::where('id','LIKE',"%{$search}%")
-                            ->orWhere('nama', 'LIKE',"%{$search}%")
+                            ->orWhere('no_nota', 'LIKE',"%{$search}%")
                             ->orWhere('kode', 'LIKE',"%{$search}%")
                             ->offset($start)
                             ->limit($limit)
@@ -67,8 +67,8 @@ class PembelianController extends Controller
 
                 $nestedData['id'] = $b->id;
                 $nestedData['no_nota'] = $b->no_nota;
-                $nestedData['tanggal'] = $b->tanggal->toDateTimeString();
-                $nestedData['tanggal_due'] = $b->tanggal_due->toDateTimeString();
+                $nestedData['tanggal'] = date_format(date_create($b->tanggal), "d M Y");
+                $nestedData['tanggal_due'] = date_format(date_create($b->tanggal_due), "d M Y");
                 $nestedData['total'] = number_format($b->total, 0, '.', '.');
                 $nestedData['no_faktur'] = $b->no_faktur;
                 $nestedData['nama_supplier'] = $b->supplier->nama;
@@ -111,12 +111,15 @@ class PembelianController extends Controller
     public function create()
     {
         //
-        $p = Pembelian::where('created_at', 'like', Carbon::now()->format("Y-m-d"))->count() + 1;
+        $p = Pembelian::whereDate('created_at', '=', Carbon::now())->count() + 1;
         $p = sprintf('%03d', $p);
         $date = Carbon::now()->format("d-m-Y");
         $no_nota = "SP/PB/$date/$p";
+        $date = Carbon::now()->format("dmY-");
+        $no_faktur = "$date$p";
         $suppliers = Supplier::all();
-        return view('pembelian.create', compact('no_nota' , 'suppliers'));
+        $barangs = Barang::all();
+        return view('pembelian.create', compact('no_nota' , 'suppliers', 'barangs', 'no_faktur'));
     }
 
     /**
@@ -133,30 +136,56 @@ class PembelianController extends Controller
         $pembelian->tanggal_due = $request->tanggal_due;
         $pembelian->total = 0;
         $pembelian->no_faktur = $request->no_faktur;
-        $pembelian->supplier_id = $request->supplier_id;
+        $pembelian->supplier_id = $request->supplier;
         $pembelian->user_id = Auth::user()->id;
-        $pembelian->save();
-
-        $counter = 1;
-        $total = 0;
-        while (isset($request["id_$counter"]))
+        $pembelian->status_pembayaran = $request->status_pembayaran;
+        $status = "1||Success||Berhasil menambahkan transaksi pembelian dengan nomor nota $pembelian->no_nota";
+        DB::beginTransaction();
+        try
         {
-            $idBarang = $request["id_$counter"];
-            $qty = $request["jumlah_$counter"];
-            $harga = $request["harga_$counter"];
-            $subTotal = $qty * $harga;
-            $total += $subTotal;
-            $pembelian->barangs()->attach($idBarang, 
-                ['quantity' => $qty, 'hbeli' => $harga, "subtotal" => $subTotal, "sisa" => $qty]);
-
-            $barang = Pembelian::find($idBarang);
-            $barang->stokTotal += $qty;
-            $barang->save();
-            $counter++;
+            $pembelian->save();
+            $total = 0;
+            $res = $request->max_counter;
+            for ($i = 0; $i <= $request->max_counter; $i++)
+            {
+                if (isset($request["id_$i"]))
+                {
+                    $idBarang = $request["id_$i"];
+                    $qty = $request["jumlah_$i"];
+                    $harga = str_replace(".","",$request["hbeli_$i"]);
+                    $subTotal = $qty * $harga;
+                    $total += $subTotal;
+                    $pembelian->barangs()->attach($idBarang, 
+                        ['quantity' => $qty, 'hbeli' => $harga, "sisa" => $qty]);
+                    $barang = Barang::find($idBarang);
+                    $barang->stoktotal += $qty;
+                    $barang->save();
+                }
+            }
+            $pembelian->total = $total;
+            $pembelian->save();
+            Log::create([
+                'level' => "Info",
+                'user_id' => Auth::id(),
+                'action' => "Insert",
+                'table_name' => "Pembelians",
+                'description' => "Insert pembelian success(ID = $pembelian->id , No Nota = $pembelian->no_nota)",
+            ]);
         }
-        $pembelian->total = $total;
-        $pembelian->save();
-        return redirect()->action('PembelianController@index');
+        catch(\Exception $e)
+        {
+            DB::rollBack();
+            Log::create([
+                'level' => "Warning",
+                'user_id' => Auth::id(),
+                'action' => "Insert",
+                'table_name' => "Pembelians",
+                'description' => "Insert pembelian failed. ".$e->getMessage(),
+            ]);
+            $status = "0||Failed||Gagal menambahkan pembelian. Pastikan data yang dimasukkan sudah benar!";
+        }
+        DB::commit();
+        return redirect()->action('PembelianController@index')->with("status", $status);
     }
 
     /**

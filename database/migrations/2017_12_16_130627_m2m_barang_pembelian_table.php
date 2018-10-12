@@ -23,7 +23,6 @@ class M2mBarangPembelianTable extends Migration
 
             $table->integer('quantity');
             $table->integer('hbeli');
-            $table->integer('subtotal');
             $table->integer('sisa');
         });
     }

@@ -89,7 +89,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#nav_supplier').addClass('active');
-    $('#supplier_add').addClass('active');
+    $('#nav_relation').addClass('active');
 	});
 </script>
 @endsection

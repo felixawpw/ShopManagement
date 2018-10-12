@@ -33,22 +33,20 @@
 
                 <div class="row">
                   <label class="col-md-3 col-form-label" for="hjual">Brand</label>
-                  <div class="col-md-7">
+                  <div class="col-md-3">
                     <div class="form-group">
-                      <select class="selectpicker col-md-auto" data-style="select-with-transition" multiple title="Choose Brand" data-size="5" name="supplier" id="brand">
+                      <select class="selectized" placeholder="Type to search or add Brand" name="brand" id="brand">
                       </select>
-                      <a href="#" class="btn btn-primary col-md-auto">New Brand</a>
                     </div>
                   </div>
                 </div>
 
                 <div class="row">
                   <label class="col-md-3 col-form-label" for="hjual">Product Type</label>
-                  <div class="col-md-7">
+                  <div class="col-md-3">
                     <div class="form-group">
-                      <select class="selectpicker" data-style="select-with-transition" multiple title="Choose Product Type" data-size="5" name="supplier" id="brand">
+                      <select class="selectized" placeholder="Type to search or add Product Type" name="product_type" id="product_type">
                       </select>
-                      <a href="#" class="btn btn-primary col-md-auto">New Product Type</a>
                     </div>
                   </div>
                 </div>
@@ -101,6 +99,8 @@
                     </div>
                   </div>
                 </div>
+                <input type="hidden" name="addNewBrand" value="0" id="addNewBrand">
+                <input type="hidden" name="addNewProductType" value="0" id="addNewProductType">
               </form>
             </div>
             <div class="card-footer ">
@@ -119,8 +119,52 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#nav_barang').addClass('active');
-    $('#barang_add').addClass('active');
 
+    $('#brand').selectize({
+      valueField: "id",
+      labelField: "nama",
+      searchField: "nama",
+      sortField: [{field: 'nama', direction: 'asc'}],
+      options: {!! $brands !!},
+      create:function(input, callback){
+        $.ajax({
+          url: '{!! route("brand.store") !!}',
+          type: 'POST',
+          data: {
+            nama: input,
+          },
+          dataType: "json",
+          success: function (result) {
+            if (result) {
+              callback({ id: result.id, nama: result.nama });
+            }
+          }
+        });
+      }
+    });
+    $('#product_type').selectize({
+      valueField: "id",
+      labelField: "nama",
+      searchField: "nama",
+      sortField: [{field: 'nama', direction: 'asc'}],
+      options: {!! $pts !!},
+      create:function(input, callback){
+        $.ajax({
+          url: '{!! route("product-type.store") !!}',
+          type: 'POST',
+          data: {
+            nama: input,
+          },
+          dataType: "json",
+          success: function (result) {
+            console.log(result);
+            if (result) {
+              callback({ id: result.id, nama: result.nama });
+            }
+          }
+        });
+      }
+    });
 	});
 </script>
 @endsection

@@ -16,9 +16,11 @@ class CreatePenjualansTable extends Migration
         Schema::create('penjualans', function (Blueprint $table) {
             $table->increments('id');
             $table->string('no_nota')->unique();
+            $table->string('no_faktur')->unique();
             $table->date('tanggal');
             $table->integer('total');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -44,16 +44,27 @@ class CustomerController extends Controller
     {
         //
         $customer = new Customer;
-        $customer->nama = $request->nama;
-        $customer->alamat = $request->alamat;
-        $customer->telepon = $request->telepon;
-        $customer->alamat = $request->alamat;
-        $customer->hp = $request->hp;
-        $customer->fax = $request->fax;
-        $customer->hutang = 0;
-        $customer->deposit = 0;
+        if ($request->tipe == "ajax")
+        {
+            $customer->nama = $request->nama;
+        }
+        else
+        {
+            $customer->nama = $request->nama;
+            $customer->alamat = $request->alamat;
+            $customer->telepon = $request->telepon;
+            $customer->alamat = $request->alamat;
+            $customer->hp = $request->hp;
+            $customer->fax = $request->fax;
+            $customer->hutang = 0;
+            $customer->deposit = 0;
+        }
         $customer->save();
-        return redirect()->action('CustomerController@index');
+        
+        if ($request->tipe == "ajax")
+            return $customer;
+        else
+            return redirect()->action('CustomerController@index');
     }
 
     /**

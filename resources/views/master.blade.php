@@ -24,17 +24,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<link rel="stylesheet" type="text/css" href="/css/custom.css">
 		<link rel="stylesheet" type="text/css" href="/css/fullcalendar.min.css">
 		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900">
+		<link rel="stylesheet" type="text/css" href="/css/selectize.css" />
+
 		<!-- <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}"> -->
 		
 		<!-- Script -->
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }</script>
-		<script type="text/javascript" src="/js/jquery.min.js"></script>
 		<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="/js/bootstrap-table.js"></script>
 		<script type="text/javascript" src="/js/metisMenu.min.js"></script>
 		<script type="text/javascript" src="/js/custom.js"></script>
 		<script type="text/javascript" src="/js/moment.min.js"></script>
 		<script type="text/javascript" src="/js/fullcalendar.min.js"></script>
+		<script type="text/javascript" src="/js/selectize.js"></script>
 		<script type="text/javascript">
 			$.ajaxSetup({
 			  headers: {

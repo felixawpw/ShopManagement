@@ -14,7 +14,7 @@ class ForeignBarangsTable extends Migration
     public function up()
     {
         //
-        Schema::table('penjualans', function (Blueprint $table) {
+        Schema::table('barangs', function (Blueprint $table) {
             $table->integer('brand_id')->unsigned();
             $table->foreign('brand_id')->references('id')->on('brands');
 
@@ -32,7 +32,7 @@ class ForeignBarangsTable extends Migration
     public function down()
     {
         //
-        Schema::table('penjualans', function (Blueprint $table) { 
+        Schema::table('barangs', function (Blueprint $table) { 
             $table->dropForeign(['brand_id']);            
             $table->dropForeign(['product_type_id']);
 

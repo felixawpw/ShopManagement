@@ -89,7 +89,8 @@
 @section('scripts')
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#nav_supplier').addClass('active');
+      $('#nav_supplier').addClass('active');
+      $('#nav_relation').addClass('active');
     });
 </script>
 @endsection

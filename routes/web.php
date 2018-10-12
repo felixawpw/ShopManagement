@@ -10,8 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', 'HomeController@index')->name('home');
+Route::get("/", 'HomeController@index');
 
 Route::middleware(['auth'])->group(function(){
 	Route::resource('barang', 'BarangController');
@@ -21,6 +20,8 @@ Route::middleware(['auth'])->group(function(){
 	Route::resource('customer', 'CustomerController');
 	Route::resource('pegawai', 'PegawaiController');
 	Route::resource('absen', 'AbsenController');
+	Route::resource('brand', 'BrandController');
+	Route::resource('product-type', 'ProductTypeController');
 
 	Route::get('/barang/json', 'BarangController@json');
 	Route::get('/supplier/json', 'SupplierController@json');
@@ -31,7 +32,6 @@ Route::middleware(['auth'])->group(function(){
 
 	Route::get('/home', 'HomeController@index')->name('home');
 
-
 	Route::post('/ajax/barang/load', 'BarangController@json')->name('barang_load');
 	Route::post('/ajax/supplier/load', 'SupplierController@json')->name('supplier_load');
 	Route::post('/ajax/customer/load', 'CustomerController@json')->name('customer_load');
@@ -39,13 +39,15 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('/ajax/penjualan/load', 'PenjualanController@json')->name('penjualan_load');
 
 
+	Route::get('/selectize/barang/load', 'BarangController@selectize')->name('selectize_barang');
 	Route::get('/ajax/add/supplier', 'AjaxController@addSupplier');
 	Route::post('/ajax/add/supplier', 'AjaxController@storeSupplier');
 
 	Route::get('/ajax/add/customer', 'AjaxController@addCustomer');
 	Route::post('/ajax/add/customer', 'AjaxController@storeCustomer');
 	
-	Route::get('/test', 'AjaxController@test');
+	Route::get('/invoice/{id}', 'PenjualanController@invoice')->name('invoice');
+
 });
 
 Route::get('login', 'AuthController@showLogin')->name('login');

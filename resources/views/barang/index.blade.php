@@ -5,11 +5,18 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card">
-        <div class="card-header card-header-primary card-header-icon">
-          <div class="card-icon">
-            <i class="material-icons">assignment</i>
+        <div class="card-header card-header-primary">
+          <div class="row">
+            <div class="col-md-auto">
+              <h4 class="card-title ">Data Barang</h4>
+              <p class="card-category"></p>
+            </div>
+            <div class="col-md-auto ml-auto">
+              <a href="{{route('barang.create')}}">
+                <i class="material-icons" style="font-size: 48px; color: lightblue;">add_circle</i>
+              </a>
+            </div>
           </div>
-          <h4 class="card-title">Data Barang</h4>
         </div>
         <div class="card-body">
           <div class="toolbar">
@@ -48,7 +55,6 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#nav_barang').addClass('active');
-		$('#barang_all').addClass('active');
 	});
 </script>
 

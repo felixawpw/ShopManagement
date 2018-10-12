@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
   <link href="{{asset('assets/css/material-dashboard.css?v=2.1.0')}}" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="{{asset('assets/css/selectize.default.css')}}">
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style type="text/css">
   </style>
@@ -79,148 +80,97 @@
           </li>
 
           <li class="nav-item" id="nav_barang">
-            <a class="nav-link" data-toggle="collapse" href="#side_bar_barang" id="barang">
+            <a class="nav-link" href="{!! route('barang.index') !!}">
               <i class="material-icons">card_travel</i>
               <p>
-                Barang
-                <b class="caret"></b>
+                Inventory
               </p>
             </a>
-            <div class="collapse" id="side_bar_barang">
-              <ul class="nav">
-                <li class="nav-item " id="barang_all">
-                  <a class="nav-link" href="{!! route('barang.index') !!}">
-                    <i class="material-icons">list</i>
-                    <span class="sidebar-normal"> Tampilkan Semua </span>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav">
-                <li class="nav-item " id="barang_add">
-                  <a class="nav-link" href="{!! route('barang.create') !!}">
-                    <i class="material-icons">add</i>
-                    <span class="sidebar-normal"> Tambah Barang </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
           </li>
 
-          <li class="nav-item" id="nav_supplier">
-            <a class="nav-link" data-toggle="collapse" href="#side_bar_supplier" id="supplier">
+          <li class="nav-item" id="nav_relation">
+            <a class="nav-link" data-toggle="collapse" href="#side_bar_relation"">
               <i class="material-icons">person</i>
               <p>
-                Supplier
+                Relation
                 <b class="caret"></b>
               </p>
             </a>
-            <div class="collapse" id="side_bar_supplier">
+            <div class="collapse" id="side_bar_relation">
               <ul class="nav">
-                <li class="nav-item " id="supplier_all">
+                <li class="nav-item " id="nav_supplier">
                   <a class="nav-link" href="{!! route('supplier.index') !!}">
                     <i class="material-icons">list</i>
-                    <span class="sidebar-normal"> Tampilkan Semua </span>
+                    <span class="sidebar-normal"> Supplier </span>
                   </a>
                 </li>
               </ul>
               <ul class="nav">
-                <li class="nav-item " id="supplier_add">
-                  <a class="nav-link" href="{!! route('supplier.create') !!}">
-                    <i class="material-icons">add</i>
-                    <span class="sidebar-normal"> Tambah Supplier </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-
-          <li class="nav-item" id="nav_customer">
-            <a class="nav-link" data-toggle="collapse" href="#side_bar_customer" id="customer">
-              <i class="material-icons">face</i>
-              <p>
-                Customer
-                <b class="caret"></b>
-              </p>
-            </a>
-            <div class="collapse" id="side_bar_customer">
-              <ul class="nav">
-                <li class="nav-item " id="customer_all">
+                <li class="nav-item " id="nav_customer">
                   <a class="nav-link" href="{!! route('customer.index') !!}">
                     <i class="material-icons">list</i>
-                    <span class="sidebar-normal"> Tampilkan Semua </span>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav">
-                <li class="nav-item " id="customer_add">
-                  <a class="nav-link" href="{!! route('customer.create') !!}">
-                    <i class="material-icons">add</i>
-                    <span class="sidebar-normal"> Tambah Customer </span>
+                    <span class="sidebar-normal"> Customer </span>
                   </a>
                 </li>
               </ul>
             </div>
           </li>
 
-          <li class="nav-item" id="nav_penjualan">
-            <a class="nav-link" data-toggle="collapse" href="#side_bar_penjualan" id="penjualan">
+          <li class="nav-item" id="nav_transaksi">
+            <a class="nav-link" data-toggle="collapse" href="#side_bar_transaksi" id="nav_transaksi_side">
               <i class="material-icons">store</i>
               <p>
-                Penjualan
+                Transaksi
                 <b class="caret"></b>
               </p>
             </a>
-            <div class="collapse" id="side_bar_penjualan">
+            <div class="collapse" id="side_bar_transaksi">
               <ul class="nav">
-                <li class="nav-item " id="penjualan_all">
+                <li class="nav-item " id="nav_penjualan">
                   <a class="nav-link" href="{!! route('penjualan.index') !!}">
-                    <i class="material-icons">list</i>
-                    <span class="sidebar-normal"> Tampilkan Semua </span>
+                    <i class="material-icons">shopping_cart</i>
+                    <span class="sidebar-normal"> Penjualan </span>
                   </a>
                 </li>
               </ul>
               <ul class="nav">
-                <li class="nav-item " id="penjualan_add">
-                  <a class="nav-link" href="{!! route('penjualan.create') !!}">
-                    <i class="material-icons">add</i>
-                    <span class="sidebar-normal"> Tambah Penjualan </span>
+                <li class="nav-item " id="nav_pembelian">
+                  <a class="nav-link" href="{!! route('pembelian.index') !!}">
+                    <i class="material-icons">shopping_basket</i>
+                    <span class="sidebar-normal"> Pembelian </span>
                   </a>
                 </li>
               </ul>
             </div>
           </li>
 
-          <li class="nav-item" id="nav_pembelian">
-            <a class="nav-link" data-toggle="collapse" href="#side_bar_pembelian" id="pembelian">
-              <i class="material-icons">shopping_basket</i>
+          <li class="nav-item" id="nav_report">
+            <a class="nav-link" data-toggle="collapse" href="#side_bar_report" id="nav_report_side">
+              <i class="material-icons">trending_up</i>
               <p>
-                Pembelian
+                Report
                 <b class="caret"></b>
               </p>
             </a>
-            <div class="collapse" id="side_bar_pembelian">
+            <div class="collapse" id="side_bar_report">
               <ul class="nav">
-                <li class="nav-item " id="pembelian_all">
-                  <a class="nav-link" href="{!! route('pembelian.index') !!}">
-                    <i class="material-icons">list</i>
-                    <span class="sidebar-normal"> Tampilkan Semua </span>
+                <li class="nav-item " id="nav_report_1">
+                  <a class="nav-link" href="#">
+                    <i class="material-icons">shopping_cart</i>
+                    <span class="sidebar-normal"> Penjualan </span>
                   </a>
                 </li>
               </ul>
               <ul class="nav">
-                <li class="nav-item " id="pembelian_add">
-                  <a class="nav-link" href="{!! route('pembelian.create') !!}">
-                    <i class="material-icons">add</i>
-                    <span class="sidebar-normal"> Tambah Pembelian </span>
+                <li class="nav-item " id="nav_report_2">
+                  <a class="nav-link" href="#">
+                    <i class="material-icons">shopping_basket</i>
+                    <span class="sidebar-normal"> Pembelian </span>
                   </a>
                 </li>
               </ul>
             </div>
           </li>
-
-
-
-
 
           <li class="nav-item " id="logout">
             <form method="post" action="{!! route('logout') !!}" id="form_logout" hidden>
@@ -314,13 +264,13 @@
   <script src="{{asset('assets/js/plugins/bootstrap-notify.js')}}"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="{{asset('assets/js/material-dashboard.min.js?v=2.0.2')}}" type="text/javascript"></script>
+  <script src="{{asset('assets/js/selectize.js')}}" type="text/javascript"></script>
   <script type="text/javascript">
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
   </script>
 
   <script src="{{asset('js/bootstrap-table.js')}}"></script>
@@ -443,7 +393,24 @@
       @endif
     });
   </script>
-
+  <script type="text/javascript">
+    function binarySearch(arr, target) {
+      let left = 0;
+      let right = arr.length - 1;
+      while (left <= right) {
+          const mid = left + Math.floor((right - left) / 2);
+          if (arr[mid].id == target) {
+              return mid;
+          }
+          if (arr[mid].id < target) {
+              left = mid + 1;
+          } else {
+              right = mid - 1;
+          }
+      }
+      return -1;
+    }
+  </script>
   @yield('scripts')
 </body>
 </html>

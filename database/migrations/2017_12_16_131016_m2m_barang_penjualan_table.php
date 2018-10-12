@@ -24,9 +24,6 @@ class M2mBarangPenjualanTable extends Migration
             $table->integer('quantity');
             $table->integer('hbeli');
             $table->integer('hjual');
-            $table->integer('disc');
-            $table->integer('hgrosir');
-            $table->integer('subtotal');
         });
     }
 

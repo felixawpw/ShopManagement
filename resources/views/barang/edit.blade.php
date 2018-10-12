@@ -31,6 +31,25 @@
                     </div>
                   </div>
                 </div>
+                <div class="row">
+                  <label class="col-md-3 col-form-label" for="hjual">Brand</label>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <select class="selectized" placeholder="Type to search or add Brand" name="brand" id="brand">
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <label class="col-md-3 col-form-label" for="hjual">Product Type</label>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <select class="selectized" placeholder="Type to search or add Product Type" name="product_type" id="product_type">
+                      </select>
+                    </div>
+                  </div>
+                </div>
 
                 <div class="row">
                   <label class="col-md-3 col-form-label" for="kodeharga">Kode Harga</label>
@@ -98,6 +117,59 @@
 <script type="text/javascript">
   $(document).ready(function(){
     $('#nav_barang').addClass('active');
+
+    $('#brand').selectize({
+      valueField: "id",
+      labelField: "nama",
+      searchField: "nama",
+      sortField: [{field: 'nama', direction: 'asc'}],
+      options: {!! $brands !!},
+      create:function(input, callback){
+        $.ajax({
+          url: '{!! route("brand.store") !!}',
+          type: 'POST',
+          data: {
+            nama: input,
+          },
+          dataType: "json",
+          success: function (result) {
+            if (result) {
+              callback({ id: result.id, nama: result.nama });
+            }
+          }
+        });
+      },
+      onInitialize: function(){
+        this.setValue({!! $barang->brand_id !!});
+      } 
+    });
+    $('#product_type').selectize({
+      valueField: "id",
+      labelField: "nama",
+      searchField: "nama",
+      sortField: [{field: 'nama', direction: 'asc'}],
+      options: {!! $pts !!},
+      create:function(input, callback){
+        $.ajax({
+          url: '{!! route("product-type.store") !!}',
+          type: 'POST',
+          data: {
+            nama: input,
+          },
+          dataType: "json",
+          success: function (result) {
+            console.log(result);
+            if (result) {
+              callback({ id: result.id, nama: result.nama });
+            }
+          }
+        });
+      },
+      onInitialize: function(){
+        this.setValue({!! $barang->product_type_id !!});
+      } 
+
+    });
   });
 </script>
 @endsection

@@ -96,7 +96,8 @@
 @section('scripts')
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('#nav_barang').addClass('active');
+    $('#nav_customer').addClass('active');
+    $('#nav_relation').addClass('active');
 	});
 </script>
 @endsection

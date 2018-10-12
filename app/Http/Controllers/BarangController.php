@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\Input;
 use App\Barang, App\Log, Auth;
 class BarangController extends Controller
 {
+    public function selectize()
+    {
+        $barangs = Barang::all();
+        return $barangs;
+    }
+
     public function json(Request $request)
     {
         $columns = array( 
@@ -112,7 +118,9 @@ class BarangController extends Controller
     public function create()
     {
         //
-        return view('barang.create');
+        $brands = \App\Brand::all();
+        $pts = \App\ProductType::all();
+        return view('barang.create', compact('brands', 'pts'));
     }
 
     /**
@@ -132,6 +140,8 @@ class BarangController extends Controller
         $barang->hjual = str_replace('.', '', $request->hjual);
         $barang->stoktotal = str_replace('.', '', $request->stoktotal);
         $barang->hgrosir = str_replace('.', '', $request->hgrosir);
+        $barang->brand_id = $request->brand;
+        $barang->product_type_id = $request->product_type;
 
         $status = "1||Success||Berhasil menambahkan barang $barang->kode : $barang->nama";
         try
@@ -182,7 +192,9 @@ class BarangController extends Controller
     {
         //
         $barang = Barang::find($id);
-        return view('barang.edit', compact('barang'));
+        $brands = \App\Brand::all();
+        $pts = \App\ProductType::all();
+        return view('barang.edit', compact('barang', 'brands', 'pts'));
     }
 
     /**
@@ -203,7 +215,9 @@ class BarangController extends Controller
         $barang->hjual = str_replace('.', '', $request->hjual);
         $barang->stoktotal = str_replace('.', '', $request->stoktotal);
         $barang->hgrosir = str_replace('.', '', $request->hgrosir);
-
+        $barang->brand_id = $request->brand;
+        $barang->product_type_id = $request->product_type;
+        
         $status = "1||Success||Berhasil mengupdate barang $barang->kode : $barang->nama";
         try
         {

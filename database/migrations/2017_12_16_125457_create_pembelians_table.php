@@ -20,7 +20,9 @@ class CreatePembeliansTable extends Migration
             $table->date('tanggal_due');
             $table->integer('total');
             $table->string('no_faktur');
+            $table->boolean('status_pembayaran');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
