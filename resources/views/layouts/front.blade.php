@@ -203,13 +203,13 @@
       
       @if(\Session::has('status'))
       swal({
-        @if (\Session::has('status') && explode(';', \Session::get('status'))[0] == "0")
+        @if (\Session::has('status') && explode('||', \Session::get('status'))[0] == "0")
           type: 'error',
         @else
           type: 'success',
         @endif
-        title: '{!! explode(";", \Session::get("status"))[1] !!}',
-        text: '{!! explode(";", \Session::get("status"))[2] !!}',
+        title: '{!! explode("||", \Session::get("status"))[1] !!}',
+        text: '{!! explode("||", \Session::get("status"))[2] !!}',
       });
       @endif
     });

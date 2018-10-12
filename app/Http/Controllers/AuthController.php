@@ -22,7 +22,7 @@ class AuthController extends Controller
     	{
             Log::create([
                 'level' => "Info",
-                'user_id' => null,
+                'user_id' => Auth::id(),
                 'action' => "login",
                 'table_name' => "Users",
                 'description' => "Login success for ".Auth::id(),
