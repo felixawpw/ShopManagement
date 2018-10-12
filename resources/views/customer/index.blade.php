@@ -64,6 +64,7 @@
 		$('#datatables').DataTable({
 			"processing": true,
 			"serverSide": true,
+      "scrollX":true,
 			"ajax":
 				{
 					"url": "{{ route('barang_load') }}",

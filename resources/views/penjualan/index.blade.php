@@ -63,6 +63,7 @@
 		$('#datatables').DataTable({
 			"processing": true,
 			"serverSide": true,
+      "scrollX":true,
 			"ajax":
 				{
 					"url": "{{ route('penjualan_load') }}",
