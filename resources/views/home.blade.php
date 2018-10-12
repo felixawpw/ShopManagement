@@ -6,7 +6,7 @@
     <div class="col-md-6">
       <div class="card ">
         <div class="card-header card-header-primary">
-          <h4 class="card-title">Dialy Income Report
+          <h4 class="card-title">Daily Income Report
             <small class="description"></small>
           </h4>
         </div>
@@ -45,7 +45,7 @@
     <div class="col-md-6">
       <div class="card ">
         <div class="card-header card-header-primary">
-          <h4 class="card-title">Dialy Inventory Report
+          <h4 class="card-title">Daily Inventory Report
             <small class="description"></small>
           </h4>
         </div>
