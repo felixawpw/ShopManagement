@@ -7,6 +7,7 @@ use Carbon\Carbon, DB;
 
 use App\Pegawai, App\Absen;
 use App\Penjualan, App\Barang;
+use App\Pembelian;
 class HomeController extends Controller
 {
     /**
@@ -82,6 +83,10 @@ class HomeController extends Controller
             "brands" => $showBrands];
     }
 
+    public function getHutang()
+    {
+        return Pembelian::where('status_pembayaran', '=', '0')->get();
+    }
 
     /**
      * Show the application dashboard.
@@ -91,7 +96,8 @@ class HomeController extends Controller
     public function index()
     {
         $dialyReport = $this->getDialyReport(Carbon::now()->toDateString(), Carbon::now()->toDateString());
-        return view('home', compact("dialyReport"));
+        $hutangs = $this->getHutang();
+        return view('home', compact("dialyReport", "hutangs"));
         // $pegawais = Pegawai::all();
         // $absens = Absen::where('absensi', '=', 0)->orderBy('pegawai_id', 'asc')->orderBy('tanggal', 'asc')->get();
         // /*

@@ -20,7 +20,7 @@ class CreateLogsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string("action");
             $table->string("table_name");
-            $table->string("description");
+            $table->text("description");
             $table->timestamps();
         });
     }

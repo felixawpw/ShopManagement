@@ -23,6 +23,7 @@ class CreateBarangsTable extends Migration
             $table->integer('stoktotal');
             $table->integer('hgrosir');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

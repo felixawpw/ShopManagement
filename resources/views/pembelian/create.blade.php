@@ -215,7 +215,7 @@
     "<tr id='tr_" + cartCounter +"'>" +
       "<td>" + "<input type='hidden' name='id_" + cartCounter + "' value='" + barang.id + "'>" + "<input type='text' disabled placeholder='Kode' class='form-control' name='kode_" + cartCounter + "' id='kode_" + cartCounter + "' value='" + barang.kode +"'>" + "</td>" +
       "<td>" + "<input type='text' disabled placeholder='Nama' class='form-control' name='nama_" + cartCounter + "' id='nama_" + cartCounter + "' value='" + barang.nama +"'>" + "</td>" +
-      "<td>" + "<input type='text' disabled placeholder='Stok' class='form-control' name='stok_" + cartCounter + "' id='stok_" + cartCounter + "' value='0'>" + "</td>" +
+      "<td>" + "<input type='text' disabled placeholder='Stok' class='form-control' name='stok_" + cartCounter + "' id='stok_" + cartCounter + "' value='" + barang.stoktotal + "'>" + "</td>" +
       "<td>" + "<input type='text' oninput='number_format(this); changeTotals(" + cartCounter + ");' placeholder='Quantity' class='form-control' name='jumlah_" + cartCounter + "' id='jumlah_" + cartCounter + "' value='0'>"  + "</td>" +
       "<td>" + "<input type='text' oninput='number_format(this); changeTotals(" + cartCounter + ");' placeholder='H.Beli' class='form-control' name='hbeli_" + cartCounter + "' id='hbeli_" + cartCounter + "' value='0'>" + "</td>" +
       "<td>" + "<input type='text' disabled placeholder='Sub Total' class='form-control' name='subtotal_" + cartCounter + "' id='subtotal_" + cartCounter + "' value='0'>" + "</td>" +

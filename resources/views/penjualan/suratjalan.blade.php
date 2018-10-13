@@ -67,8 +67,6 @@
 											<tr>
 												<th style="width:15%;">Qty</th>
 												<th style="width:45%;">Nama Barang</th>
-												<th style="width:20%;">Harga Unit</th>
-												<th style="width:20%;">Total</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -79,21 +77,9 @@
 											<tr>
 												<td class="text-center">{!! number_format($b->pivot->quantity,0,",",".") !!}</td>
 												<td>{!! $b->nama !!}</td>
-												<td class="text-right">Rp{!! number_format($b->hjual,2,",",".") !!}</td>
-												<td class="text-right">Rp{!! number_format($b->pivot->quantity * $b->hjual,2,",",".") !!}</td>
-												@php
-													$total += $b->pivot->quantity * $b->hjual;
-												@endphp
 											</tr>
 											@endforeach
 										</tbody>
-										<tfoot class="text-primary text-right">
-											<tr>
-												<td colspan="2"></td>
-												<td>Total</td>
-												<td>Rp{!! number_format($total,2,",",".") !!}</td>
-											</tr>
-										</tfoot>
 									</table>
 								</div>
 							</div>
@@ -102,5 +88,13 @@
 				</div>
 			</div>
 		</div>
+
+	<script src="{{asset('assets/js/core/jquery.min.js')}}" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			window.print();
+			window.close();
+		});
+	</script>
 	</body>
 </html>

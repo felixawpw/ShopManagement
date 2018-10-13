@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Pembelian, App\Supplier, App\Barang, App\Log, Auth;
 use Carbon\Carbon, DB;
+use App\Method;
 class PembelianController extends Controller
 {
     public function json(Request $request)
@@ -111,7 +112,7 @@ class PembelianController extends Controller
     public function create()
     {
         //
-        $p = Pembelian::whereDate('created_at', '=', Carbon::now())->count() + 1;
+        $p = Pembelian::whereDate('created_at', '=', Carbon::now()->format("Y-m-d"))->count() + 1;
         $p = sprintf('%03d', $p);
         $date = Carbon::now()->format("d-m-Y");
         $no_nota = "SP/PB/$date/$p";
@@ -132,8 +133,8 @@ class PembelianController extends Controller
     {
         $pembelian = new Pembelian;
         $pembelian->no_nota = $request->no_nota;
-        $pembelian->tanggal = $request->tanggal;
-        $pembelian->tanggal_due = $request->tanggal_due;
+        $pembelian->tanggal = Method::date_format($request->tanggal, "Y-m-d");
+        $pembelian->tanggal_due = Method::date_format($request->tanggal_due, "Y-m-d");
         $pembelian->total = 0;
         $pembelian->no_faktur = $request->no_faktur;
         $pembelian->supplier_id = $request->supplier;

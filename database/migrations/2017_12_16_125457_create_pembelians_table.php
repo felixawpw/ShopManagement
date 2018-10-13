@@ -22,7 +22,6 @@ class CreatePembeliansTable extends Migration
             $table->string('no_faktur');
             $table->boolean('status_pembayaran');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

@@ -7,6 +7,7 @@ use App\Barang, App\Penjualan, App\Customer, App\Supplier, App\Log, Auth;
 use App\Pembelian;
 use Carbon\Carbon, DB;
 use PDF;
+use App\Method;
 class PenjualanController extends Controller
 {
     public function json(Request $request)
@@ -96,6 +97,12 @@ class PenjualanController extends Controller
         return view('penjualan.invoice', compact("penjualan"));
     }
 
+    public function suratjalan($id)
+    {
+        $penjualan = Penjualan::find($id);
+        return view('penjualan.suratjalan', compact("penjualan"));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -115,7 +122,7 @@ class PenjualanController extends Controller
     public function create()
     {
         //
-        $p = Penjualan::whereDate('created_at', '=', Carbon::now())->count() + 1;
+        $p = Penjualan::whereDate('created_at', '=', Carbon::now()->format("Y-m-d"))->count() + 1;
         $p = sprintf('%03d', $p);
         $date = Carbon::now()->format("d-m-Y");
         $no_nota = "SP/PJ/$date/$p";
@@ -139,7 +146,7 @@ class PenjualanController extends Controller
         $penjualan = new Penjualan;
         $penjualan->no_nota = $request->no_nota;
         $penjualan->no_faktur = $request->no_faktur;
-        $penjualan->tanggal = $request->tanggal;
+        $penjualan->tanggal = Method::date_format($request->tanggal, "Y-m-d");
         $penjualan->total = $request->total;
         $penjualan->customer_id = $request->customer;
         $penjualan->user_id = Auth::user()->id;
@@ -272,6 +279,23 @@ class PenjualanController extends Controller
         //
     }
 
+    public function test()
+    {
+        return Penjualan::all();
+        $penjualan = Penjualan::find(2);
+        $barangs = $penjualan->barangs;
+        foreach($barangs as $b)
+        {
+            $qty = $b->pivot->quantity;
+            $hbeli = $b->hbeli;
+
+            $hbeliBaru = ($hbeli * $b->stoktotal + $b->pivot->hbeli * $qty)/($qty + $b->stoktotal);
+            $b->stoktotal += $qty;
+            $b->hbeli = $hbeliBaru;
+            $b->save();
+        }
+        return $barangs;
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -281,5 +305,42 @@ class PenjualanController extends Controller
     public function destroy($id)
     {
         //
+        $penjualan = Penjualan::find($id);
+        $status = 1;
+        try
+        {
+            $barangs = $penjualan->barangs;
+            foreach($barangs as $b)
+            {
+                $qty = $b->pivot->quantity;
+                $hbeli = $b->hbeli;
+
+                $hbeliBaru = ($hbeli * $b->stoktotal + $b->pivot->hbeli * $qty)/($qty + $b->stoktotal);
+                $b->stoktotal += $qty;
+                $b->hbeli = $hbeliBaru;
+                $b->save();
+            }
+            $penjualan->delete();
+            
+            Log::create([
+                'level' => "Info",
+                'user_id' => Auth::id(),
+                'action' => "Delete",
+                'table_name' => "Penjualans",
+                'description' => "Delete penjualan success(ID = $penjualan->id, Cust = ".$penjualan->customer->nama.")",
+            ]);
+        }
+        catch(\Exception $e)
+        {
+            Log::create([
+                'level' => "Warning",
+                'user_id' => Auth::id(),
+                'action' => "Delete",
+                'table_name' => "Penjualans",
+                'description' => "Delete penjualan failed. ".$e->getMessage(),
+            ]);
+            $status = 0;
+        }
+        return $status;
     }
 }

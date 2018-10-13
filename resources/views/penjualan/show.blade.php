@@ -65,7 +65,7 @@
                     @php
                       $total = 0;
                     @endphp
-                    @foreach($penjualan->barangs as $b)
+                    @foreach($penjualan->barangs()->withTrashed()->get() as $b)
                     <tr>
                       <td class="text-center">{!! number_format($b->pivot->quantity,0,",",".") !!}</td>
                       <td>{!! $b->nama !!}</td>
@@ -95,6 +95,9 @@
               <div class="row">
                 <div class="col-md-2 ml-auto">
                   <a target="_blank" href="{!! route('invoice', $penjualan->id) !!}" class="btn btn-primary">Print Invoice</a>
+                </div>
+                <div class="col-md-2 ml-auto">
+                  <a target="_blank" href="{!! route('suratjalan', $penjualan->id) !!}" class="btn btn-primary">Print Surat Jalan</a>
                 </div>
               </div>
             </div>

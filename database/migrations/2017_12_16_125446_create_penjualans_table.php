@@ -20,7 +20,6 @@ class CreatePenjualansTable extends Migration
             $table->date('tanggal');
             $table->integer('total');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

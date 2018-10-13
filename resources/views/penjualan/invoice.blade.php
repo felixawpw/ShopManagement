@@ -75,7 +75,7 @@
 											@php
 												$total = 0;
 											@endphp
-											@foreach($penjualan->barangs as $b)
+											@foreach($penjualan->barangs()->withTrashed()->get() as $b)
 											<tr>
 												<td class="text-center">{!! number_format($b->pivot->quantity,0,",",".") !!}</td>
 												<td>{!! $b->nama !!}</td>

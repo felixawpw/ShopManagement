@@ -19,7 +19,7 @@ class M2mBarangPenjualanTable extends Migration
             $table->integer('penjualan_id')->unsigned()->index();
             
             $table->foreign('barang_id')->references('id')->on('barangs');
-            $table->foreign('penjualan_id')->references('id')->on('penjualans');
+            $table->foreign('penjualan_id')->references('id')->on('penjualans')->onDelete('cascade');
 
             $table->integer('quantity');
             $table->integer('hbeli');
