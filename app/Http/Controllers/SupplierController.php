@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 use App\Supplier, App\Log, Auth;
 class SupplierController extends Controller
 {
+    public function selectize(Request $request)
+    {
+        $query = $request->input("query");
+        $suppliers = Supplier::where("nama", 'like', "%$query%")->get();
+        return $suppliers;
+    }
 
     public function json(Request $request)
     {

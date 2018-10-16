@@ -7,9 +7,10 @@ use Illuminate\Support\Facades\Input;
 use App\Barang, App\Log, Auth;
 class BarangController extends Controller
 {
-    public function selectize()
+    public function selectize(Request $request)
     {
-        $barangs = Barang::all();
+        $query = $request->input("query");
+        $barangs = Barang::where("nama", 'like', "%$query%")->get();
         return $barangs;
     }
 

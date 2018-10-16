@@ -40,6 +40,9 @@ Route::middleware(['auth'])->group(function(){
 
 
 	Route::get('/selectize/barang/load', 'BarangController@selectize')->name('selectize_barang');
+	Route::get('/selectize/customer/load', 'CustomerController@selectize')->name('selectize_customer');
+	Route::get('/selectize/supplier/load', 'SupplierController@selectize')->name('selectize_supplier');
+
 	Route::get('/ajax/add/supplier', 'AjaxController@addSupplier');
 	Route::post('/ajax/add/supplier', 'AjaxController@storeSupplier');
 

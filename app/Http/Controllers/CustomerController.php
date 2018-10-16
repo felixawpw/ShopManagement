@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 use App\Customer;
 class CustomerController extends Controller
 {
+    public function selectize(Request $request)
+    {
+        $query = $request->input("query");
+        $customers = Customer::where("nama", 'like', "%$query%")->get();
+        return $customers;
+    }
 
     public function json()
     {

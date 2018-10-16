@@ -134,7 +134,7 @@
 
 @section('scripts')
 <script type="text/javascript">
-  var barangs = {!! $barangs !!}
+  var barangs = new Array;
   var cartCounter = 0;
 	$(document).ready(function(){
 		$('#nav_pembelian').addClass('active');
@@ -147,16 +147,32 @@
     $('#select_supplier').selectize({
       valueField: 'id',
       labelField: 'nama',
-      searchField: ['kode', 'nama'],
-      options: {!! $suppliers !!},
+      searchField: ['nama'],
+      sortField: [{field: 'nama', direction: 'asc'}],
+      load: (query, callback) => {
+        if (query.length) {
+          $.ajax({
+            url: "{!! route('selectize_supplier') !!}",
+            data: { query: query},
+            dataType: "json",
+            type: 'GET',
+            error: function(e) {
+              callback();
+              console.log(e);
+            },
+            success: function(res) {
+              console.log(res);
+              callback(res);
+            } 
+          });
+        }
+      },
     });
-
 
     $('#select_barang').selectize({
       valueField: 'id',
       labelField: 'nama',
       searchField: ['kode', 'nama'],
-      options: barangs,
       render: {
         item: function(item, escape) {
           return '<div class="item">' +
@@ -188,12 +204,14 @@
             },
             success: function(res) {
               console.log(res);
+              barangs = res;
               callback(res);
             } 
           });
         }
       },
       onChange: function(item){
+        console.log("Change " + item);
         if (item)
         {
           var idxBarang = binarySearch(barangs, item);

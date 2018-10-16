@@ -135,7 +135,7 @@
 
 @section('scripts')
 <script type="text/javascript">
-  var barangs = {!! $barangs !!}
+  var barangs = new Array;
   var cartCounter = 0;
   $(document).ready(function(){
     $('#nav_penjualan').addClass('active');
@@ -149,8 +149,7 @@
     $('#select_customer').selectize({
       valueField: 'id',
       labelField: 'nama',
-      searchField: ['kode', 'nama'],
-      options: {!! $customers !!},
+      searchField: ['nama'],
       sortField: [{field: 'nama', direction: 'asc'}],
       create:function(input, callback){
         $.ajax({
@@ -167,7 +166,25 @@
             }
           }
         });
-      }
+      },
+      load: (query, callback) => {
+        if (query.length) {
+          $.ajax({
+            url: "{!! route('selectize_customer') !!}",
+            data: { query: query},
+            dataType: "json",
+            type: 'GET',
+            error: function(e) {
+              callback();
+              console.log(e);
+            },
+            success: function(res) {
+              console.log(res);
+              callback(res);
+            } 
+          });
+        }
+      },
     });
 
 
@@ -175,7 +192,6 @@
       valueField: 'id',
       labelField: 'nama',
       searchField: ['kode', 'nama'],
-      options: barangs,
       render: {
         item: function(item, escape) {
           return '<div class="item">' +
@@ -207,12 +223,14 @@
             },
             success: function(res) {
               console.log(res);
+              barangs = res;
               callback(res);
             } 
           });
         }
       },
       onChange: function(item){
+        console.log("Change " + item);
         if (item)
         {
           var idxBarang = binarySearch(barangs, item);
