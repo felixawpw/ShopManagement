@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
-use App\Barang, App\Log, Auth;
+use App\Barang, App\Log, Auth, App\Brand, App\ProductType;
+use Illuminate\Support\Collection;
+
 class BarangController extends Controller
 {
     public function selectize(Request $request)
@@ -49,13 +51,32 @@ class BarangController extends Controller
         else {
             $search = $request->input('search.value'); 
 
-            $barangs =  Barang::where('id','LIKE',"%{$search}%")
+            $bp1 =  Barang::where('id','LIKE',"%{$search}%")
                             ->orWhere('nama', 'LIKE',"%{$search}%")
                             ->orWhere('kode', 'LIKE',"%{$search}%")
                             ->offset($start)
                             ->limit($limit)
                             ->orderBy($order,$dir)
                             ->get();
+
+            $byBrand = Brand::where('nama', 'LIKE', "%{$search}%")->get();
+            $byProductType = ProductType::where('nama', 'LIKE', "%{$search}%")->get();
+
+            $barangs = new Collection($bp1);
+
+            foreach($byBrand as $b)
+            {
+                $barangs = $barangs->merge(new Collection($b->barangs));
+            }
+
+            foreach($byProductType as $b)
+            {
+                $barangs = $barangs->merge(new Collection($b->barangs));
+            }
+
+
+            $barangs = $barangs->unique("id")->all();
+
 
             $totalFiltered = Barang::where('id','LIKE',"%{$search}%")
                              ->orWhere('nama', 'LIKE',"%{$search}%")

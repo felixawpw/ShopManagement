@@ -51,7 +51,7 @@ Route::middleware(['auth'])->group(function(){
 	
 	Route::get('/invoice/{id}', 'PenjualanController@invoice')->name('invoice');
 	Route::get('/suratjalan/{id}', 'PenjualanController@suratjalan')->name('suratjalan');
-	Route::get('/test', 'PenjualanController@test');
+	Route::get('/test', 'HomeController@test');
 });
 
 Route::get('login', 'AuthController@showLogin')->name('login');

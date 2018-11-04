@@ -279,23 +279,6 @@ class PenjualanController extends Controller
         //
     }
 
-    public function test()
-    {
-        return Penjualan::all();
-        $penjualan = Penjualan::find(2);
-        $barangs = $penjualan->barangs;
-        foreach($barangs as $b)
-        {
-            $qty = $b->pivot->quantity;
-            $hbeli = $b->hbeli;
-
-            $hbeliBaru = ($hbeli * $b->stoktotal + $b->pivot->hbeli * $qty)/($qty + $b->stoktotal);
-            $b->stoktotal += $qty;
-            $b->hbeli = $hbeliBaru;
-            $b->save();
-        }
-        return $barangs;
-    }
     /**
      * Remove the specified resource from storage.
      *
