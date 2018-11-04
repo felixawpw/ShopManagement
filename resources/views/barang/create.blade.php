@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="row">
-                  <label class="col-md-3 col-form-label" for="hjual">Product Type</label>
+                  <label class="col-md-3 col-form-label" for="hjual">Jenis Produk</label>
                   <div class="col-md-3">
                     <div class="form-group">
                       <select class="selectized" placeholder="Type to search or add Product Type" name="product_type" id="product_type">

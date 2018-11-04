@@ -44,15 +44,6 @@
                 </div>
 
                 <div class="row">
-                  <label class="col-md-3 col-form-label" for="kodeharga">Jatuh Tempo</label>
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <input type="text" class="form-control datepicker" name="tanggal_due" id="tanggal_due" required>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
                   <label class="col-md-3 col-form-label" for="hjual">Customer</label>
                   <div class="col-md-3">
                     <div class="form-group">
@@ -61,19 +52,7 @@
                     </div>
                   </div>
                 </div>
-                
-                <div class="row">
-                  <label class="col-md-3 col-form-label" for="hgrosir">Status Pembayaran</label>
-                  <div class="col-md-7">
-                    <div class="form-group">
-                      <select class="selectpicker" data-style="select-with-transition" title="Choose Status Pembayaran" data-size="7" name="status_pembayaran" id="status_pembayaran">
-                        <option value="1">Lunas</option>
-                        <option value="0">BG</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>  
-                
+                                
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">

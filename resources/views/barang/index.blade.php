@@ -30,7 +30,7 @@
                   <th>Kode Barang</th>
                   <th>Nama</th>
                   <th class="no-sort">Brand</th>
-                  <th class="no-sort">Product Type</th>
+                  <th class="no-sort">Jenis Produk</th>
                   <th>H.Beli</th>
                   <th>H.Jual</th>
                   <th>Stok</th>
