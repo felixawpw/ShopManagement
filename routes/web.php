@@ -23,6 +23,9 @@ Route::middleware(['auth'])->group(function(){
 	Route::resource('brand', 'BrandController');
 	Route::resource('product-type', 'ProductTypeController');
 
+	Route::get('/barang/report/penjualan/{id}', 'BarangController@reportPenjualan')->name("show_barang_penjualan");
+	Route::get('/barang/report/pembelian/{id}', 'BarangController@reportPembelian')->name("show_barang_pembelian");
+
 	Route::get('/barang/json', 'BarangController@json');
 	Route::get('/supplier/json', 'SupplierController@json');
 	Route::get('/pegawai/json', 'PegawaiController@json');
@@ -38,6 +41,7 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('/ajax/pembelian/load', 'PembelianController@json')->name('pembelian_load');
 	Route::post('/ajax/penjualan/load', 'PenjualanController@json')->name('penjualan_load');
 
+	Route::post('/ajax/barang-penjualan/load/{id}', 'BarangController@barangPembelianJSON')->name('barang_pembelian_load');
 
 	Route::get('/selectize/barang/load', 'BarangController@selectize')->name('selectize_barang');
 	Route::get('/selectize/customer/load', 'CustomerController@selectize')->name('selectize_customer');

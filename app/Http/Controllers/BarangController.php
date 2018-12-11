@@ -6,14 +6,103 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Barang, App\Log, Auth, App\Brand, App\ProductType;
 use Illuminate\Support\Collection;
-
+use Carbon\Carbon;
+use App\Penjualan;
+use DB;
 class BarangController extends Controller
 {
+
+
     public function selectize(Request $request)
     {
         $query = $request->input("query");
         $barangs = Barang::where("nama", 'like', "%$query%")->get();
         return $barangs;
+    }
+
+    public function barangPembelianJSON(Request $request, $id) {
+        $barang = Barang::find($id);
+        $columns = array( 
+            0 =>'id', 
+            1 =>'no_nota',
+            2 => 'tanggal',
+            3 => 'tanggal_due',
+            4 => 'total',
+            5 => 'no_faktur',
+            6 => 'nama_supplier',
+            7 => 'nama_user',
+            8 => 'status_pembayaran',
+            9 => 'options'
+        );
+  
+        $totalData = $barang->pembelians()->count();
+            
+        $totalFiltered = $totalData; 
+
+        $limit = $request->input('length');
+        $start = $request->input('start');
+
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+        
+        if(empty($request->input('search.value')))
+        {            
+            $pembelians = $barang->pembelians()->offset($start)
+                         ->limit($limit)
+                         ->orderBy($order,$dir)
+                         ->get();
+        }
+        else {
+            $search = $request->input('search.value'); 
+
+            // $pembelians =  $barang->pembelians()->where('id','LIKE',"%{$search}%")
+            //                 ->orWhere('no_nota', 'LIKE',"%{$search}%")
+            //                 ->orWhere('kode', 'LIKE',"%{$search}%")
+            //                 ->offset($start)
+            //                 ->limit($limit)
+            //                 ->orderBy($order,$dir)
+            //                 ->get();
+
+            // $totalFiltered = $barang->pembelians()->where('pembelians.id','LIKE',"%{$search}%")
+            //                  ->orWhere('pembelians.nama', 'LIKE',"%{$search}%")
+            //                  ->orWhere('pembelians.kode', 'LIKE',"%{$search}%")
+            //                  ->count();
+        }
+
+        $data = array();
+        if(!empty($pembelians))
+        {
+            foreach ($pembelians as $b)
+            {
+                $show =  route('pembelian.show',$b->id);
+                $edit =  route('pembelian.edit',$b->id);
+                $delete = route('pembelian.destroy',$b->id);
+
+                $nestedData['id'] = $b->id;
+                $nestedData['no_nota'] = $b->no_nota;
+                $nestedData['tanggal'] = date_format(date_create($b->tanggal), "d M Y");
+                $nestedData['tanggal_due'] = date_format(date_create($b->tanggal_due), "d M Y");
+                $nestedData['total'] = number_format($b->total, 0, '.', '.');
+                $nestedData['no_faktur'] = $b->no_faktur;
+                $nestedData['nama_supplier'] = $b->supplier->nama;
+                $nestedData['nama_user'] = $b->user->nama;
+                $nestedData['status_pembayaran'] = $b->status_pembayaran == 1 ? "Lunas" : "Belum Lunas";
+                $nestedData['options'] = 
+                "<a href='$show' class='btn btn-link btn-info btn-just-icon show'><i class='material-icons'>favorite</i></a>
+                <a href='$edit' class='btn btn-link btn-warning btn-just-icon edit'><i class='material-icons'>dvr</i></a>
+                <button type='submit' class='btn btn-link btn-danger btn-just-icon remove' onclick='delete_confirmation(event,\"$delete\" )'><i class='material-icons'>close</i></button>";
+                $data[] = $nestedData;
+            }
+        }
+
+        $json_data = array(
+            "draw"            => intval($request->input('draw')),  
+            "recordsTotal"    => intval($totalData),  
+            "recordsFiltered" => intval($totalFiltered), 
+            "data"            => $data   
+        );
+            
+        return json_encode($json_data); 
     }
 
     public function json(Request $request)
@@ -119,6 +208,83 @@ class BarangController extends Controller
             
         return json_encode($json_data);    
     }
+
+    public function reportPenjualan(Request $request, $id) {
+        try {
+            $barang = Barang::find($id);
+
+            $periode = $request->periode;
+            $awal = $request->awal;            
+            $year = $request->year;
+            switch ($periode) {
+                case '1':
+                    $formattedDateAwal = Carbon::createFromFormat("m/d/Y", $awal);
+                    for ($i = 0; $i < 14; $i++) {
+                        $penjualans = DB::table("barang_penjualan")
+                            ->join('penjualans', 'barang_penjualan.penjualan_id', '=', 'penjualans.id')
+                            ->select(DB::raw('sum(barang_penjualan.quantity) as sum'))
+                            ->where("barang_id", "=", $barang->id)
+                            ->whereDate("penjualans.tanggal", "=", $formattedDateAwal->toDateString())
+                            ->first();
+
+                        $result[$formattedDateAwal->toDateString()] = $penjualans->sum;
+                        $formattedDateAwal = $formattedDateAwal->addDay(1);
+                    }
+                    break;
+                case '2':                    
+                    $formattedDateAwal = Carbon::createFromFormat("m/d/Y", $awal);
+                    $last = $formattedDateAwal;
+                    $result = array();
+                    for ($i = 0; $i < 16; $i++) {
+                        $dateAkhir = Carbon::createFromFormat("m/d/Y", $awal)->addDay(($i + 1) * 7);
+
+                        $penjualans = DB::table("barang_penjualan")
+                                ->join('penjualans', 'barang_penjualan.penjualan_id', '=', 'penjualans.id')
+                                ->where("barang_id", "=", $barang->id)
+                                ->whereDate("penjualans.tanggal", ">=", $last)
+                                ->whereDate("penjualans.tanggal", "<=", $dateAkhir)
+                                ->select(DB::raw("sum(barang_penjualan.quantity) as sum"))
+                                ->first();
+
+                        $result[$last->toDateString()] = $penjualans->sum;
+                        $last = $dateAkhir;
+                    }
+                    break;
+                case '3':
+                    $result = array();
+                    $month = $awal;
+                    //$year, $month
+                    for ($i = 0; $i < 12; $i++) {
+                        $currMonth = $month;
+
+                        $month++;
+
+                        if ($month > 12) {
+                            $month = 1;
+                            $year++;
+                        }
+
+                        $penjualans = DB::table("barang_penjualan")
+                                ->join('penjualans', 'barang_penjualan.penjualan_id', '=', 'penjualans.id')
+                                ->where("barang_id", "=", $barang->id)
+                                ->whereMonth("penjualans.tanggal", "=", $month)
+                                ->whereYear("penjualans.tanggal", "=", $year)
+                                ->select(DB::raw("sum(barang_penjualan.quantity) as sum"))
+                                ->first();
+
+                        $result["$year - $currMonth"] = $penjualans->sum;
+                    }
+
+                    break;                
+                default:
+                    break;
+            }
+            return json_encode($result);
+        } catch (Exception $ex) {
+            return "Failed";
+        }
+    }
+
 
     /**
      * Display a listing of the resource.

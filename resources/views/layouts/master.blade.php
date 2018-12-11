@@ -19,6 +19,7 @@
   <!-- CSS Files -->
   <link href="{{asset('assets/css/material-dashboard.css?v=2.1.0')}}" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="{{asset('assets/css/selectize.default.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('assets/css/chartist-plugin-tooltip.css') }}">
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style type="text/css">
   </style>
@@ -265,6 +266,7 @@
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="{{asset('assets/js/material-dashboard.min.js?v=2.0.2')}}" type="text/javascript"></script>
   <script src="{{asset('assets/js/selectize.js')}}" type="text/javascript"></script>
+  <script src="{{asset('assets/js/chartist-plugin-tooltip.min.js')}}" type="text/javascript"></script>
   <script type="text/javascript">
     $.ajaxSetup({
         headers: {

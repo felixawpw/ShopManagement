@@ -45,15 +45,15 @@ class PembelianController extends Controller
 
             $pembelians =  Pembelian::where('id','LIKE',"%{$search}%")
                             ->orWhere('no_nota', 'LIKE',"%{$search}%")
-                            ->orWhere('kode', 'LIKE',"%{$search}%")
+                            ->orWhere('tanggal', 'LIKE',"%{$search}%")
                             ->offset($start)
                             ->limit($limit)
                             ->orderBy($order,$dir)
                             ->get();
 
             $totalFiltered = Pembelian::where('id','LIKE',"%{$search}%")
-                             ->orWhere('nama', 'LIKE',"%{$search}%")
-                             ->orWhere('kode', 'LIKE',"%{$search}%")
+                             ->orWhere('no_nota', 'LIKE',"%{$search}%")
+                             ->orWhere('tanggal', 'LIKE',"%{$search}%")
                              ->count();
         }
 
