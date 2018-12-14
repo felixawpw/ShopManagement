@@ -14,9 +14,9 @@ class AuthSeeder extends Seeder
         //
         return User::create([
             'nama' => 'Admin Sripuja',
-            'username' => 'sp_admin',
+            'username' => 'test',
             'email' => 'fwpvt99@gmail.com',
-            'password' => Hash::make('sripuja9914'),
+            'password' => Hash::make('test'),
             'hak_akses' => 1
         ]);
 
