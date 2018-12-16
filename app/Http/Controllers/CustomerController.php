@@ -13,10 +13,94 @@ class CustomerController extends Controller
         return $customers;
     }
 
-    public function json()
+    public function json(Request $request)
     {
-        return Customer::all();
+        $columns = array( 
+            0 =>'id', 
+            1 =>'nama',
+            2 => 'alamat',
+            3 => 'telepon',
+            4 => 'hp',
+            5 => 'fax',
+            6 => 'options'
+        );
+  
+        $totalData = Customer::count();
+            
+        $totalFiltered = $totalData; 
+
+        $limit = $request->input('length');
+        $start = $request->input('start');
+
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+        
+        if(empty($request->input('search.value')))
+        {            
+            $customers = Customer::offset($start)
+                         ->limit($limit)
+                         ->orderBy($order,$dir)
+                         ->get();
+        }
+        else {
+            $search = $request->input('search.value'); 
+
+            $bp1 =  Customer::where('id','LIKE',"%{$search}%")
+                            ->orWhere('nama', 'LIKE',"%{$search}%")
+                            ->orWhere('alamat', 'LIKE',"%{$search}%")
+                            ->orWhere('telepon', 'LIKE',"%{$search}%")
+                            ->orWhere('hp', 'LIKE',"%{$search}%")
+                            ->orWhere('fax', 'LIKE',"%{$search}%")
+                            ->offset($start)
+                            ->limit($limit)
+                            ->orderBy($order,$dir)
+                            ->get();
+
+            $customers = $customers->unique("id")->all();
+
+            $totalFiltered = Customer::where('id','LIKE',"%{$search}%")
+                                ->orWhere('nama', 'LIKE',"%{$search}%")
+                                ->orWhere('alamat', 'LIKE',"%{$search}%")
+                                ->orWhere('telepon', 'LIKE',"%{$search}%")
+                                ->orWhere('hp', 'LIKE',"%{$search}%")
+                                ->orWhere('fax', 'LIKE',"%{$search}%")
+                             ->count();
+        }
+
+        $data = array();
+        if(!empty($customers))
+        {
+            foreach ($customers as $b)
+            {
+                $show =  route('customer.show',$b->id);
+                $edit =  route('customer.edit',$b->id);
+                $delete = route('customer.destroy',$b->id);
+
+                $nestedData['id'] = $b->id;
+                $nestedData['nama'] = $b->nama;
+                $nestedData['alamat'] = $b->alamat == null ? "-" : $b->alamat;
+                $nestedData['telepon'] = $b->telepon == null ? "-" : $b->telepon;
+                $nestedData['hp'] = $b->hp == null ? "-" : $b->hp;
+                $nestedData['fax'] = $b->fax == null ? "-" : $b->fax;
+                $nestedData['options'] = 
+                "<a href='$show' class='btn btn-link btn-info 
+                btn-just-icon show'><i class='material-icons'>favorite</i></a>
+                <a href='$edit' class='btn btn-link btn-warning btn-just-icon edit'><i class='material-icons'>dvr</i></a>
+                <button type='submit' class='btn btn-link btn-danger btn-just-icon remove' onclick='delete_confirmation(event,\"$delete\" )'><i class='material-icons'>close</i></button>";
+                $data[] = $nestedData;
+            }
+        }
+          
+        $json_data = array(
+            "draw"            => intval($request->input('draw')),  
+            "recordsTotal"    => intval($totalData),  
+            "recordsFiltered" => intval($totalFiltered), 
+            "data"            => $data   
+        );
+            
+        return json_encode($json_data);    
     }
+
     /**
      * Display a listing of the resource.
      *

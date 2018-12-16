@@ -23,6 +23,13 @@ Route::middleware(['auth'])->group(function(){
 	Route::resource('brand', 'BrandController');
 	Route::resource('product-type', 'ProductTypeController');
 
+	Route::get('/report/penjualan', 'ReportController@showPenjualan')->name('report_penjualan_show');
+	Route::get('/report/pembelian', 'ReportController@showPembelian')->name('report_pembelian_show');
+
+	Route::get('/report/generate/penjualan', 'ReportController@generatePenjualan')->name('report_generate_penjualan');
+	Route::get('/report/generate/pembelian', 'ReportController@generatePembelian')->name('report_generate_pembelian');
+	Route::get('/report/generate/stok', 'ReportController@generateStok')->name('report_generate_stok');
+
 	Route::get('/barang/report/penjualan/{id}', 'BarangController@reportPenjualan')->name("show_barang_penjualan");
 	Route::get('/barang/report/pembelian/{id}', 'BarangController@reportPembelian')->name("show_barang_pembelian");
 

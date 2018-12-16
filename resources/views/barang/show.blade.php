@@ -4,7 +4,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12 ml-auto mr-auto">
-      <div class="card ">
+      <div class="card " style="height: 700px;">
         <div class="card-header ">
           <h4 class="card-title">Product Informations
             <small class="description"></small>
@@ -345,7 +345,8 @@
         var options = {
           plugins: [
             Chartist.plugins.tooltip()
-          ]
+          ],
+          height: '500px'
         };
         // Create a new line chart object where as first parameter we pass in a selector
         // that is resolving to our chart container element. The Second parameter

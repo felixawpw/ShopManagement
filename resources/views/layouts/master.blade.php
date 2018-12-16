@@ -156,7 +156,7 @@
             <div class="collapse" id="side_bar_report">
               <ul class="nav">
                 <li class="nav-item " id="nav_report_1">
-                  <a class="nav-link" href="#">
+                  <a class="nav-link" href="{!! route('report_penjualan_show') !!}">
                     <i class="material-icons">shopping_cart</i>
                     <span class="sidebar-normal"> Penjualan </span>
                   </a>
@@ -164,9 +164,17 @@
               </ul>
               <ul class="nav">
                 <li class="nav-item " id="nav_report_2">
-                  <a class="nav-link" href="#">
+                  <a class="nav-link" href="{!! route('report_pembelian_show') !!}">
                     <i class="material-icons">shopping_basket</i>
                     <span class="sidebar-normal"> Pembelian </span>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav">
+                <li class="nav-item " id="nav_report_3">
+                  <a class="nav-link" href="#" onclick="showStokAlert();">
+                    <i class="material-icons">list</i>
+                    <span class="sidebar-normal"> Stok </span>
                   </a>
                 </li>
               </ul>
@@ -279,6 +287,53 @@
   <!-- BOOTSTRAP TABLE --> 
 
   <script type="text/javascript">
+    function showStokAlert() {
+      var html = 
+        '<select class="selectpicker col-md-12" data-size="6" title="Single Select" id="penjualan_select_bulan" name="penjualan_select_bulan" data-style="select-with-transition">' +
+          '<option disabled selected>Pilih salah satu</option>'+
+          '<option value="1">Januari</option>'+
+          '<option value="2">Februari</option>'+
+          '<option value="3">Maret</option>'+
+          '<option value="4">April</option>'+
+          '<option value="5">Mei</option>'+
+          '<option value="6">Juni</option>'+
+          '<option value="7">Juli</option>'+
+          '<option value="8">Agustus</option>'+
+          '<option value="9">September</option>'+
+          '<option value="10">Oktober</option>'+
+          '<option value="11">November</option>'+
+          '<option value="12">Desember</option>'+
+        '</select>';
+      swal({
+        title: 'Pilih Bulan',
+        html:'<form method="GET" action="' + '{!! route("report_generate_stok") !!}' + '" target="blank_" id="formStokNav"><select class="form-control" name="bulan" required>' +
+          '<option disabled selected>Pilih salah satu</option>'+
+          '<option value="1">Januari</option>'+
+          '<option value="2">Februari</option>'+
+          '<option value="3">Maret</option>'+
+          '<option value="4">April</option>'+
+          '<option value="5">Mei</option>'+
+          '<option value="6">Juni</option>'+
+          '<option value="7">Juli</option>'+
+          '<option value="8">Agustus</option>'+
+          '<option value="9">September</option>'+
+          '<option value="10">Oktober</option>'+
+          '<option value="11">November</option>'+
+          '<option value="12">Desember</option>'+
+        '</select><input type="text" class="form-control" name="tahun" placeholder="Tahun" required></input></form>',
+        confirmButtonText: "Cetak Laporan Stok"
+      }).then((result) => {
+        $("#formStokNav").submit();
+        if (result.value === true) {
+          location.reload();
+          $("#formStokNav").submit();
+        }
+      });
+    }
+
+    function asdasd() {
+      console.log("Check");
+    }
     Number.prototype.format = function(n, x, s, c) {
         var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
             num = this.toFixed(Math.max(0, ~~n));
@@ -319,25 +374,25 @@
       });
   }
 
-  function delete_ajax(link)
-  {
-    $.ajax({
-      type:'DELETE',
-      url: link,
-      success:function(data){
-        if (data == 1)
-        {
-            var table = $('#datatables').DataTable();
-            table.ajax.reload();
+    function delete_ajax(link)
+    {
+      $.ajax({
+        type:'DELETE',
+        url: link,
+        success:function(data){
+          if (data == 1)
+          {
+              var table = $('#datatables').DataTable();
+              table.ajax.reload();
+              swal(
+              'Deleted!',
+              'Data berhasil didelete.',
+              'success'
+            );
+          }
+          else
             swal(
-            'Deleted!',
-            'Data berhasil didelete.',
-            'success'
-          );
-        }
-        else
-          swal(
-            'Oops...',
+              'Oops...',
             'Data tersebut tidak dapat didelete!',
             'error'
           );

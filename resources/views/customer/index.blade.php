@@ -27,13 +27,12 @@
           	  <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Kode Barang</th>
                   <th>Nama</th>
-                  <th>H.Beli</th>
-                  <th>H.Jual</th>
-                  <th>Stok</th>
-                  <th>Update Terakhir</th>
-                  <th class="disabled-sorting text-right">Actions</th>
+                  <th class="no-sort">Alamat</th>
+                  <th class="no-sort">Telepon</th>
+                  <th class="no-sort">HP</th>
+                  <th class="no-sort">Fax</th>
+                  <th class="no-sort">Actions</th>
                 </tr>
               </thead>
             </table>
@@ -47,7 +46,6 @@
   </div>
   <!-- end row -->
 </div>
-
 @endsection
 
 @section('scripts')
@@ -67,19 +65,22 @@
       "scrollX":true,
 			"ajax":
 				{
-					"url": "{{ route('barang_load') }}",
+					"url": "{{ route('customer_load') }}",
 					"dataType": "json",
 					"type": "POST",
 					"data":{ _token: "{{csrf_token()}}"}
 				},
+      "columnDefs": [ {
+        "targets": 'no-sort',
+        "orderable": false,
+      }],
 			"columns": [
 			    { "data": "id" },
-			    { "data": "kode" },
 			    { "data": "nama" },
-			    { "data": "hbeli" },
-			    { "data": "hjual" },
-			    { "data": "stoktotal" },
-			    { "data": "updated_at" },
+			    { "data": "alamat" },
+			    { "data": "telepon" },
+			    { "data": "hp" },
+			    { "data": "fax" },
 			    { "data": "options" }
 			]	 
 		});
