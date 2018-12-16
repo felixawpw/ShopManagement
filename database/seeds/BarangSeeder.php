@@ -12,7 +12,7 @@ class BarangSeeder extends Seeder
     public function run()
     {
         //
-        factory(\App\Barang::class, 5000)->create()->each(function ($u) {
+        factory(\App\Barang::class, 10000)->create()->each(function ($u) {
         	$u->make();
 	    });
     }
