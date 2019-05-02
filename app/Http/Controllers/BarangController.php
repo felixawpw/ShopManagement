@@ -16,9 +16,7 @@ class BarangController extends Controller
     public function selectize(Request $request)
     {
         $query = $request->input("query");
-        $barangs = Barang::where("nama", 'like', "%$query%")
-                    ->where("kode", 'like', "%$query%")
-                    ->get();
+        $barangs = Barang::all();
         return $barangs;
     }
 
