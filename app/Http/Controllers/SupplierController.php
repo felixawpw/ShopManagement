@@ -144,7 +144,7 @@ class SupplierController extends Controller
         $supplier->namasales = $request->namasales;
         $supplier->teleponsales = $request->teleponsales;
 
-        $status = "1||Success||Berhasil menambahkan supplier $supplier->nama";
+        $status = "1||Selamat||Berhasil menambahkan supplier $supplier->nama";
         try
         {
             $supplier->save();
@@ -165,7 +165,7 @@ class SupplierController extends Controller
                 'table_name' => "Suppliers",
                 'description' => "Insert supplier failed. ".$e->getMessage(),
             ]);
-            $status = "0||Failed||Gagal menambahkan supplier. Pastikan data yang dimasukkan sudah benar!";
+            $status = "0||Perhatian||Gagal menambahkan supplier. Pastikan data yang dimasukkan sudah benar!";
         }
         return redirect()->action('SupplierController@index')->with('status', $status);
     }
@@ -214,7 +214,7 @@ class SupplierController extends Controller
         $supplier->namasales = $request->namasales;
         $supplier->teleponsales = $request->teleponsales;
 
-        $status = "1||Success||Berhasil update supplier $supplier->nama";
+        $status = "1||Selamat||Berhasil update supplier $supplier->nama";
         try
         {
             $supplier->save();
@@ -235,7 +235,7 @@ class SupplierController extends Controller
                 'table_name' => "Suppliers",
                 'description' => "Update supplier failed. ".$e->getMessage(),
             ]);
-            $status = "0||Failed||Gagal update supplier. Pastikan data yang dimasukkan sudah benar!";
+            $status = "0||Perhatian||Gagal update supplier. Pastikan data yang dimasukkan sudah benar!";
         }
         return redirect()->action('SupplierController@index')->with('status', $status);
     }

@@ -8,7 +8,7 @@
         <div class="card-header card-header-primary">
           <div class="row">
             <div class="col-md-auto">
-              <h4 class="card-title ">Data Customer</h4>
+              <h4 class="card-title ">Data Pelanggan</h4>
               <p class="card-category"></p>
             </div>
             <div class="col-md-auto ml-auto">
@@ -32,7 +32,7 @@
                   <th class="no-sort">Telepon</th>
                   <th class="no-sort">HP</th>
                   <th class="no-sort">Fax</th>
-                  <th class="no-sort">Actions</th>
+                  <th class="no-sort">Aksi</th>
                 </tr>
               </thead>
             </table>

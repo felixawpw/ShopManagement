@@ -32,10 +32,10 @@
                 </div>
 
                 <div class="row">
-                  <label class="col-md-3 col-form-label" for="hjual">Brand</label>
+                  <label class="col-md-3 col-form-label" for="hjual">Merk Barang</label>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <select class="selectized" placeholder="Type to search or add Brand" name="brand" id="brand">
+                      <select class="selectized" placeholder="Ketik untuk mencari atau menambahkan merk barang" name="brand" id="brand">
                       </select>
                     </div>
                   </div>
@@ -45,7 +45,7 @@
                   <label class="col-md-3 col-form-label" for="hjual">Jenis Produk</label>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <select class="selectized" placeholder="Type to search or add Product Type" name="product_type" id="product_type">
+                      <select class="selectized" placeholder="Ketik untuk mencari atau menambahkan jenis barang" name="product_type" id="product_type">
                       </select>
                     </div>
                   </div>
@@ -62,40 +62,44 @@
 
                 <div class="row">
                   <label class="col-md-3 col-form-label" for="hbeli">Harga Beli</label>
-                  <div class="col-md-3">
+                  <label class="col-md-1 col-form-label">Rp.</label>
+                  <div class="col-md-2">
                     <div class="form-group">
-                      <input type="text" class="form-control" name="hbeli" id="hbeli" oninput="number_format(this)" required>
+                      <input type="text" class="form-control text-right" name="hbeli" id="hbeli" oninput="number_format(this)" required>
                     </div>
                   </div>
 
                   <label class="col-md-1 col-form-label" for="hjual">Harga Jual</label>
-                  <div class="col-md-3">
+                  <label class="col-md-1 col-form-label">Rp.</label>
+                  <div class="col-md-2">
                     <div class="form-group">
-                      <input type="text" class="form-control" name="hjual" id="hjual" oninput="number_format(this)" required>
+                      <input type="text" class="form-control text-right" name="hjual" id="hjual" oninput="number_format(this)" required>
                     </div>
                   </div>
 
                 </div>
                 <div class="row">
                   <label class="col-md-3 col-form-label" for="stoktotal">Stok Total</label>
-                  <div class="col-md-7">
+                  <label class="col-md-1 col-form-label">Unit</label>
+                  <div class="col-md-2">
                     <div class="form-group">
-                      <input type="text" class="form-control" name="stoktotal" id="stoktotal" oninput="number_format(this)" required>
+                      <input type="text" class="form-control text-right" name="stoktotal" id="stoktotal" oninput="number_format(this)" required>
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <label class="col-md-3 col-form-label" for="hgrosir">Harga Grosir</label>
-                  <div class="col-md-7">
+                  <label class="col-md-1 col-form-label">Rp.</label>
+                  <div class="col-md-2">
                     <div class="form-group">
-                      <input type="text" class="form-control" name="hgrosir" id="hgrosir" oninput="number_format(this)" required>
+                      <input type="text" class="form-control text-right" name="hgrosir" id="hgrosir" oninput="number_format(this)" required>
                     </div>
                   </div>
                 </div>  
                 <div class="row">
                   <div class="col-md-7 offset-md-3">
                     <div class="form-group">
-                      <button type="submit" class="btn btn-fill btn-primary col-md-12">Submit</button>
+                      <button type="submit" class="btn btn-fill btn-primary col-md-12">Simpan</button>
                     </div>
                   </div>
                 </div>

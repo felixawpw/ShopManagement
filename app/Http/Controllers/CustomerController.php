@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Customer;
+use App\Customer, App\Log, Auth;
 class CustomerController extends Controller
 {
     public function selectize(Request $request)
@@ -149,12 +149,35 @@ class CustomerController extends Controller
             $customer->hutang = 0;
             $customer->deposit = 0;
         }
-        $customer->save();
+
+        $status = "1||Selamat||Berhasil menambahkan pelanggan $customer->nama";
+        try
+        {
+            $customer->save();
+            Log::create([
+                'level' => "Info",
+                'user_id' => Auth::id(),
+                'action' => "Insert",
+                'table_name' => "Customers",
+                'description' => "Insert customer success(ID = $customer->id , Nama = $customer->nama)",
+            ]);
+        }
+        catch(\Exception $e)
+        {
+            Log::create([
+                'level' => "Warning",
+                'user_id' => Auth::id(),
+                'action' => "Insert",
+                'table_name' => "Customers",
+                'description' => "Insert customer failed. ".$e->getMessage(),
+            ]);
+            $status = "0||Perhatian||Gagal menambahkan pelanggan. Pastikan data yang dimasukkan sudah benar!";
+        }
         
         if ($request->tipe == "ajax")
             return $customer;
         else
-            return redirect()->action('CustomerController@index');
+            return redirect()->action('CustomerController@index')->with('status', $status);
     }
 
     /**
@@ -197,13 +220,34 @@ class CustomerController extends Controller
         $customer->nama = $request->nama;
         $customer->alamat = $request->alamat;
         $customer->telepon = $request->telepon;
-        $customer->alamat = $request->alamat;
         $customer->hp = $request->hp;
         $customer->fax = $request->fax;
-        $customer->hutang = $request->hutang;
-        $customer->deposit = $request->deposit;
-        $customer->save();
-        return redirect()->action('CustomerController@index');
+
+        $status = "1||Selamat||Berhasil update customer $customer->nama";
+        try
+        {
+            $customer->save();
+            Log::create([
+                'level' => "Info",
+                'user_id' => Auth::id(),
+                'action' => "Update",
+                'table_name' => "Customers",
+                'description' => "Update pelanggan success(ID = $customer->id , Nama = $customer->nama)",
+            ]);
+        }
+        catch(\Exception $e)
+        {
+            Log::create([
+                'level' => "Warning",
+                'user_id' => Auth::id(),
+                'action' => "Update",
+                'table_name' => "Customers",
+                'description' => "Update customer failed. ".$e->getMessage(),
+            ]);
+            $status = "0||Perhatian||Gagal mengupdate pelanggan. Pastikan data yang dimasukkan sudah benar!";
+        }
+        
+        return redirect()->action('CustomerController@index')->with('status', $status);
     }
 
     /**
@@ -216,7 +260,31 @@ class CustomerController extends Controller
     {
         //
         $customer = Customer::find($id);
-        $customer->delete();
-        return redirect()->action('CustomerController@index');
+
+        $status = 1;
+        try
+        {
+            $customer->delete();
+            Log::create([
+                'level' => "Info",
+                'user_id' => Auth::id(),
+                'action' => "Delete",
+                'table_name' => "Customers",
+                'description' => "Delete customer",
+            ]);
+        }
+        catch(\Exception $e)
+        {
+            Log::create([
+                'level' => "Warning",
+                'user_id' => Auth::id(),
+                'action' => "Delete",
+                'table_name' => "Customers",
+                'description' => "Delete customer failed. ".$e->getMessage(),
+            ]);
+            $status = 0;
+        }
+
+        return 1;
     }
 }

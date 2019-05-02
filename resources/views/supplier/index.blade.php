@@ -8,7 +8,7 @@
         <div class="card-header card-header-primary">
           <div class="row">
             <div class="col-md-auto">
-              <h4 class="card-title ">Data Supplier</h4>
+              <h4 class="card-title ">Data Pemasok</h4>
               <p class="card-category"></p>
             </div>
             <div class="col-md-auto ml-auto">
@@ -34,7 +34,7 @@
                   <th>Nama Sales</th>
                   <th>Telepon Sales</th>
                   <th>Pembelian Terakhir</th>
-                  <th class="disabled-sorting text-right">Actions</th>
+                  <th class="disabled-sorting text-right">Aksi</th>
                 </tr>
               </thead>
             </table>

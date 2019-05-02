@@ -28,7 +28,7 @@
                   <label class="col-md-3 col-form-label" for="hbeli">Nomor Invoice/Faktur</label>
                   <div class="col-md-7">
                     <div class="form-group">
-                      <input type="text" class="form-control" name="no_faktur" id="no_faktur" required>
+                      <input type="text" class="form-control" name="no_faktur" id="no_faktur" required value="{!! $no_faktur !!}">
                     </div>
                   </div>
                 </div>
@@ -52,10 +52,10 @@
                 </div>
 
                 <div class="row">
-                  <label class="col-md-3 col-form-label" for="hjual">Supplier</label>
+                  <label class="col-md-3 col-form-label" for="hjual">Pemasok</label>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <select class="selectized" placeholder="Choose Supplier" name="supplier" id="select_supplier" required>
+                      <select class="selectized" placeholder="Pilih Pemasok" name="supplier" id="select_supplier" required>
                       </select>
                     </div>
                   </div>
@@ -65,7 +65,7 @@
                   <label class="col-md-3 col-form-label" for="hgrosir">Status Pembayaran</label>
                   <div class="col-md-7">
                     <div class="form-group">
-                      <select class="selectpicker" data-style="select-with-transition" title="Choose Status Pembayaran" data-size="7" name="status_pembayaran" id="status_pembayaran">
+                      <select class="selectpicker" data-style="select-with-transition" title="Pilih Status Pembayaran" data-size="7" name="status_pembayaran" id="status_pembayaran">
                         <option value="1">Lunas</option>
                         <option value="0">BG</option>
                       </select>
@@ -113,7 +113,7 @@
                 <div class="row">
                   <div class="col-md-7 offset-md-3">
                     <div class="form-group">
-                      <button type="submit" class="btn btn-fill btn-primary col-md-12">Submit</button>
+                      <button type="submit" class="btn btn-fill btn-primary col-md-12">Simpan</button>
                     </div>
                   </div>
                 </div>

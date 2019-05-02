@@ -7,7 +7,7 @@
 		<div class="col-md-6">
 		  <div class="card ">
 		    <div class="card-header card-header-primary">
-		      <h4 class="card-title">Daily Income Report
+		      <h4 class="card-title">Laporan Pendapatan Harian
 		        <small class="description"></small>
 		      </h4>
 		    </div>
@@ -16,7 +16,7 @@
 		    		<div class="col-md-6 mr-auto text-center">
 					      <div class="card ">
 					        <div class="card-header card-header-success">
-					          <h4 class="card-title">Total Sales
+					          <h4 class="card-title">Total Penjualan
 					            <small class="description"></small>
 					          </h4>
 					        </div>
@@ -28,7 +28,7 @@
 		    		<div class="col-md-6 mr-auto text-center">
 				      <div class="card ">
 				        <div class="card-header card-header-success">
-				          <h4 class="card-title">Profit
+				          <h4 class="card-title">Total Laba
 				            <small class="description"></small>
 				          </h4>
 				        </div>
@@ -46,7 +46,7 @@
 		<div class="col-md-6">
 		  <div class="card ">
 		    <div class="card-header card-header-primary">
-		      <h4 class="card-title">Daily Inventory Report
+		      <h4 class="card-title">Laporan Penjualan Barang Harian
 		        <small class="description"></small>
 		      </h4>
 		    </div>
@@ -56,17 +56,17 @@
 		            <ul class="nav nav-pills nav-pills-primary flex-column" role="tablist">
 		              <li class="nav-item">
 		                <a class="nav-link active" data-toggle="tab" href="#nav_pills_name" role="tablist">
-		                  By Name
+		                  Per Nama
 		                </a>
 		              </li>
 		              <li class="nav-item">
 		                <a class="nav-link" data-toggle="tab" href="#nav_pills_category" role="tablist">
-		                  By Category
+		                  Per Tipe Barang
 		                </a>
 		              </li>
 		              <li class="nav-item">
 		                <a class="nav-link" data-toggle="tab" href="#nav_pills_brand" role="tablist">
-		                  By Brand
+		                  Per Merk
 		                </a>
 		              </li>
 		            </ul>
@@ -150,7 +150,7 @@
 		    <div class="card-header card-header-primary">
 		      <div class="row">
 		        <div class="col-md-auto">
-		          <h4 class="card-title ">Due Date BG/Credits</h4>
+		          <h4 class="card-title ">Tanggal Pembayaran Kredit</h4>
 		        </div>
 		      </div>
 		    </div>
@@ -161,12 +161,12 @@
 		      <ul class="nav nav-pills nav-pills-warning" role="tablist">
 		        <li class="nav-item">
 		          <a class="nav-link active" data-toggle="tab" href="#tab_calendar" role="tablist">
-		            Calendar
+		            Kalender
 		          </a>
 		        </li>
 		        <li class="nav-item">
 		          <a class="nav-link" data-toggle="tab" href="#tab_table" role="tablist">
-		            Table View
+		            Tabel
 		          </a>
 		        </li>
 		      </ul>

@@ -117,7 +117,7 @@ class PembelianController extends Controller
         $date = Carbon::now()->format("d-m-Y");
         $no_nota = "SP/PB/$date/$p";
         $date = Carbon::now()->format("dmY-");
-        $no_faktur = "$date$p";
+        $no_faktur = "B-$date$p";
         $suppliers = Supplier::all();
         $barangs = Barang::all();
         return view('pembelian.create', compact('no_nota' , 'suppliers', 'barangs', 'no_faktur'));
@@ -140,7 +140,7 @@ class PembelianController extends Controller
         $pembelian->supplier_id = $request->supplier;
         $pembelian->user_id = Auth::user()->id;
         $pembelian->status_pembayaran = $request->status_pembayaran;
-        $status = "1||Success||Berhasil menambahkan transaksi pembelian dengan nomor nota $pembelian->no_nota";
+        $status = "1||Selamat||Berhasil menambahkan transaksi pembelian dengan nomor nota $pembelian->no_nota";
         DB::beginTransaction();
         try
         {
@@ -183,7 +183,7 @@ class PembelianController extends Controller
                 'table_name' => "Pembelians",
                 'description' => "Insert pembelian failed. ".$e->getMessage(),
             ]);
-            $status = "0||Failed||Gagal menambahkan pembelian. Pastikan data yang dimasukkan sudah benar!";
+            $status = "0||Perhatian||Gagal menambahkan pembelian. Pastikan data yang dimasukkan sudah benar!";
         }
         DB::commit();
         return redirect()->action('PembelianController@index')->with("status", $status);
@@ -236,7 +236,37 @@ class PembelianController extends Controller
     {
         //
         $pembelian = Pembelian::find($id);
-        $pembelian->delete();
-        return redirect()->action('PembelianController@index');
+        $status = 1;
+        try
+        {
+            $barangs = $pembelian->barangs;
+            foreach($barangs as $b)
+            {
+                $qty = $b->pivot->quantity;
+                $b->stoktotal -= $qty;
+                $b->save();
+            }
+            $pembelian->delete();
+            
+            Log::create([
+                'level' => "Info",
+                'user_id' => Auth::id(),
+                'action' => "Delete",
+                'table_name' => "Pembelians",
+                'description' => "Delete pembelian success(ID = $pembelian->id, Supplier = ".$pembelian->supplier->nama.")",
+            ]);
+        }
+        catch(\Exception $e)
+        {
+            Log::create([
+                'level' => "Warning",
+                'user_id' => Auth::id(),
+                'action' => "Delete",
+                'table_name' => "Pembelians",
+                'description' => "Delete pembelian failed. ".$e->getMessage(),
+            ]);
+            $status = 0;
+        }
+        return $status;
     }
 }

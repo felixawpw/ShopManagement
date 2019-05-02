@@ -27,8 +27,8 @@
 							<div class="col-md-6">
 								<p class="" style="font-size: 24px;">
 									<b>Sripuja Elektronik</b><br>
-									Jl. Danau Buyan no. 12<br>
-									Telp. (0365) 
+									Jl. Danau Buyan no. 12, Negara, Bali<br>
+									Telp. (0365) 41713
 								</p>
 							</div>
 							<div class="col-md-3 ml-auto">

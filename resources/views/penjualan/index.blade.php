@@ -31,9 +31,9 @@
                   <th>No. Invoice</th>
                   <th>Tanggal</th>
                   <th>Total</th>
-                  <th>Nama Customer</th>
-                  <th>Nama User</th>
-                  <th class="disabled-sorting text-right">Actions</th>
+                  <th>Nama Pelanggan</th>
+                  <th>Nama Pengguna</th>
+                  <th class="disabled-sorting text-right">Aksi</th>
                 </tr>
               </thead>
             </table>

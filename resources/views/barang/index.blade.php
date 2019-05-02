@@ -35,7 +35,7 @@
                   <th>H.Jual</th>
                   <th>Stok</th>
                   <th>Update Terakhir</th>
-                  <th class="disabled-sorting text-right">Actions</th>
+                  <th class="disabled-sorting text-right">Aksi</th>
                 </tr>
               </thead>
             </table>

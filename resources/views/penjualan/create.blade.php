@@ -44,10 +44,10 @@
                 </div>
 
                 <div class="row">
-                  <label class="col-md-3 col-form-label" for="hjual">Customer</label>
+                  <label class="col-md-3 col-form-label" for="hjual">Pelanggan</label>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <select class="selectized" placeholder="Choose Customer" name="customer" id="select_customer">
+                      <select class="selectized" placeholder="Pilih/buat pelanggan" name="customer" id="select_customer">
                       </select>
                     </div>
                   </div>
@@ -72,7 +72,7 @@
                           <tfoot>
                             <tr>
                               <td colspan="2">
-                                <select id="select_barang" placeholder="Type kode/nama barang untuk tambah item"></select>
+                                <select id="select_barang" placeholder="Ketikkan kode/nama barang untuk tambah item"></select>
                               </td>
                             </tr>
                             <tr>
@@ -93,7 +93,7 @@
                 <div class="row">
                   <div class="col-md-7 offset-md-3">
                     <div class="form-group">
-                      <button type="submit" class="btn btn-fill btn-primary col-md-12">Submit</button>
+                      <button type="submit" class="btn btn-fill btn-primary col-md-12">Simpan</button>
                     </div>
                   </div>
                 </div>

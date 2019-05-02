@@ -57,7 +57,7 @@
                         <div class="choice" data-toggle="wizard-radio">
                           <input type="radio" name="tipe" value="grafik">
                           <div class="icon">
-                            <i class="fa fa-pencil"></i>
+                            <i class="material-icons">show_chart</i>
                           </div>
                           <h6>Grafik</h6>
                         </div>
@@ -66,7 +66,7 @@
                         <div class="choice" data-toggle="wizard-radio">
                           <input type="radio" name="tipe" value="printout">
                           <div class="icon">
-                            <i class="fa fa-terminal"></i>
+                            <i class="material-icons">print</i>
                           </div>
                           <h6>Print Out</h6>
                         </div>

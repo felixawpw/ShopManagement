@@ -9,14 +9,14 @@
               <div class="card-icon">
                 <i class="material-icons">add</i>
               </div>
-              <h4 class="card-title">Tambah Supplier</h4>
+              <h4 class="card-title">Edit Pemasok</h4>
             </div>
             <div class="card-body ">
               <form class="form-horizontal" method="POST" action="{{ route('supplier.update', $supplier->id) }}">
                 {{csrf_field()}}
                 @method('PUT')
                 <div class="row">
-                  <label class="col-md-3 col-form-label" for="nama">Nama Supplier</label>
+                  <label class="col-md-3 col-form-label" for="nama">Nama Pemasok</label>
                   <div class="col-md-7">
                     <div class="form-group has-default">
                       <input type="text" class="form-control" name="nama" id="nama" required value="{!! $supplier->nama !!}">
@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="row">
-                  <label class="col-md-3 col-form-label" for="telepon">Telepon Supplier</label>
+                  <label class="col-md-3 col-form-label" for="telepon">Telepon Pemasok</label>
                   <div class="col-md-7">
                     <div class="form-group">
                       <input type="text" class="form-control" name="telepon" id="telepon" required value="{!! $supplier->telepon !!}">

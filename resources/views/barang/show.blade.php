@@ -6,7 +6,7 @@
     <div class="col-md-12 ml-auto mr-auto">
       <div class="card " style="height: 700px;">
         <div class="card-header ">
-          <h4 class="card-title">Product Informations
+          <h4 class="card-title">Informasi Produk
             <small class="description"></small>
           </h4>
         </div>
@@ -65,7 +65,7 @@
                           </div>
                         </div>
                         <div class="row">
-                          <label class="col-md-3 col-form-label" for="kode">Brand</label>
+                          <label class="col-md-3 col-form-label" for="kode">Merk Barang</label>
                           <div class="col-md-9">
                             <div class="form-group has-default">
                               <input type="text" class="form-control" disabled value="{!! $barang->brand->nama !!}">
@@ -185,7 +185,7 @@
                     </div>
 
                     <div class="col-md-4">
-                      <a href="#" class="btn btn-primary" onclick="loadPenjualan()">Submit</a>
+                      <a href="#" class="btn btn-primary" onclick="loadPenjualan()">Kirim</a>
                     </div>
                   </div>
 
@@ -211,7 +211,7 @@
                           <th>Nama Supplier</th>
                           <th>Nama User</th>
                           <th>Status Pembayaran</th>
-                          <th class="disabled-sorting text-right">Actions</th>
+                          <th class="disabled-sorting text-right">Aksi</th>
                         </tr>
                       </thead>
                     </table>

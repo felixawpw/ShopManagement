@@ -9,13 +9,13 @@
               <div class="card-icon">
                 <i class="material-icons">add</i>
               </div>
-              <h4 class="card-title">Tambah Supplier</h4>
+              <h4 class="card-title">Tambah Pemasok</h4>
             </div>
             <div class="card-body ">
               <form class="form-horizontal" method="POST" action="{{ route('supplier.store') }}">
                 {{csrf_field()}}
                 <div class="row">
-                  <label class="col-md-3 col-form-label" for="nama">Nama Supplier</label>
+                  <label class="col-md-3 col-form-label" for="nama">Nama Pemasok</label>
                   <div class="col-md-7">
                     <div class="form-group has-default">
                       <input type="text" class="form-control" name="nama" id="nama" required>
@@ -67,7 +67,7 @@
                 <div class="row">
                   <div class="col-md-7 offset-md-3">
                     <div class="form-group">
-                      <button type="submit" class="btn btn-fill btn-primary col-md-12">Submit</button>
+                      <button type="submit" class="btn btn-fill btn-primary col-md-12">Simpan</button>
                     </div>
                   </div>
                 </div>

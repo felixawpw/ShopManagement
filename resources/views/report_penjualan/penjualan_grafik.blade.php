@@ -36,7 +36,7 @@
 		    		<div class="col-md-6">
 		    			<div class="card">
 		    				<div class="card-header card-header-success">
-							    <h4 class="card-title">Penjualan per Brand
+							    <h4 class="card-title">Penjualan per Merk
 							        <small class="description"></small>
 							    </h4>
 		    				</div>
@@ -52,7 +52,7 @@
 		    		<div class="col-md-6">
 		    			<div class="card">
 		    				<div class="card-header card-header-success">
-							    <h4 class="card-title">Penjualan per Tipe Barang
+							    <h4 class="card-title">Penjualan per Jenis Barang
 							        <small class="description"></small>
 							    </h4>
 		    				</div>

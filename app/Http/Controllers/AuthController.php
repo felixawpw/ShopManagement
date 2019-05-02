@@ -28,7 +28,7 @@ class AuthController extends Controller
                 'description' => "Login success for ".Auth::id(),
             ]);
 
-            $status = "1||Login Success||Welcome to Sripuja Elektronik admin panel!";
+            $status = "1||Login Berhasil||Selamat datang di panel admin Sripuja Elektronik!";
     		return redirect()->route('home')->with('status', $status);
     	}
         Log::create([
@@ -38,7 +38,7 @@ class AuthController extends Controller
             'table_name' => "Users",
             'description' => "Login failed. Tried username = $request->username , password = $request->password",
         ]);
-        $status = "0||Failed||Invalid Credential!";
+        $status = "0||Login Gagal||Username atau password yang anda masukkan salah!";
     	return redirect()->back()->with("status", $status);
     }
 

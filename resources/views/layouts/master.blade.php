@@ -76,7 +76,7 @@
           <li class="nav-item" id="dashboard">
             <a class="nav-link" href="{{route('home')}}">
               <i class="material-icons">dashboard</i>
-              <p>Dashboard</p>
+              <p>Halaman Utama</p>
             </a>
           </li>
 
@@ -84,7 +84,7 @@
             <a class="nav-link" href="{!! route('barang.index') !!}">
               <i class="material-icons">card_travel</i>
               <p>
-                Inventory
+                Master Barang
               </p>
             </a>
           </li>
@@ -93,7 +93,7 @@
             <a class="nav-link" data-toggle="collapse" href="#side_bar_relation"">
               <i class="material-icons">person</i>
               <p>
-                Relation
+                Relasi
                 <b class="caret"></b>
               </p>
             </a>
@@ -102,7 +102,7 @@
                 <li class="nav-item " id="nav_supplier">
                   <a class="nav-link" href="{!! route('supplier.index') !!}">
                     <i class="material-icons">list</i>
-                    <span class="sidebar-normal"> Supplier </span>
+                    <span class="sidebar-normal"> Pemasok </span>
                   </a>
                 </li>
               </ul>
@@ -110,7 +110,7 @@
                 <li class="nav-item " id="nav_customer">
                   <a class="nav-link" href="{!! route('customer.index') !!}">
                     <i class="material-icons">list</i>
-                    <span class="sidebar-normal"> Customer </span>
+                    <span class="sidebar-normal"> Pelanggan </span>
                   </a>
                 </li>
               </ul>
@@ -149,7 +149,7 @@
             <a class="nav-link" data-toggle="collapse" href="#side_bar_report" id="nav_report_side">
               <i class="material-icons">trending_up</i>
               <p>
-                Report
+                Laporan
                 <b class="caret"></b>
               </p>
             </a>
@@ -187,7 +187,7 @@
             </form>
             <a class="nav-link" href="#" onclick="logout()">
               <i class="material-icons">exit_to_app</i>
-              <p>Logout</p>
+              <p>Keluar</p>
             </a>
           </li>
         @endif
@@ -360,13 +360,13 @@
     {
       e.preventDefault();
       swal({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: 'Apakah anda yakin?',
+        text: "Anda tidak dapat mengembalikan data yang sudah dihapus!",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Ya, hapus barangnya!'
       }).then((result) => {
         if (result) {
           delete_ajax(link);
@@ -385,15 +385,15 @@
               var table = $('#datatables').DataTable();
               table.ajax.reload();
               swal(
-              'Deleted!',
-              'Data berhasil didelete.',
+              'Terhapus!',
+              'Data berhasil dihapus.',
               'success'
             );
           }
           else
             swal(
               'Oops...',
-            'Data tersebut tidak dapat didelete!',
+            'Data tersebut tidak dapat dihapus!',
             'error'
           );
       }

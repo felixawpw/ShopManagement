@@ -127,7 +127,7 @@ class PenjualanController extends Controller
         $date = Carbon::now()->format("d-m-Y");
         $no_nota = "SP/PJ/$date/$p";
         $date = Carbon::now()->format("dmY-");
-        $no_faktur = "$date$p";
+        $no_faktur = "PB$date$p";
         $barangs = Barang::all();
         $customers = Customer::all();
         return view('penjualan.create', compact('no_nota', 'barangs', 'no_faktur', 'customers'));
@@ -152,7 +152,7 @@ class PenjualanController extends Controller
         $penjualan->user_id = Auth::user()->id;
         $penjualan->total = 0;
 
-        $status = "1||Success||Berhasil menambahkan transaksi penjualan dengan nomor nota $penjualan->no_nota";
+        $status = "1||Selamat||Berhasil menambahkan transaksi penjualan dengan nomor nota $penjualan->no_nota";
         DB::beginTransaction();
         try
         {
@@ -234,7 +234,7 @@ class PenjualanController extends Controller
                 'table_name' => "Penjualans",
                 'description' => "Insert penjualan failed. ".$e->getMessage(),
             ]);
-            $status = "0||Failed||Gagal menambahkan penjualan. Pastikan data yang dimasukkan sudah benar!";
+            $status = "0||Perhatian||Gagal menambahkan penjualan. Pastikan data yang dimasukkan sudah benar!";
         }
         DB::commit();
         if ($status[0] == "1")

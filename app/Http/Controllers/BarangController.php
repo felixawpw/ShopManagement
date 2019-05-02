@@ -16,7 +16,9 @@ class BarangController extends Controller
     public function selectize(Request $request)
     {
         $query = $request->input("query");
-        $barangs = Barang::where("nama", 'like', "%$query%")->get();
+        $barangs = Barang::where("nama", 'like', "%$query%")
+                    ->where("kode", 'like', "%$query%")
+                    ->get();
         return $barangs;
     }
 
@@ -331,7 +333,7 @@ class BarangController extends Controller
         $barang->brand_id = $request->brand;
         $barang->product_type_id = $request->product_type;
 
-        $status = "1||Success||Berhasil menambahkan barang $barang->kode : $barang->nama";
+        $status = "1||Selamat||Berhasil menambahkan barang $barang->kode : $barang->nama";
         try
         {
             $barang->save();
@@ -352,7 +354,7 @@ class BarangController extends Controller
                 'table_name' => "Barangs",
                 'description' => "Insert barang failed. ".$e->getMessage(),
             ]);
-            $status = "0||Failed||Gagal menambahkan barang. Pastikan data yang dimasukkan sudah benar!";
+            $status = "0||Perhatian||Gagal menambahkan barang. Pastikan data yang dimasukkan sudah benar!";
         }
         return redirect()->action('BarangController@index')->with('status', $status);
     }
@@ -406,7 +408,7 @@ class BarangController extends Controller
         $barang->brand_id = $request->brand;
         $barang->product_type_id = $request->product_type;
         
-        $status = "1||Success||Berhasil mengupdate barang $barang->kode : $barang->nama";
+        $status = "1||Selamat||Berhasil mengupdate barang $barang->kode : $barang->nama";
         try
         {
             $barang->save();
@@ -427,7 +429,7 @@ class BarangController extends Controller
                 'table_name' => "Barang",
                 'description' => "Update barang failed. ".$e->getMessage(),
             ]);
-            $status = "0||Failed||Gagal update barang. Pastikan data yang dimasukkan sudah benar!";
+            $status = "0||Perhatian||Gagal update barang. Pastikan data yang dimasukkan sudah benar!";
         }
         return redirect()->action('BarangController@index')->with('status', $status);
     }
