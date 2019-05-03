@@ -122,9 +122,7 @@ class PenjualanController extends Controller
     public function create()
     {
         //
-        $today = Carbon::now();
-        $today = $today->addDays(1);
-        $p = Penjualan::whereDate('created_at', '=', $today->format("Y-m-d"))->get();
+        $p = Penjualan::whereDate('created_at', '=', Carbon::now()->format("Y-m-d"))->get();
         $max = 0;
         foreach ($p as $pe) {
             $number = explode("/", $pe->no_nota);
