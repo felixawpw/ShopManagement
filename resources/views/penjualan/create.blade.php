@@ -189,6 +189,23 @@
             '</div>';
         }
       },
+      onInitialize: function() {
+        $.ajax({
+          url: "{!! route('selectize_barang') !!}",
+          data: { query: query},
+          dataType: "json",
+          type: 'GET',
+          error: function(e) {
+            callback();
+            console.log(e);
+          },
+          success: function(res) {
+            console.log(res);
+            barangs = res;
+            callback(res);
+          } 
+        });
+      },
       load: (query, callback) => {
         if (query.length) {
           $.ajax({

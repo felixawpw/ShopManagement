@@ -122,8 +122,15 @@ class PenjualanController extends Controller
     public function create()
     {
         //
-        $p = Penjualan::whereDate('created_at', '=', Carbon::now()->format("Y-m-d"))->count() + 1;
-        $p = sprintf('%03d', $p);
+        $p = Penjualan::whereDate('created_at', '=', Carbon::now()->format("Y-m-d"))->get();
+        $max = 0;
+        foreach ($p as $pe) {
+            $number = explode("/", $pe->no_nota);
+            $max = max($max, (int)$number[3]);
+        }
+        $max = $max+1;
+        $p = sprintf('%03d', $max);
+
         $date = Carbon::now()->format("d-m-Y");
         $no_nota = "SP/PJ/$date/$p";
         $date = Carbon::now()->format("dmY-");
