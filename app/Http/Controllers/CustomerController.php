@@ -45,7 +45,7 @@ class CustomerController extends Controller
         else {
             $search = $request->input('search.value'); 
 
-            $bp1 =  Customer::where('id','LIKE',"%{$search}%")
+            $customers =  Customer::where('id','LIKE',"%{$search}%")
                             ->orWhere('nama', 'LIKE',"%{$search}%")
                             ->orWhere('alamat', 'LIKE',"%{$search}%")
                             ->orWhere('telepon', 'LIKE',"%{$search}%")
