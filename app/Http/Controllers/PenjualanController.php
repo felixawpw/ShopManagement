@@ -197,6 +197,7 @@ class PenjualanController extends Controller
                         }
                         else
                         {
+
                             $pbn = $pembeliansBarang[$pointerPembeliansBarang];
                             $totalDipakai = 0;
                             if ($pbn->pivot->sisa < $tempQty)
@@ -218,6 +219,12 @@ class PenjualanController extends Controller
                     $hbeli /= $qty;
                     $penjualan->barangs()->attach($idBarang, 
                         ['quantity' => $qty, 'hbeli' => $hbeli,'hjual' => $harga]);
+                    
+                    $ss = $barang->pembelians()->wherePivot('sisa', '>', 0)->orderBy("pembelians.created_at", 'asc')
+                        ->orderBy('pembelians.created_at')->first();
+                    $barang->hbeli = $ss->pivot->hbeli;
+                    $barang->save();
+
 
                 }
             }

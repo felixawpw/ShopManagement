@@ -7,6 +7,18 @@ use App\Supplier, App\Barang, App\Customer;
 class AjaxController extends Controller
 {
     //
+    public function test()
+    {
+        $barang = Barang::find(1);
+        $pembelian = $barang->pembelians()->wherePivot('sisa', '>', 0)->orderBy("pembelians.created_at", 'asc')
+            ->orderBy('pembelians.created_at')->first();
+        $barang->hbeli = $pembelian->pivot->hbeli;
+        $barang->save();
+
+        return $barang;
+    }
+
+
     public function addSupplier()
     {
     	return view('template.supplier');
@@ -40,10 +52,5 @@ class AjaxController extends Controller
         $customer->save();
         return $customer->id."&".$customer->nama;
     }
-    public function test()
-    {
-        $barang = Barang::find(1)->pembelians()->where('sisa', '>', 0)->orderBy('hbeli', 'asc')->first();
-        //$barang->hbeli;
-        return $barang->pivot->hbeli;
-    }   
+   
 }

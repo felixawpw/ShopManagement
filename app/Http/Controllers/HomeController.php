@@ -21,33 +21,6 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    public function test()
-    {
-        $search = "a";
-        $bp1 =  Barang::where('id','LIKE',"%{$search}%")
-                ->orWhere('nama', 'LIKE',"%{$search}%")
-                ->orWhere('kode', 'LIKE',"%{$search}%")
-                ->get();
-
-        $byBrand = \App\Brand::where('nama', 'LIKE', "%{$search}%")->get();
-        $byProductType = \App\ProductType::where('nama', 'LIKE', "%{$search}%")->get();
-
-        $barangs = new Collection($bp1);
-
-        foreach($byBrand as $b)
-        {
-            $barangs = $barangs->merge(new Collection($b->barangs));
-        }
-
-        foreach($byProductType as $b)
-        {
-            $barangs = $barangs->merge(new Collection($b->barangs));
-        }
-        
-        $barangs = $barangs->unique("id")->values()->all();
-
-        return $barangs;
-    }
 
     private function getDialyReport($start, $end)
     {

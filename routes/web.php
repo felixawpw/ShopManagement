@@ -62,8 +62,9 @@ Route::middleware(['auth'])->group(function(){
 	
 	Route::get('/invoice/{id}', 'PenjualanController@invoice')->name('invoice');
 	Route::get('/suratjalan/{id}', 'PenjualanController@suratjalan')->name('suratjalan');
-	Route::get('/test', 'HomeController@test');
 });
+
+Route::get('/test', 'AjaxController@test');
 
 Route::get('login', 'AuthController@showLogin')->name('login');
 Route::post('login', 'AuthController@login')->name('do_login');
