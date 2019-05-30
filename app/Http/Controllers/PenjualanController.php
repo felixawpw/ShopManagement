@@ -219,13 +219,13 @@ class PenjualanController extends Controller
                     $hbeli /= $qty;
                     $penjualan->barangs()->attach($idBarang, 
                         ['quantity' => $qty, 'hbeli' => $hbeli,'hjual' => $harga]);
-                    
+
                     $ss = $barang->pembelians()->wherePivot('sisa', '>', 0)->orderBy("pembelians.created_at", 'asc')
                         ->orderBy('pembelians.created_at')->first();
-                    $barang->hbeli = $ss->pivot->hbeli;
-                    $barang->save();
-
-
+                    if ($ss != null) {
+                        $barang->hbeli = $ss->pivot->hbeli;
+                        $barang->save();
+                    }
                 }
             }
             $penjualan->total = $total;
