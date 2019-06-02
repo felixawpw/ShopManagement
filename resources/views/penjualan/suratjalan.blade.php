@@ -32,7 +32,7 @@
 								</p>
 							</div>
 							<div class="col-md-3 ml-auto">
-								<p class="text-primary" style="font-size: 24px;">INVOICE</p>
+								<p class="text-primary" style="font-size: 24px;">SURAT JALAN</p>
 							</div>
 						</div>
 						<hr style="border-top:5px solid rgba(0,0,0,0.4);">
