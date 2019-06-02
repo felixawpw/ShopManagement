@@ -18,8 +18,8 @@
 	  <link rel="stylesheet" type="text/css" href="{{asset('assets/css/selectize.default.css')}}">
 	</head>
 	<body>
-		<div class="wrapper">
-			<div class="main-panel">
+		
+			
 				<div class="content">
 					<div class="container-fluid">
 						<div class="row">
@@ -59,13 +59,13 @@
 							</div>
 						</div>
 
-						<div class="row" style="margin-top: 3rem;">
+						<div class="row">
 							<div class="col-md-12">
 								<div class="table-responsive">
 									<table class="table table-bordered">
 										<thead class="text-primary text-center">
 											<tr>
-												<th style="width:15%;">Qty</th>
+												<th style="width:15%;">Jumlah</th>
 												<th style="width:45%;">Nama Barang</th>
 												<th style="width:20%;">Harga Unit</th>
 												<th style="width:20%;">Total</th>
@@ -90,7 +90,7 @@
 										<tfoot class="text-primary text-right">
 											<tr>
 												<td colspan="2"></td>
-												<td>Total</td>
+												<td>Grand Total</td>
 												<td>Rp{!! number_format($total,2,",",".") !!}</td>
 											</tr>
 										</tfoot>
@@ -100,14 +100,12 @@
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
+		
 
 	<script src="{{asset('assets/js/core/jquery.min.js')}}" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			window.print();
-			window.close();
 		});
 	</script>
 	</body>
