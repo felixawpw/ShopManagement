@@ -19,7 +19,7 @@
 	</head>
 	<body>
 		<div class="wrapper">
-			<div class="main-panel">
+			
 				<div class="content">
 					<div class="container-fluid">
 						<div class="row">
@@ -59,7 +59,7 @@
 							</div>
 						</div>
 
-						<div class="row" style="margin-top: 3rem;">
+						<div class="row">
 							<div class="col-md-12">
 								<div class="table-responsive">
 									<table class="table table-bordered">
@@ -86,7 +86,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
 		</div>
 
 	<script src="{{asset('assets/js/core/jquery.min.js')}}" type="text/javascript"></script>
