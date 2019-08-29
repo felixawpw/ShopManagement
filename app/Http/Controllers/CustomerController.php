@@ -110,7 +110,7 @@ class CustomerController extends Controller
     {
         //
         $customers = Customer::all();
-        return view('customer.index', compact('customer'));
+        return view('customer.index', compact('customers'));
     }
 
     /**

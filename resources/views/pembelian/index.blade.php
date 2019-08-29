@@ -33,7 +33,7 @@
                   <th>Total</th>
                   <th>Nomor Faktur</th>
                   <th>Nama Pemasok</th>
-                  <th>Nama Pengguna}</th>
+                  <th>Nama Pengguna</th>
                   <th>Status Pembayaran</th>
                   <th class="disabled-sorting text-right">Aksi</th>
                 </tr>

@@ -4,18 +4,32 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Supplier, App\Barang, App\Customer;
+use App\Penjualan;
+use Carbon\Carbon;
 class AjaxController extends Controller
 {
     //
     public function test()
     {
-        $barang = Barang::find(1);
-        $pembelian = $barang->pembelians()->wherePivot('sisa', '>', 0)->orderBy("pembelians.created_at", 'asc')
-            ->orderBy('pembelians.created_at')->first();
-        $barang->hbeli = $pembelian->pivot->hbeli;
-        $barang->save();
+        $try = "";
+        try {
+            $try = Carbon::createFromFormat('d', '1 Apr');
+        } catch (\Exception $ex) {
 
-        return $barang;
+        }
+
+        try {
+            $try = Carbon::createFromFormat('d M', '1 Apr');
+        } catch (\Exception $ex) {
+
+        }
+
+        try {
+            $try = Carbon::createFromFormat('d M', '1 Apr');
+        } catch (\Exception $ex) {
+
+        }
+        return $try;
     }
 
 

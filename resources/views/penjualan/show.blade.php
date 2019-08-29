@@ -94,7 +94,10 @@
             <div class="col-md-12">
               <div class="row">
                 <div class="col-md-2 ml-auto">
-                  <a target="_blank" href="{!! route('invoice', $penjualan->id) !!}" class="btn btn-primary">Print Invoice</a>
+                  <a href="{!! route('invoice', $penjualan->id) !!}" class="btn btn-primary" 
+                    onclick="window.open(this.href,'targetWindow',
+                                   'toolbar=no, location=no, status=no, menubar=no, scrollbars=yes,resizable=yes, width=912, height=528');
+                   return false;">Print Invoice</a>
                 </div>
                 <div class="col-md-2 ml-auto">
                   <a target="_blank" href="{!! route('suratjalan', $penjualan->id) !!}" class="btn btn-primary">Print Surat Jalan</a>

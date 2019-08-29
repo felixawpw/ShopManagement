@@ -43,9 +43,31 @@ class PembelianController extends Controller
         else {
             $search = $request->input('search.value'); 
 
-            $pembelians =  Pembelian::where('id','LIKE',"%{$search}%")
+            $tanggal = "";
+
+            try {
+                $tanggal = Carbon::createFromFormat('d', "$search")->toDateString();
+            } catch (\Exception $ex) {
+
+            }
+            try {
+                $tanggal = Carbon::createFromFormat('d M', "$search")->toDateString();
+            } catch (\Exception $ex) {
+
+            }
+            try {
+                $tanggal = Carbon::createFromFormat('d M Y', "$search")->toDateString();
+            } catch (\Exception $ex) {
+
+            }
+
+            $pembelians =   Pembelian::whereHas('supplier', function ($query) use ($search) {
+                                $query->where('nama', 'LIKE', "%{$search}%");
+                            })
+                            ->orwhere('id','LIKE',"%{$search}%")
                             ->orWhere('no_nota', 'LIKE',"%{$search}%")
-                            ->orWhere('tanggal', 'LIKE',"%{$search}%")
+                            ->orWhere('tanggal', '=',"$tanggal")
+                            ->orWhere('tanggal_due', '=',"$tanggal")
                             ->offset($start)
                             ->limit($limit)
                             ->orderBy($order,$dir)

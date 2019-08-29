@@ -8,6 +8,7 @@ use App\Pembelian;
 use Carbon\Carbon, DB;
 use PDF;
 use App\Method;
+
 class PenjualanController extends Controller
 {
     public function json(Request $request)
@@ -35,7 +36,7 @@ class PenjualanController extends Controller
         
         if(empty($request->input('search.value')))
         {            
-            $pembelians = Penjualan::offset($start)
+            $penjualans = Penjualan::offset($start)
                          ->limit($limit)
                          ->orderBy($order,$dir)
                          ->get();
@@ -43,24 +44,51 @@ class PenjualanController extends Controller
         else {
             $search = $request->input('search.value'); 
 
-            $pembelians =  Penjualan::where('id','LIKE',"%{$search}%")
-                            ->orWhere('no_nota', 'LIKE',"%{$search}%")
-                            ->orWhere('no_faktur', 'LIKE', "%{$search}%")
-                            ->offset($start)
-                            ->limit($limit)
-                            ->orderBy($order,$dir)
-                            ->get();
+            $tanggal = "";
 
-            $totalFiltered = Penjualan::where('id','LIKE',"%{$search}%")
-                            ->orWhere('no_nota', 'LIKE',"%{$search}%")
-                            ->orWhere('no_faktur', 'LIKE', "%{$search}%")
-                             ->count();
+            try {
+                $tanggal = Carbon::createFromFormat('d', "$search")->toDateString();
+            } catch (\Exception $ex) {
+
+            }
+
+            try {
+                $tanggal = Carbon::createFromFormat('d M', "$search")->toDateString();
+            } catch (\Exception $ex) {
+
+            }
+
+            try {
+                $tanggal = Carbon::createFromFormat('d M Y', "$search")->toDateString();
+            } catch (\Exception $ex) {
+
+            }
+
+
+            $penjualans =   Penjualan::whereHas('customer', function ($query) use ($search) {
+                                $query->where('nama', 'LIKE', "%{$search}%");
+                            })->orWhere('id','LIKE',"%{$search}%")
+                                ->orWhere('no_nota', 'LIKE',"%{$search}%")
+                                ->orWhere('no_faktur', 'LIKE', "%{$search}%")
+                                ->orWhere('tanggal', '=', "$tanggal")
+                                ->offset($start)
+                                ->limit($limit)
+                                ->orderBy($order,$dir)
+                                ->get();
+
+            $totalFiltered = Penjualan::whereHas('customer', function ($query) use ($search) {
+                                $query->where('nama', 'LIKE', "%{$search}%");
+                            })->orWhere('id','LIKE',"%{$search}%")
+                                ->orWhere('no_nota', 'LIKE',"%{$search}%")
+                                ->orWhere('no_faktur', 'LIKE', "%{$search}%")
+                                ->orWhere('tanggal', '=', "$tanggal")
+                                ->count();
         }
 
         $data = array();
-        if(!empty($pembelians))
+        if(!empty($penjualans))
         {
-            foreach ($pembelians as $b)
+            foreach ($penjualans as $b)
             {
                 $show =  route('penjualan.show',$b->id);
                 $edit =  route('penjualan.edit',$b->id);
@@ -94,7 +122,7 @@ class PenjualanController extends Controller
     public function invoice($id)
     {
         $penjualan = Penjualan::find($id);
-        return view('penjualan.invoice', compact("penjualan"));
+       return view('penjualan.invoice', compact("penjualan"));
     }
 
     public function suratjalan($id)
