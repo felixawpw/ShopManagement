@@ -20,12 +20,12 @@
       	<style>
 	    	@page {
 	    		size: 9.5in 5.5in;
-	    		margin: 1cm;
+	    		margin: 20px;
 	    	}
 	    	@media print {
 	    		@page {
 	    			size: 9.5in 5.5in;
-	    			margin: 1cm;
+	    			margin: 20px;
 	    		}
 	    	}
 	    </style>
@@ -41,18 +41,19 @@
 		</p>
 		<hr style="border-top:5px solid rgba(0,0,0,0.4);">
 		<b style="font-size: 20px;">Kepada Yth.</b><br>
-		<table>
+
+		<table class="table-borderless">
 			<tr>
-				<td><b>Nama</b><span style="display:inline-block; width:40px;"></span>{!! $penjualan->customer->nama !!}<span style="display:block;"></span></td>
-				<td style="padding-left: 500px;"><b>No. Invoice</b><span style="display:inline-block; width:20px;"></span>{!! $penjualan->no_faktur !!}<span style="display:block;"></span></td>
+				<td width="75%"><b>Nama</b><span style="display:inline-block; width:40px;"></span>{!! $penjualan->customer->nama !!}</td>
+				<td><b>No. Invoice</b><span style="display:inline-block; width:20px;"></span>{!! $penjualan->no_faktur !!}</td>
 			</tr>
 			<tr>
 				<td><b>No. Telp</b><span style="display:inline-block; width:20px;"></span>{!! $penjualan->customer->telepon == null ? "-" : $penjualan->customer->telepon !!}<span style="display:block;"></span></td>
-				<td style="padding-left: 500px;"><b>Tanggal</b><span style="display:inline-block; width:43px;"></span>{!! date_format(date_create($penjualan->tanggal), "d/m/Y") !!}<span style="display:block;"></span></td>
+				<td><b>Tanggal</b><span style="display:inline-block; width:43px;"></span>{!! date_format(date_create($penjualan->tanggal), "d/m/Y") !!}<span style="display:block;"></span></td>
 			</tr>
 			<tr>
 				<td><b>Alamat</b><span style="display:inline-block; width:30px;"></span>{!! $penjualan->customer->alamat == null ? "-" : $penjualan->customer->alamat !!}<span style="display:block;"></span></td>
-				<td style="padding-left: 500px;"><b>Pembayaran</b><span style="display:inline-block; width:10px;"></span>{!! date_format(date_create($penjualan->tanggal), "d/m/Y") !!}<span style="display:block;"></span></td>
+				<td><b>Pembayaran</b><span style="display:inline-block; width:10px;"></span>{!! date_format(date_create($penjualan->tanggal), "d/m/Y") !!}<span style="display:block;"></span></td>
 			</tr>
 		</table>
 		<br>
