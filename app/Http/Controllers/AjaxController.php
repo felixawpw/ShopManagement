@@ -12,8 +12,15 @@ class AjaxController extends Controller
 {
     //
     public function test()
-    {
-        $pdf = \PDF::loadHTML('<h1>Test</h1>');
+    {  
+        $paper_orientation = 'potrait';
+        $customPaper = array(0,0,912,528);
+
+        $penjualan = Penjualan::find(10);
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->setPaper($customPaper,$paper_orientation);
+        $pdf = $pdf->loadView('invoice.invoice', compact('penjualan'));
+
         return $pdf->stream();
     }
 

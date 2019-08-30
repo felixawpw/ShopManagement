@@ -8,7 +8,7 @@ use App\Pembelian;
 use Carbon\Carbon, DB;
 use PDF;
 use App\Method;
-
+use App;
 class PenjualanController extends Controller
 {
     public function json(Request $request)
@@ -121,8 +121,18 @@ class PenjualanController extends Controller
 
     public function invoice($id)
     {
+        $paper_orientation = 'potrait';
+        $customPaper = array(0,0,912,528);
+
         $penjualan = Penjualan::find($id);
-       return view('penjualan.invoice', compact("penjualan"));
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->setPaper($customPaper,$paper_orientation);
+        $pdf = $pdf->loadView('invoice.invoice', compact('penjualan'));
+
+        return $pdf->stream();
+
+        // $penjualan = Penjualan::find($id);
+        // return view('penjualan.invoice', compact("penjualan"));
     }
 
     public function suratjalan($id)
