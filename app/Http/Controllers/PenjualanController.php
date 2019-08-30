@@ -121,18 +121,18 @@ class PenjualanController extends Controller
 
     public function invoice($id)
     {
-        $paper_orientation = 'landscape';
-        $customPaper = array(0,0,528,912);
-
-        $penjualan = Penjualan::find($id);
-        $pdf = App::make('dompdf.wrapper');
-        $pdf->setPaper($customPaper,$paper_orientation);
-        $pdf = $pdf->loadView('invoice.invoice', compact('penjualan'));
-
-        return $pdf->stream();
+        // $paper_orientation = 'landscape';
+        // $customPaper = array(0,0,528,912);
 
         // $penjualan = Penjualan::find($id);
-        // return view('penjualan.invoice', compact("penjualan"));
+        // $pdf = App::make('dompdf.wrapper');
+        // $pdf->setPaper($customPaper,$paper_orientation);
+        // $pdf = $pdf->loadView('invoice.invoice', compact('penjualan'));
+
+        // return $pdf->stream();
+
+        $penjualan = Penjualan::find($id);
+        return view('penjualan.invoice', compact("penjualan"));
     }
 
     public function suratjalan($id)
