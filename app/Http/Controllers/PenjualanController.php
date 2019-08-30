@@ -121,8 +121,8 @@ class PenjualanController extends Controller
 
     public function invoice($id)
     {
-        $paper_orientation = 'potrait';
-        $customPaper = array(0,0,912,528);
+        $paper_orientation = 'landscape';
+        $customPaper = array(0,0,528,912);
 
         $penjualan = Penjualan::find($id);
         $pdf = App::make('dompdf.wrapper');
