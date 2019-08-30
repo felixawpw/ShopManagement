@@ -6,30 +6,15 @@ use Illuminate\Http\Request;
 use App\Supplier, App\Barang, App\Customer;
 use App\Penjualan;
 use Carbon\Carbon;
+use ConsoleTVs\Invoices\Classes\Invoice as Invoice;
+use App;
 class AjaxController extends Controller
 {
     //
     public function test()
     {
-        $try = "";
-        try {
-            $try = Carbon::createFromFormat('d', '1 Apr');
-        } catch (\Exception $ex) {
-
-        }
-
-        try {
-            $try = Carbon::createFromFormat('d M', '1 Apr');
-        } catch (\Exception $ex) {
-
-        }
-
-        try {
-            $try = Carbon::createFromFormat('d M', '1 Apr');
-        } catch (\Exception $ex) {
-
-        }
-        return $try;
+        $pdf = \PDF::loadHTML('<h1>Test</h1>');
+        return $pdf->stream();
     }
 
 
