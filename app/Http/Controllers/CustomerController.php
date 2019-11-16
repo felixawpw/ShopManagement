@@ -22,7 +22,8 @@ class CustomerController extends Controller
             3 => 'telepon',
             4 => 'hp',
             5 => 'fax',
-            6 => 'options'
+            6 => 'total_pembelian',
+            7 => 'options'
         );
   
         $totalData = Customer::count();
@@ -82,6 +83,7 @@ class CustomerController extends Controller
                 $nestedData['telepon'] = $b->telepon == null ? "-" : $b->telepon;
                 $nestedData['hp'] = $b->hp == null ? "-" : $b->hp;
                 $nestedData['fax'] = $b->fax == null ? "-" : $b->fax;
+                $nestedData['total_pembelian'] = number_format($b->penjualans->sum("total"));
                 $nestedData['options'] = 
                 "<a href='$show' class='btn btn-link btn-info 
                 btn-just-icon show'><i class='material-icons'>favorite</i></a>

@@ -32,6 +32,7 @@
                   <th class="no-sort">Telepon</th>
                   <th class="no-sort">HP</th>
                   <th class="no-sort">Fax</th>
+                  <th class="no-sort">Total Pembelian</th>
                   <th class="no-sort">Aksi</th>
                 </tr>
               </thead>
@@ -81,6 +82,7 @@
 			    { "data": "telepon" },
 			    { "data": "hp" },
 			    { "data": "fax" },
+          { "data": "total_pembelian" },
 			    { "data": "options" }
 			]	 
 		});

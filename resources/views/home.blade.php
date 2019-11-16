@@ -181,7 +181,7 @@
 		        </div>
 		        <div class="tab-pane" id="tab_table">
 		          <div class="material-datatables">
-		            <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+		            <table id="table_pembayaran_kredit" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
 		              <thead>
 		                <tr>
 		                  <th>Nomor Nota</th>
@@ -254,6 +254,12 @@
 	    });
 
 
+		$("#table_pembayaran_kredit").DataTable({
+			"searching": false,   // Search Box will Be Disabled
+			"ordering": true,    // Ordering (Sorting on Each Column)will Be Disabled
+			"info": false,         // Will show "1 to n of n entries" Text at bottom
+  		"lengthChange": false
+		});
 
 		$("#table_dialy_inventory_name").DataTable({
 			"searching": false,   // Search Box will Be Disabled

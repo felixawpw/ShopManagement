@@ -36,7 +36,7 @@ class ReportController extends Controller
         $formattedTanggalAwal = $tanggalAwal->format("D d M Y");
         $formattedTanggalAkhir = $tanggalAkhir->format("D d M Y");
         $penjualans = Penjualan::where("tanggal", ">=", $tanggalAwal->copy()->addDay(-1))->where("tanggal", "<=", $tanggalAkhir)->orderBy('tanggal', 'asc')->get();
-
+        $jumlahTotalBarang = 0;
     	switch ($tipe) {
     		case 'grafik':
                 $temp = $tanggalAwal;
@@ -49,17 +49,18 @@ class ReportController extends Controller
                     $penjualans = Penjualan::where("tanggal", "=", $temp->toDateString())->get();
                     $resultLaba[$temp->toDateString()] = 0;
                     $resultOmset[$temp->toDateString()] = 0;
+                    $laba = 0;
+                    $omset = 0;
 
                     foreach($penjualans as $p) {
-                        $laba = 0;
-                        $omset = 0;
                         $barangs = $p->barangs;
                         foreach ($barangs as $b) {
-                            $laba += ($b->pivot->hjual - $b->pivot->hbeli) * $b->pivot->quantity;
-                            $omset += $b->pivot->hjual * $b->pivot->quantity;
+                            $laba += ($b->pivot->hjual - $b->pivot->hbeli) * $b->pivot->quantity / 1000;
+                            $omset += $b->pivot->hjual * $b->pivot->quantity / 1000;
+                            $jumlahTotalBarang += $b->pivot->quantity;
 
-                            $resultTipeBarang[$b->product_type->nama] = (isset($resultTipeBarang[$b->product_type->name]) ? $resultTipeBarang[$b->product_type->name] : 0) + $b->pivot->quantity;
-                            $resultBrand[$b->brand->nama] = (isset($resultBrand[$b->brand->name]) ? $resultBrand[$b->brand->name] : 0) + $b->pivot->quantity;
+                            $resultTipeBarang[$b->product_type->nama] = (isset($resultTipeBarang[$b->product_type->nama]) ? $resultTipeBarang[$b->product_type->nama] : 0) + $b->pivot->quantity;
+                            $resultBrand[$b->brand->nama] = (isset($resultBrand[$b->brand->nama]) ? $resultBrand[$b->brand->nama] : 0) + $b->pivot->quantity;
                         }
                         $resultLaba[$temp->toDateString()] = $laba;
                         $resultOmset[$temp->toDateString()] = $omset;
@@ -67,8 +68,7 @@ class ReportController extends Controller
 
                     $temp->addDay(1);
                 }
-
-                return view('report_penjualan.penjualan_grafik', compact('resultLaba', 'resultOmset', 'resultTipeBarang', 'resultBrand', 'formattedTanggalAwal', 'formattedTanggalAkhir'));
+                return view('report_penjualan.penjualan_grafik', compact('resultLaba', 'resultOmset', 'resultTipeBarang', 'resultBrand', 'formattedTanggalAwal', 'formattedTanggalAkhir', 'jumlahTotalBarang'));
     			break;
     		case 'printout':
                 foreach ($penjualans as $p) {

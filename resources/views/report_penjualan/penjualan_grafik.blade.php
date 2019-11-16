@@ -43,7 +43,26 @@
 		    				<div class="card-body">
 		    					<div class="row">
 		    						<div class="col-md-12">
-		    							<div id="penjualan_per_brand" class="ct-chart"></div>	
+							          <div class="material-datatables">
+							            <table id="table_brand" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+							              <thead>
+							                <tr>
+							                  <th>Brand</th>
+							                  <th>Jumlah Penjualan</th>
+							                  <th>Prosentase</th>
+							                </tr>
+							              </thead>
+							              <tbody>
+							                @foreach($resultBrand as $key=>$value)
+							                  <tr>
+							                  	<td>{!! $key !!}</td>
+							                  	<td>{!! $value !!}</td>
+							                  	<td>{!! number_format($value/$jumlahTotalBarang * 100, 2, ',', '.')."%" !!}</td>
+							                  </tr>
+							                @endforeach
+							              </tbody>
+							            </table>
+							          </div>
 		    						</div>
 		    					</div>
 		    				</div>
@@ -59,7 +78,26 @@
 		    				<div class="card-body">
 		    					<div class="row">
 		    						<div class="col-md-12">
-		    							<div id="penjualan_per_tipe" class="ct-chart"></div>	
+							          <div class="material-datatables">
+							            <table id="table_tipe_barang" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+							              <thead>
+							                <tr>
+							                  <th>Tipe Barang</th>
+							                  <th>Jumlah Penjualan</th>
+							                  <th>Prosentase</th>
+							                </tr>
+							              </thead>
+							              <tbody>
+							                @foreach($resultTipeBarang as $key=>$value)
+							                  <tr>
+							                  	<td>{!! $key !!}</td>
+							                  	<td>{!! $value !!}</td>
+							                  	<td>{!! number_format($value/$jumlahTotalBarang * 100, 2, ',', '.')."%" !!}</td>
+							                  </tr>
+							                @endforeach
+							              </tbody>
+							            </table>
+							          </div>
 		    						</div>
 		    					</div>
 		    				</div>
@@ -88,7 +126,7 @@
         var r1 = [];
         var r2 = [];
         for (key in result1) {
-          labels.push(key);
+          labels.push(key.split("-")[2]);
           r1.push(result1[key]);
           r2.push(result2[key]);
         }
@@ -111,7 +149,7 @@
 	    // Create a new line chart object where as first parameter we pass in a selector
 	    // that is resolving to our chart container element. The Second parameter
 	    // is the actual data object.
-	    new Chartist.Bar(chartId, data, options);
+	    new Chartist.Line(chartId, data, options);
 
 	}
 
@@ -160,8 +198,19 @@
 
 	$(document).ready(function(){
 		loadChart(JSON.parse('{!! json_encode($resultLaba) !!}'), JSON.parse('{!! json_encode($resultOmset) !!}'), "#penjualan_harian_chart");
-		loadPieChart(JSON.parse('{!! json_encode($resultTipeBarang) !!}'), "#penjualan_per_tipe");
-		loadPieChart(JSON.parse('{!! json_encode($resultBrand) !!}'), "#penjualan_per_brand");
+		$("#table_brand").DataTable({
+			"searching": false,   // Search Box will Be Disabled
+			"ordering": true,    // Ordering (Sorting on Each Column)will Be Disabled
+			"info": false,         // Will show "1 to n of n entries" Text at bottom
+  		"lengthChange": false
+		});
+		$("#table_tipe_barang").DataTable({
+			"searching": false,   // Search Box will Be Disabled
+			"ordering": true,    // Ordering (Sorting on Each Column)will Be Disabled
+			"info": false,         // Will show "1 to n of n entries" Text at bottom
+  		"lengthChange": false
+		});
+
 	});
 
 </script>

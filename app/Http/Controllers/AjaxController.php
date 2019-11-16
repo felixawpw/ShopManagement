@@ -12,16 +12,13 @@ class AjaxController extends Controller
 {
     //
     public function test()
-    {  
-        $paper_orientation = 'potrait';
-        $customPaper = array(0,0,912,528);
+    {
+        $customers = Customer::all();
 
-        $penjualan = Penjualan::find(10);
-        $pdf = App::make('dompdf.wrapper');
-        $pdf->setPaper($customPaper,$paper_orientation);
-        $pdf = $pdf->loadView('invoice.invoice', compact('penjualan'));
+        foreach ($customers as $c) {
 
-        return $pdf->stream();
+            return $c->penjualans->sum("total");
+        }    
     }
 
 
@@ -29,6 +26,7 @@ class AjaxController extends Controller
     {
     	return view('template.supplier');
     }
+    
     public function storeSupplier(Request $request)
     {
     	$supplier = new Supplier;

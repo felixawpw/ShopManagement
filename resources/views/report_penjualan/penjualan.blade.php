@@ -6,7 +6,7 @@
     <!--      Wizard container        -->
     <div class="wizard-container">
       <div class="card card-wizard" data-color="rose" id="wizard">
-        <form action="{!! route('report_generate_penjualan') !!}" method="GET" target="blank_" id="formCetakLaporan">
+        <form action="{!! route('report_generate_penjualan') !!}" method="GET" target="blank_" id="formCetakLaporan" autocomplete="off">
           <!--        You can switch " data-color="primary" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
           <div class="card-header text-center">
             <h3 class="card-title">
@@ -36,13 +36,13 @@
                   <div class="col-md-10 mt-3">
                     <div class="row">
                       <div class="form-group col-md-5">
-                        <input type="text" class="form-control datepicker" id="tanggal_awal" name="awal" required placeholder="Tanggal Awal">
+                        <input type="text" class="form-control datepicker" id="tanggal_awal" name="awal" required placeholder="Tanggal Awal" autocomplete="false">
                       </div>
                       <div class="form-group col-md-2 text-center">
                         <label>Hingga</label>
                       </div>
                       <div class="form-group col-md-5">
-                        <input type="text" class="form-control datepicker" id="tanggal_akhir" name="akhir" required placeholder="Tanggal Akhir">
+                        <input type="text" class="form-control datepicker" id="tanggal_akhir" name="akhir" required placeholder="Tanggal Akhir" autocomplete="false">
                       </div>
                     </div>
                   </div>
