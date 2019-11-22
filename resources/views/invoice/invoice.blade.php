@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head style="width: 912px; height: 528px;">
-	<title>Printing Invoice</title>
+<head>
+	<title>Printing Surat Jalan</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
 	<style type="text/css">
@@ -39,7 +39,7 @@
 					<B style="font-size: 30px;"><u>INVOICE</u></B><br>
 					<B style="font-size: 24px;">Sripuja Elektronik</B><br>
 					Jl. Danau Buyan No.12, Negara, Bali<br>
-					(0365) 41713 / 081 9999 19 001<br>
+					(0365) 41713 / 081999919001<br>
 				</td>
 				<td style="width: 35%;" class="text-center">
 					<table class="table-borderless table-sm" style="margin-bottom: 0px; width: 100%;">
