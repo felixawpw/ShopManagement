@@ -6,13 +6,13 @@
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
 	<style type="text/css">
         @page {
-        	margin-top: 140px;
+        	margin-top: 160px;
         	margin-bottom: 125px;
         }
 
         header {
             position: fixed;
-            top: -140px;
+            top: -160px;
             left: 0px;
             right: 0px;
             height: 300px;
@@ -29,21 +29,21 @@
 
 	</style>
 </head>
-<body>
+<body style="font-size: 16px;">
 	<header>
 		<table class="table table-borderless table-sm" style="margin-bottom: 0px;">
 			<tr>
-				<td style="font-size: 12px;">
-					<B style="font-size: 24px;"><u>INVOICE</u></B><br>
-					<B style="font-size: 18px;">Sripuja Elektronik</B><br>
+				<td style="width: 25%;">
+					<B style="font-size: 30px;"><u>INVOICE</u></B><br>
+					<B style="font-size: 24px;">Sripuja Elektronik</B><br>
 					Jl. Danau Buyan No.12, Negara, Bali<br>
 					(0365) 41713 / 081 9999 19 001<br>
 				</td>
-				<td>
-					<table class="table table-borderless table-sm" style="font-size: 12px; margin-bottom: 0px;">
+				<td style="width: 35%;">
+					<table class="table-borderless table-sm" style="margin-bottom: 0px; width: 100%;">
 						<tr class="text-center">
 							<td>
-								<table style="width: 150px; border: 1px solid #000;">
+								<table style="width: 100%; border: 1px solid #000;">
 									<thead style="border-bottom: 1px solid #000;">
 										<tr>
 											<th>INVOICE NUMBER</th>
@@ -57,7 +57,7 @@
 								</table>
 							</td>
 							<td>
-								<table style="width: 150px; border: 1px solid #000">
+								<table style="width: 100%; border: 1px solid #000">
 									<thead style="border-bottom: 1px solid #000;">
 										<tr>
 											<th>DATE OF PAYMENT</th>
@@ -76,11 +76,11 @@
 					</table>
 				</td>
 
-				<td style="font-size: 12px; width: 325px;" >
+				<td style="width: 40%;">
 					Negara, {!! date_format(date_create($penjualan->tanggal), "d M Y") !!}<br>
 					<table class="table-sm" style="border: 1px solid #000; width: 100%;">
 						<thead style="border: 1px solid #000;">
-							<tr class="text-center">
+							<tr class="text-center" style="width: 100%;">
 								<td>Customer</td>
 							</tr>
 						</thead>
@@ -103,12 +103,12 @@
 		@php
 			$brgs = $penjualan->barangs()->withTrashed()->get();
 			$ul = $brgs->count();
-			$iteration = (int) ($ul / 11);
+			$iteration = (int) ($ul / 8);
 			$total = 0;
 			$discount = 0;
 		@endphp
 		@for($i = 0; $i < $iteration; $i++)
-			<table class="" style="font-size: 12px; width: 100%; margin-bottom: 10px;">
+			<table class="" style="width: 100%; margin-bottom: 10px;">
 				<thead class="text-center" style="border: 1px solid #000000;">
 					<tr>
 						<th style="width: 5%; border-right: 1px solid #000000;">QTY</th>
@@ -118,10 +118,10 @@
 					</tr>
 				</thead>
 				<tbody class="table-sm" style="border: 1px solid #000000; page-break-after: always;">
-					@for($j = 0; $j < 11; $j++)
-						@if (isset($brgs[($i * 11) + $j]))
+					@for($j = 0; $j < 8; $j++)
+						@if (isset($brgs[($i * 8) + $j]))
 							@php
-								$b = $brgs[($i * 11) + $j];
+								$b = $brgs[($i * 8) + $j];
 							@endphp
 
 							<tr>
@@ -148,7 +148,7 @@
 				</tfoot>
 			</table>
 			<footer>
-				<table style="width: 100%; font-size: 12px; margin-bottom: 75px;">
+				<table style="width: 100%; margin-bottom: 75px;">
 					<tbody>
 						<tr style="margin-top: 10px;" class="text-center">
 							<td style="padding-top: 10px;">
@@ -167,7 +167,7 @@
 				<table style="width: 100%;" class="text-center">
 					<tbody>
 						<tr>
-							<td style="font-size: 12px; font-style: italic; bottom: 10px;">Page<span class="page-number">&nbsp;</span> of {!! ($iteration + 1) !!}</td>
+							<td style="font-style: italic; bottom: 10px;">Page<span class="page-number">&nbsp;</span> of {!! ($iteration + 1) !!}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -177,7 +177,7 @@
 			<div class="page_break"></div>
 		@endfor
 
-		<table class="" style="font-size: 12px; width: 100%; margin-bottom: 10px;">
+		<table class="" style="width: 100%; margin-bottom: 10px;">
 			<thead class="text-center" style="border: 1px solid #000000;">
 				<tr>
 					<th style="width: 5%; border-right: 1px solid #000000;">QTY</th>
@@ -187,10 +187,10 @@
 				</tr>
 			</thead>
 			<tbody class="table-sm" style="border: 1px solid #000000; page-break-after: always;">
-				@for($j = 0; $j < 11; $j++)
-					@if (isset($brgs[($i * 11) + $j]))
+				@for($j = 0; $j < 8; $j++)
+					@if (isset($brgs[($i * 8) + $j]))
 						@php
-							$b = $brgs[($i * 11) + $j];
+							$b = $brgs[($i * 8) + $j];
 						@endphp
 
 						<tr>
@@ -229,7 +229,7 @@
 				</tr>
 			</tfoot>
 		</table>
-		<table style="width: 100%; font-size: 12px;">
+		<table style="width: 100%;">
 			<tbody>
 				<tr>
 					<td colspan="4" style="border: 1px solid #000;">
@@ -281,7 +281,7 @@
 		</table>
 	</main>
 	<footer>
-		<table style="width: 100%; font-size: 12px; margin-bottom: 75px;">
+		<table style="width: 100%; margin-bottom: 75px;">
 			<tbody>
 				<tr style="margin-top: 10px;" class="text-center">
 					<td style="padding-top: 10px;">
@@ -300,7 +300,7 @@
 		<table style="width: 100%;" class="text-center">
 			<tbody>
 				<tr>
-					<td style="font-size: 12px; font-style: italic; bottom: 10px;">Page<span class="page-number">&nbsp;</span> of {!! ($iteration + 1) !!}</td>
+					<td style="font-style: italic; bottom: 10px;">Page<span class="page-number">&nbsp;</span> of {!! ($iteration + 1) !!}</td>
 				</tr>
 			</tbody>
 		</table>
