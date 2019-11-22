@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head style="width: 912px; height: 528px;">
 	<title>Printing Invoice</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
 	<style type="text/css">
         @page {
+        	 width: 912px;
+        	 height: 528px;
         	margin-top: 160px;
-        	margin-bottom: 125px;
+        	margin-bottom: 100px;
         }
 
         header {
@@ -19,7 +21,7 @@
         }
         footer {
         	position: fixed;
-        	bottom: -1px;
+        	bottom: 0px;
         	left: 0px; 
         	right: 0px;
         	height: 50px;
@@ -29,24 +31,24 @@
 
 	</style>
 </head>
-<body style="font-size: 16px;">
+<body style="font-size: 20px;">
 	<header>
 		<table class="table table-borderless table-sm" style="margin-bottom: 0px;">
 			<tr>
-				<td style="width: 25%;">
+				<td style="width: 30%;">
 					<B style="font-size: 30px;"><u>INVOICE</u></B><br>
 					<B style="font-size: 24px;">Sripuja Elektronik</B><br>
 					Jl. Danau Buyan No.12, Negara, Bali<br>
 					(0365) 41713 / 081 9999 19 001<br>
 				</td>
-				<td style="width: 35%;">
+				<td style="width: 35%;" class="text-center">
 					<table class="table-borderless table-sm" style="margin-bottom: 0px; width: 100%;">
 						<tr class="text-center">
 							<td>
 								<table style="width: 100%; border: 1px solid #000;">
 									<thead style="border-bottom: 1px solid #000;">
 										<tr>
-											<th>INVOICE NUMBER</th>
+											<th>No. Invoice</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -60,7 +62,7 @@
 								<table style="width: 100%; border: 1px solid #000">
 									<thead style="border-bottom: 1px solid #000;">
 										<tr>
-											<th>DATE OF PAYMENT</th>
+											<th>Tgl Pembayaran</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -76,8 +78,7 @@
 					</table>
 				</td>
 
-				<td style="width: 40%;">
-					Negara, {!! date_format(date_create($penjualan->tanggal), "d M Y") !!}<br>
+				<td style="width: 35%;">
 					<table class="table-sm" style="border: 1px solid #000; width: 100%;">
 						<thead style="border: 1px solid #000;">
 							<tr class="text-center" style="width: 100%;">
@@ -103,7 +104,7 @@
 		@php
 			$brgs = $penjualan->barangs()->withTrashed()->get();
 			$ul = $brgs->count();
-			$iteration = (int) ($ul / 8);
+			$iteration = (int) ($ul / 7);
 			$total = 0;
 			$discount = 0;
 		@endphp
@@ -118,10 +119,10 @@
 					</tr>
 				</thead>
 				<tbody class="table-sm" style="border: 1px solid #000000; page-break-after: always;">
-					@for($j = 0; $j < 8; $j++)
-						@if (isset($brgs[($i * 8) + $j]))
+					@for($j = 0; $j < 7; $j++)
+						@if (isset($brgs[($i *7) + $j]))
 							@php
-								$b = $brgs[($i * 8) + $j];
+								$b = $brgs[($i * 7) + $j];
 							@endphp
 
 							<tr>
@@ -187,10 +188,10 @@
 				</tr>
 			</thead>
 			<tbody class="table-sm" style="border: 1px solid #000000; page-break-after: always;">
-				@for($j = 0; $j < 8; $j++)
-					@if (isset($brgs[($i * 8) + $j]))
+				@for($j = 0; $j < 7; $j++)
+					@if (isset($brgs[($i * 7) + $j]))
 						@php
-							$b = $brgs[($i * 8) + $j];
+							$b = $brgs[($i * 7) + $j];
 						@endphp
 
 						<tr>

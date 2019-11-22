@@ -7,7 +7,7 @@
 	<style type="text/css">
         @page {
         	margin-top: 140px;
-        	margin-bottom: 125px;
+        	margin-bottom: 100px;
         }
 
         header {
