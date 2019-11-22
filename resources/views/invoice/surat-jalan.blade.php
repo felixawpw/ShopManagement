@@ -34,7 +34,7 @@
 		<table class="table table-borderless table-sm" style="margin-bottom: 0px;">
 			<tr>
 				<td style="font-size: 12px;">
-					<B style="font-size: 24px;"><u>INVOICE</u></B><br>
+					<B style="font-size: 24px;"><u>SURAT JALAN</u></B><br>
 					<B style="font-size: 18px;">Sripuja Elektronik</B><br>
 					Jl. Danau Buyan No.12, Negara, Bali<br>
 					(0365) 41713 / 081 9999 19 001<br>
@@ -46,28 +46,12 @@
 								<table style="width: 150px; border: 1px solid #000;">
 									<thead style="border-bottom: 1px solid #000;">
 										<tr>
-											<th>INVOICE NUMBER</th>
+											<th>UNTUK NO.INVOICE</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
 											<td>{!! $penjualan->no_faktur!!}</td>
-										</tr>
-									</tbody>
-								</table>
-							</td>
-							<td>
-								<table style="width: 150px; border: 1px solid #000">
-									<thead style="border-bottom: 1px solid #000;">
-										<tr>
-											<th>DATE OF PAYMENT</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>{!! $penjualan->jatuh_tempo == NULL ? 
-												date_format(date_create($penjualan->tanggal), "d M Y") : 
-												date_format(date_create($penjualan->jatuh_tempoo), "d M Y") !!}</td>
 										</tr>
 									</tbody>
 								</table>
@@ -113,8 +97,7 @@
 					<tr>
 						<th style="width: 5%; border-right: 1px solid #000000;">QTY</th>
 						<th style="width: 35%; border-right: 1px solid #000000;">Nama Barang</th>
-						<th style="width: 15%; border-right: 1px solid #000000;">Price</th>
-						<th style="width: 15%; border-right: 1px solid #000000;">Jumlah</th>
+						<th style="width: 35%; border-right: 1px solid #000000;">Keterangan</th>
 					</tr>
 				</thead>
 				<tbody class="table-sm" style="border: 1px solid #000000; page-break-after: always;">
@@ -127,8 +110,7 @@
 							<tr>
 								<td style="border-right: 1px solid #000000;" class="text-center">{!! number_format($b->pivot->quantity,0,",",".") !!}</td>
 								<td style="border-right: 1px solid #000000;">{!! $b->nama !!}</td>
-								<td style="border-right: 1px solid #000000;" class="text-right">{!! number_format($b->pivot->hjual,2,",",".") !!}</td>
-								<td style="border-right: 1px solid #000000;" class="text-right">{!! number_format($b->pivot->quantity * $b->pivot->hjual,2,",",".") !!}</td>
+								<td style="border-right: 1px solid #000000;">{!! $b->keterangan !!}</td>
 								@php
 									$total += $b->pivot->quantity * $b->pivot->hjual;
 									$discount += $b->pivot->discount * $b->pivot->quantity;
@@ -138,8 +120,7 @@
 							<tr class="text-right">
 								<td style="border-right: 1px solid #000000;">-</td>
 								<td style="border-right: 1px solid #000000;"></td>
-								<td style="border-right: 1px solid #000000;">-</td>
-								<td style="border-right: 1px solid #000000;">-</td>
+								<td style="border-right: 1px solid #000000;"></td>
 							</tr>
 						@endif
 					@endfor
@@ -182,8 +163,7 @@
 				<tr>
 					<th style="width: 5%; border-right: 1px solid #000000;">QTY</th>
 					<th style="width: 35%; border-right: 1px solid #000000;">Nama Barang</th>
-					<th style="width: 15%; border-right: 1px solid #000000;">Price</th>
-					<th style="width: 15%; border-right: 1px solid #000000;">Jumlah</th>
+					<th style="width: 35%; border-right: 1px solid #000000;">Keterangan</th>
 				</tr>
 			</thead>
 			<tbody class="table-sm" style="border: 1px solid #000000; page-break-after: always;">
@@ -196,8 +176,7 @@
 						<tr>
 							<td style="border-right: 1px solid #000000;" class="text-center">{!! number_format($b->pivot->quantity,0,",",".") !!}</td>
 							<td style="border-right: 1px solid #000000;">{!! $b->nama !!}</td>
-							<td style="border-right: 1px solid #000000;" class="text-right">{!! number_format($b->pivot->hjual,2,",",".") !!}</td>
-							<td style="border-right: 1px solid #000000;" class="text-right">{!! number_format($b->pivot->quantity * $b->pivot->hjual,2,",",".") !!}</td>
+							<td style="border-right: 1px solid #000000;">{!! $b->keterangan !!}</td>
 							@php
 								$total += $b->pivot->quantity * $b->pivot->hjual;
 								$discount += $b->pivot->discount * $b->pivot->quantity;
@@ -207,77 +186,14 @@
 						<tr class="text-right">
 							<td style="border-right: 1px solid #000000;">-</td>
 							<td style="border-right: 1px solid #000000;"></td>
-							<td style="border-right: 1px solid #000000;">-</td>
-							<td style="border-right: 1px solid #000000;">-</td>
+							<td style="border-right: 1px solid #000000;"></td>
 						</tr>
 					@endif
 				@endfor
 			</tbody>
 
 			<tfoot>
-				<tr>
-					<td class="text-LEFT" colspan="2"></td>
-					<td class="text-right" style="border: 1px solid #000000;"><b>GRAND TOTAL</b></td>
-					<td style="border: 1px solid #000000;">
-						<table class="table-borderless" style="width: 100%;">
-							<tr>
-								<td width="20%">Rp</td>
-								<td width="80%" class="text-right">{!! number_format($total,2,",",".") !!}</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
 			</tfoot>
-		</table>
-		<table style="width: 100%; font-size: 12px;">
-			<tbody>
-				<tr>
-					<td colspan="4" style="border: 1px solid #000;">
-						<i>TERBILANG : 
-							<?php
-								function penyebut($nilai) {
-									$nilai = abs($nilai);
-									$huruf = array("", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan", "Sembilan", "Sepuluh", "Sebelas");
-									$temp = "";
-									if ($nilai < 12) {
-										$temp = " ". $huruf[$nilai];
-									} else if ($nilai <20) {
-										$temp = penyebut($nilai - 10). " Belas";
-									} else if ($nilai < 100) {
-										$temp = penyebut($nilai/10)." Puluh". penyebut($nilai % 10);
-									} else if ($nilai < 200) {
-										$temp = " seratus" . penyebut($nilai - 100);
-									} else if ($nilai < 1000) {
-										$temp = penyebut($nilai/100) . " Ratus" . penyebut($nilai % 100);
-									} else if ($nilai < 2000) {
-										$temp = " seribu" . penyebut($nilai - 1000);
-									} else if ($nilai < 1000000) {
-										$temp = penyebut($nilai/1000) . " Ribu" . penyebut($nilai % 1000);
-									} else if ($nilai < 1000000000) {
-										$temp = penyebut($nilai/1000000) . " Juta" . penyebut($nilai % 1000000);
-									} else if ($nilai < 1000000000000) {
-										$temp = penyebut($nilai/1000000000) . " Milyar" . penyebut(fmod($nilai,1000000000));
-									} else if ($nilai < 1000000000000000) {
-										$temp = penyebut($nilai/1000000000000) . " Trilyun" . penyebut(fmod($nilai,1000000000000));
-									}     
-									return $temp;
-								}
-
-								function terbilang($nilai) {
-									if($nilai<0) {
-										$hasil = "minus ". trim(penyebut($nilai));
-									} else {
-										$hasil = trim(penyebut($nilai));
-									}     		
-									return $hasil;
-								}
-							?>
-
-							{!! terbilang($total) !!}
-						</i>
-					</td>
-				</tr>
-			</tbody>
 		</table>
 	</main>
 	<footer>
