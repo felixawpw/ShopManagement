@@ -47,6 +47,7 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('/ajax/customer/load', 'CustomerController@json')->name('customer_load');
 	Route::post('/ajax/pembelian/load', 'PembelianController@json')->name('pembelian_load');
 	Route::post('/ajax/penjualan/load', 'PenjualanController@json')->name('penjualan_load');
+	Route::post('/ajax/penjualan-by-customer/load', 'CustomerController@penjualanJson')->name('penjualan_by_customer_load');
 
 	Route::post('/ajax/barang-penjualan/load/{id}', 'BarangController@barangPembelianJSON')->name('barang_pembelian_load');
 

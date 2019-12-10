@@ -104,7 +104,7 @@
 		@php
 			$brgs = $penjualan->barangs()->withTrashed()->get();
 			$ul = $brgs->count();
-			$iteration = (int) ($ul / 7);
+			$iteration = (int) ($ul / 5);
 			$total = 0;
 			$discount = 0;
 		@endphp
@@ -119,10 +119,10 @@
 					</tr>
 				</thead>
 				<tbody class="table-sm" style="border: 1px solid #000000; page-break-after: always;">
-					@for($j = 0; $j < 7; $j++)
-						@if (isset($brgs[($i *7) + $j]))
+					@for($j = 0; $j < 5; $j++)
+						@if (isset($brgs[($i * 5) + $j]))
 							@php
-								$b = $brgs[($i * 7) + $j];
+								$b = $brgs[($i * 5) + $j];
 							@endphp
 
 							<tr>
@@ -188,10 +188,10 @@
 				</tr>
 			</thead>
 			<tbody class="table-sm" style="border: 1px solid #000000; page-break-after: always;">
-				@for($j = 0; $j < 7; $j++)
-					@if (isset($brgs[($i * 7) + $j]))
+				@for($j = 0; $j < 5; $j++)
+					@if (isset($brgs[($i * 5) + $j]))
 						@php
-							$b = $brgs[($i * 7) + $j];
+							$b = $brgs[($i * 5) + $j];
 						@endphp
 
 						<tr>

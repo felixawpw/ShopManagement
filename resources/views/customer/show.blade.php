@@ -8,11 +8,11 @@
         <div class="card-header card-header-primary">
           <div class="row">
             <div class="col-md-auto">
-              <h4 class="card-title ">Data Pembelian</h4>
+              <h4 class="card-title ">Data Penjualan</h4>
               <p class="card-category"></p>
             </div>
             <div class="col-md-auto ml-auto">
-              <a href="{{route('pembelian.create')}}">
+              <a href="{{route('penjualan.create')}}">
                 <i class="material-icons" style="font-size: 48px; color: lightblue;">add_circle</i>
               </a>
             </div>
@@ -24,17 +24,15 @@
           </div>
           <div class="material-datatables">
             <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
-          	  <thead>
+              <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Nomor Nota</th>
-                  <th>Tanggal Transaksi</th>
-                  <th>Jatuh Tempo</th>
+                  <th>No. Nota</th>
+                  <th>No. Invoice</th>
+                  <th>Tanggal</th>
                   <th>Total</th>
-                  <th>Nomor Faktur</th>
-                  <th>Nama Pemasok</th>
-                  <th>Nama Pengguna}</th>
-                  <th>Status Pembayaran</th>
+                  <th>Nama Pelanggan</th>
+                  <th>Nama Pengguna</th>
                   <th class="disabled-sorting text-right">Aksi</th>
                 </tr>
               </thead>
@@ -49,52 +47,51 @@
   </div>
   <!-- end row -->
 </div>
+
 @endsection
 
 @section('scripts')
 <script type="text/javascript">
-	$(document).ready(function(){
-		$('#nav_pembelian').addClass('active');
-    $('#nav_transaksi').addClass('active');	});
+  $(document).ready(function(){
+    $('#nav_penjualan').addClass('active');
+    $('#nav_transaksi').addClass('active');
+  });
 </script>
 
 <script>
-
-	$(document).ready(function(){
-		$('#datatables').DataTable({
-			"processing": true,
-			"serverSide": true,
+  $(document).ready(function(){
+    $('#datatables').DataTable({
+      "processing": true,
+      "serverSide": true,
       "scrollX":true,
-			"ajax":
-				{
-					"url": "{{ route('pembelian_load') }}",
-					"dataType": "json",
-					"type": "POST",
-					"data":{ _token: "{{csrf_token()}}"}
-				},
-      columnDefs: [ { orderable: false, targets: [6,7,9] } ],
-			"columns": [
-			    { "data": "id" },
-			    { "data": "no_nota" },
-			    { "data": "tanggal" },
-			    { "data": "tanggal_due" },
-			    { "data": "total" },
-			    { "data": "no_faktur" },
-          { "data": "nama_supplier" },
+      "ajax":
+        {
+          "url": "{{ route('penjualan_by_customer_load') }}",
+          "dataType": "json",
+          "type": "POST",
+          "data":{ _token: "{{csrf_token()}}", customer_id: {!! $customer->id !!}}
+        },
+      columnDefs: [ { orderable: false, targets: [5,6,7] } ],
+      "columns": [
+          { "data": "id" },
+          { "data": "no_nota" },
+          { "data": "no_faktur" },
+          { "data": "tanggal" },
+          { "data": "total" },
+          { "data": "nama_customer" },
           { "data": "nama_user" },
-          { "data": "status_pembayaran" },
-			    { "data": "options" }
-			]	 
-		});
+          { "data": "options" }
+      ]  
+    });
 
-	  var table = $('#datatables').DataTable();
+    var table = $('#datatables').DataTable();
 
-	  // Delete a record
-	  table.on('click', '.remove', function(e) {
-  	    $tr = $(this).closest('tr');
-  	    table.row($tr).remove().draw();
-  	    e.preventDefault();
-  	  });
+    // Delete a record
+    table.on('click', '.remove', function(e) {
+      $tr = $(this).closest('tr');
+      table.row($tr).remove().draw();
+      e.preventDefault();
+    });
     });
 </script>
 @endsection
