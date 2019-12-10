@@ -113,7 +113,7 @@
 				<thead class="text-center" style="border: 1px solid #000000;">
 					<tr>
 						<th style="width: 5%; border-right: 1px solid #000000;">QTY</th>
-						<th style="width: 35%; border-right: 1px solid #000000;">Nama Barang</th>
+						<th style="width: 50%; border-right: 1px solid #000000;">Nama Barang</th>
 						<th style="width: 35%; border-right: 1px solid #000000;">Keterangan</th>
 					</tr>
 				</thead>
@@ -179,7 +179,7 @@
 			<thead class="text-center" style="border: 1px solid #000000;">
 				<tr>
 					<th style="width: 5%; border-right: 1px solid #000000;">QTY</th>
-					<th style="width: 35%; border-right: 1px solid #000000;">Nama Barang</th>
+					<th style="width: 50%; border-right: 1px solid #000000;">Nama Barang</th>
 					<th style="width: 35%; border-right: 1px solid #000000;">Keterangan</th>
 				</tr>
 			</thead>
