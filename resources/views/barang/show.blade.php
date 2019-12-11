@@ -4,7 +4,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12 ml-auto mr-auto">
-      <div class="card " style="height: 700px;">
+      <div class="card ">
         <div class="card-header ">
           <h4 class="card-title">Informasi Produk
             <small class="description"></small>
@@ -122,77 +122,33 @@
                 </div>
                 
                 <div class="tab-pane" id="detail_penjualan">
-                  <div class="row">
-                    <div class="col-md-6">
-                     <h3>Filter Tampilan Data</h3> 
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    
-                  </div>
-
-                  <div class="row">
-                    <label class="col-md-1 col-form-label" for="nama">Periode</label>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <select class="selectpicker col-md-12" data-size="7" title="Single Select" id="penjualan_select_periode" data-style="select-with-transition">
-                          <option disabled selected>Pilih salah satu</option>
-                          <option value="1">Harian (+14 hari)</option>
-                          <option value="2">Mingguan (+16 minggu)</option>
-                          <option value="3">Bulanan (+12 bulan)</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div id="penjualan_div_tanggal" class="col-md-4" hidden>
-                      <div class="row">
-                        <label class="col-md-3 col-form-label" for="penjualan_tanggal_awal">Tanggal Awal</label>
-                        <div class="col-md-9">
-                          <div class="form-group">
-                            <input type="text" class="form-control datepicker" name="penjualan_tanggal_awal" id="penjualan_tanggal_awal" required>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div id="penjualan_div_bulan" class="col-md-4" hidden>
-                      <div class="row">
-                        <label class="col-md-3 col-form-label" for="penjualan_select_bulan">Bulan Awal</label>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <select class="selectpicker col-md-12" data-size="6" title="Single Select" id="penjualan_select_bulan" name="penjualan_select_bulan" data-style="select-with-transition">
-                              <option disabled selected>Pilih salah satu</option>
-                              <option value="1">Januari</option>
-                              <option value="2">Februari</option>
-                              <option value="3">Maret</option>
-                              <option value="4">April</option>
-                              <option value="5">Mei</option>
-                              <option value="6">Juni</option>
-                              <option value="7">Juli</option>
-                              <option value="8">Agustus</option>
-                              <option value="9">September</option>
-                              <option value="10">Oktober</option>
-                              <option value="11">November</option>
-                              <option value="12">Desember</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-                          <input type="text" class="form-control" name="penjualan_tahun_awal" id="penjualan_tahun_awal">
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-4">
-                      <a href="#" class="btn btn-primary" onclick="loadPenjualan()">Kirim</a>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div id="penjualan_chart" class="ct-chart"></div>  
-                    </div>
+                  <div class="material-datatables">
+                    <table id="penjualan_table" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                      <thead>
+                        <tr>
+                          <th>No Faktur</th>
+                          <th>No PO</th>
+                          <th>Tanggal</th>
+                          <th>Nama Customer</th>
+                          <th>Total</th>
+                          <th class="disabled-sorting text-right">Aksi</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach ($barang->penjualans as $b)
+                          <tr>
+                            <td>{!! $b->no_faktur !!}</td>
+                            <td>{!! $b->no_nota !!}</td>
+                            <td>{!! date_format(date_create($b->tanggal), "d M Y") !!}</td>
+                            <td>{!! $b->customer->nama !!}</td>
+                            <td>{!! number_format($b->total, '0', ',', '.') !!}</td>
+                            <td>
+                              <a href='{!! route("penjualan.show", $b->id) !!}' class='btn btn-link btn-info btn-just-icon show'><i class='material-icons'>visibility</i></a>
+                            </td>
+                          </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
                   </div>
                 </div>
 
@@ -202,18 +158,38 @@
                     <table id="pembelian_table" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                       <thead>
                         <tr>
-                          <th>ID</th>
                           <th>Nomor Nota</th>
+                          <th>Nomor Faktur</th>
                           <th>Tanggal Transaksi</th>
                           <th>Jatuh Tempo</th>
                           <th>Total</th>
-                          <th>Nomor Faktur</th>
                           <th>Nama Supplier</th>
-                          <th>Nama User</th>
                           <th>Status Pembayaran</th>
+                          <th>Harga Beli</th>
+                          <th>Sisa Stok</th>
                           <th class="disabled-sorting text-right">Aksi</th>
                         </tr>
                       </thead>
+                      <tbody>
+                        @foreach ($barang->pembelians as $b)
+                          <tr>
+                            <td>{!! $b->no_nota !!}</td>
+                            <td>{!! $b->no_faktur !!}</td>
+                            <td>{!! date_format(date_create($b->tanggal), "d M Y") !!}</td>
+                            <td>{!! $b->jatuh_tempo !!}</td>
+                            <td>{!! number_format($b->total, 0, ',', '.') !!}</td>
+                            <td>{!! $b->supplier->nama !!}</td>
+                            <td>{!! $b->hutang == 0 ? "Lunas" : "Kredit ".number_format($b->hutang, 0, ',', '.') !!}</td>
+                            <td>{!! number_format($b->pivot->hbeli, 0, ',', '.') !!}</td>
+                            <td>{!! $b->pivot->sisa !!}</td>
+                            <td>
+                              <a href='{!! route("pembelian.show", $b->id) !!}' class='btn btn-link btn-info btn-just-icon show'><i class='material-icons'>visibility</i></a>
+                              <a href='{!! route("pembelian.edit", $b->id) !!}' class='btn btn-link btn-info btn-just-icon show'><i class='material-icons'>dvr</i></a>
+                            </td>
+                          </tr>
+                        @endforeach
+                      </tbody>
+
                     </table>
                   </div>
                 </div>
@@ -229,8 +205,8 @@
 
 @section('scripts')
 <script type="text/javascript">
-	$(document).ready(function(){
-		$('#nav_barang').addClass('active');
+  $(document).ready(function(){
+    $('#nav_barang').addClass('active');
     console.log($("#hbeli").val());
     md.initFormExtendedDatetimepickers();
     if ($('.slider').length != 0) {
@@ -267,94 +243,15 @@
       }
     });
 
+    $('#penjualan_table').DataTable({
+      "scrollX": true
+    });
+
     $('#pembelian_table').DataTable({
-      "processing": true,
-      "serverSide": true,
-      "scrollX":true,
-      "searching": false,
-      "ajax":
-        {
-          "url": "{{ route('barang_pembelian_load', $barang->id) }}",
-          "dataType": "json",
-          "type": "POST",
-          "data":{ _token: "{{csrf_token()}}"}
-        },
-      columnDefs: [ { orderable: false, targets: [6,7,9] } ],
-      "columns": [
-          { "data": "id" },
-          { "data": "no_nota" },
-          { "data": "tanggal" },
-          { "data": "tanggal_due" },
-          { "data": "total" },
-          { "data": "no_faktur" },
-          { "data": "nama_supplier" },
-          { "data": "nama_user" },
-          { "data": "status_pembayaran" },
-          { "data": "options" }
-      ]  
+      "scrollX": true
     });
 
     var table = $('#pembelian_table').DataTable();
-	});
-
-  function loadPenjualan() {
-
-    var periode = $("#penjualan_select_periode").val();
-    var awal = "";
-    var year = 0;
-    switch(periode) {
-      case "1":
-        awal = $("#penjualan_tanggal_awal").val();
-        break;
-      case "2":
-        awal = $("#penjualan_tanggal_awal").val();
-        break;
-      case "3":
-        awal = $("#penjualan_select_bulan").val();
-        year = $("#penjualan_tahun_awal").val();
-        break;
-    }
-
-    $.ajax({
-      type:'GET',
-      url: "{!! route('show_barang_penjualan', $barang->id) !!}",
-      data: {
-        periode: periode,
-        awal: awal,
-        year: year
-      },
-      success:function(data){
-        console.log(data);
-        var result = JSON.parse(data);
-        var labels = [];
-        var series = [];
-        for (key in result) {
-          labels.push(key);
-          series.push(result[key]);
-        }
-
-        var data = {
-          // A labels array that can contain any sort of values
-          labels: labels,
-          // Our series array that contains series objects or in this case series data arrays
-          series: [
-            series
-          ]
-        };
-
-        var options = {
-          plugins: [
-            Chartist.plugins.tooltip()
-          ],
-          height: '500px'
-        };
-        // Create a new line chart object where as first parameter we pass in a selector
-        // that is resolving to our chart container element. The Second parameter
-        // is the actual data object.
-        new Chartist.Bar('#penjualan_chart', data, options);
-
-      },
-    });
-  }
+  });
 </script>
 @endsection
