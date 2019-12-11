@@ -1,85 +1,94 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-table.css')}}">
+<head>
+  <title>Printing Laporan Penjualan</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <style type="text/css">
+        @page {
+          margin-top: 100px;
+        }
 
-    <link rel="apple-touch-icon" sizes="76x76" href="{{asset('assets/img/apple-icon.png')}}">
-    <link rel="icon" type="image/png" href="{{asset('assets/img/favicon.png')}}">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>
-      Sripuja
-    </title>
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-    <!-- CSS Files -->
-    <link href="{{asset('assets/css/material-dashboard.css?v=2.1.0')}}" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/selectize.default.css')}}">
-  </head>
-  <body>
-    <div class="wrapper">
-      <div class="main-panel">
-        <div class="content">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-md-6 ml-auto mr-auto text-center">
-                <h3>Laporan Penjualan Periode<br>{!! $formattedTanggalAwal !!} - {!! $formattedTanggalAkhir !!}</h3>
-              </div>
-            </div>
-            <div class="row" style="margin-top: 3rem;">
-              <div class="col-md-12">
-                <div class="table-responsive">
-                  <table class="table table-bordered">
-                    <thead class="text-primary text-center">
-                      <tr>
-                        <th style="width: 5%;">Tanggal</th>
-                        <th style="width: 25%;">Nomor Nota</th>
-                        <th style="width: 30%;">Pelanggan</th>
-                        <th style="width: 20%;">Total Penjualan</th>
-                        <th>Laba</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @php
-                        $totalPenjualan = 0;
-                        $totalLaba = 0;
-                      @endphp
-                      @foreach($penjualans as $p)
-                        <tr>
-                          <td class="text-center">{!! $p->tanggal !!}</td>
-                          <td class="text-left">{!! $p->no_nota !!}</td>
-                          <td class="text-left">{!! $p->customer->nama !!}</td>
-                          <td class="text-right">{!! $p->totalText !!}</td>
-                          <td class="text-right">{!! $p->labaText !!}</td>
-                        </tr>
+        header {
+            position: fixed;
+            top: -100px;
+            left: 0px;
+            right: 0px;
+            height: 300px;
+        }
+        footer {
+          position: fixed;
+          bottom: -1px;
+          left: 0px; 
+          right: 0px;
+          height: 50px;
+        }
+        .page-number:after { content: counter(page); }
+        .page_break { page-break-before: always; }
+        .text-center {
+          text-align: center;
+        }
 
-                        @php
-                          $totalPenjualan += $p->total;
-                          $totalLaba += $p->laba;
-                        @endphp
-                      @endforeach
-                    </tbody>
-                    <tfoot class="text-primary text-right">
-                      <tr>
-                        <td colspan="3">Total</td>
-                        <td><b>{!! number_format($totalPenjualan, 2, '.', '.') !!}</b></td>
-                        <td><b>{!! number_format($totalLaba, 2, '.', '.') !!}</b></td>
-                      </tr>
-                    </tfoot>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+        .text-right {
+          text-align:right;
+        }
 
-  <script src="{{asset('assets/js/core/jquery.min.js')}}" type="text/javascript"></script>
-  <script type="text/javascript">
-    $(document).ready(function(){
-      window.print();
-      window.close();
-    });
-  </script>
-  </body>
+  </style>
+</head>
+<body style="font-size: medium;">
+  <header>
+    <h3 class="text-center">Laporan Penjualan Periode<br>{!! $formattedTanggalAwal !!} - {!! $formattedTanggalAkhir !!}</h3>
+  </header>
+
+  <main>
+    <table style="width: 100%; border-top: 1px solid #000; border-left: 1px solid #000;">
+      <thead class="text-center">
+        <tr>
+          <th style="width: 5%; border-right: 1px solid #000; border-bottom: 1px solid #000;">No.</th>         
+          <th style="width: 10%; border-right: 1px solid #000; border-bottom: 1px solid #000;">Tanggal</th>
+          <th style="width: 15%; border-right: 1px solid #000; border-bottom: 1px solid #000;">Nomor Nota</th>
+          <th style="width: 15%; border-right: 1px solid #000; border-bottom: 1px solid #000;">Customer</th>
+          <th style="width: 10%; border-right: 1px solid #000; border-bottom: 1px solid #000;">DPP</th>
+          <th style="width: 10%; border-right: 1px solid #000; border-bottom: 1px solid #000;">HPP</th>
+          <th style="width: 10%; border-right: 1px solid #000; border-bottom: 1px solid #000;">Laba Kotor</th>
+        </tr>
+      </thead>
+      <tbody>
+        @php
+          $no = 1;
+          $totalDpp = 0;
+          $totalHpp = 0;
+          $totalLabaKotor = 0;
+        @endphp
+        @foreach($penjualans as $p)
+          @php
+            $totalDpp += $p->dpp;
+            $totalHpp += $p->hpp;
+            $totalLabaKotor += $p->laba;
+          @endphp
+          <tr>
+            <td style="width: 5%; border-right: 1px solid #000; border-bottom: 1px solid #000;" class="text-center">{!! $no++ !!}</td>
+            <td style="width: 10%; border-right: 1px solid #000; border-bottom: 1px solid #000;" class="text-center">{!! date_format(date_create($p->tanggal), "d/m/Y") !!}</td>
+            <td style="width: 10%; border-right: 1px solid #000; border-bottom: 1px solid #000;" class="text-left">{!! $p->no_nota !!}</td>
+            <td style="width: 20%; border-right: 1px solid #000; border-bottom: 1px solid #000;" class="text-left">{!! $p->customer->nama !!}</td>
+            <td style="width: 10%; border-right: 1px solid #000; border-bottom: 1px solid #000;" class="text-right">{!! number_format($p->dpp, 2, ',', '.') !!}</td>
+            <td style="width: 10%; border-right: 1px solid #000; border-bottom: 1px solid #000;" class="text-right">{!! number_format($p->hpp, 2, ',', '.') !!}</td>
+            <td style="width: 10%; border-right: 1px solid #000; border-bottom: 1px solid #000;" class="text-right">{!! number_format($p->laba, 2, ',', '.') !!}</td>
+          </tr>
+        @endforeach
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" style="border-right: 1px solid #000; border-bottom: 1px solid #000;">&nbsp;</td>
+          <td style="width: 20%; border-right: 1px solid #000; border-bottom: 1px solid #000;" class="text-right"><b>Total</b></td>
+          <td style="width: 10%; border-right: 1px solid #000; border-bottom: 1px solid #000;" class="text-right"><b>{!! number_format($totalDpp, 2, ',', '.') !!}</b></td>
+          <td style="width: 10%; border-right: 1px solid #000; border-bottom: 1px solid #000;" class="text-right"><b>{!! number_format($totalHpp, 2, ',', '.') !!}</b></td>
+          <td style="width: 10%; border-right: 1px solid #000; border-bottom: 1px solid #000;" class="text-right"><b>{!! number_format($totalLabaKotor, 2, ',', '.') !!}</b></td>
+        </tr>
+      </tfoot>
+    </table>
+  </main>
+  <footer>
+
+  </footer>
+</body>
 </html>

@@ -7,11 +7,12 @@ use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
 use App\Penjualan, App\Pembelian, App\Barang;
 use DB;
+use App;
 class ReportController extends Controller
 {
     //
     public function showPenjualan() {
-    	return view('report_penjualan.penjualan');
+        return view('report_penjualan.penjualan');
     }
 
     public function showPembelian() {
@@ -25,20 +26,20 @@ class ReportController extends Controller
 
 
     public function generatePenjualan(Request $request) {
-    	$tanggalAwal = Carbon::createFromFormat("m/d/Y", $request->input('awal'));
-    	$tanggalAkhir = Carbon::createFromFormat("m/d/Y", $request->input('akhir'));
-    	
+        $tanggalAwal = Carbon::createFromFormat("m/d/Y", $request->input('awal'));
+        $tanggalAkhir = Carbon::createFromFormat("m/d/Y", $request->input('akhir'));
+        
         if ($tanggalAwal > $tanggalAkhir) 
-    		return redirect()->back()->with("status", "0||Cetak laporan gagal||Pastikan tanggal akhir lebih besar dari tanggal awal!");
+            return redirect()->back()->with("status", "0||Cetak laporan gagal||Pastikan tanggal akhir lebih besar dari tanggal awal!");
 
-    	$tipe = $request->input('tipe');
+        $tipe = $request->input('tipe');
 
         $formattedTanggalAwal = $tanggalAwal->format("D d M Y");
         $formattedTanggalAkhir = $tanggalAkhir->format("D d M Y");
         $penjualans = Penjualan::where("tanggal", ">=", $tanggalAwal->copy()->addDay(-1))->where("tanggal", "<=", $tanggalAkhir)->orderBy('tanggal', 'asc')->get();
         $jumlahTotalBarang = 0;
-    	switch ($tipe) {
-    		case 'grafik':
+        switch ($tipe) {
+            case 'grafik':
                 $temp = $tanggalAwal;
                 $resultLaba = array();
                 $resultOmset = array();
@@ -69,26 +70,34 @@ class ReportController extends Controller
                     $temp->addDay(1);
                 }
                 return view('report_penjualan.penjualan_grafik', compact('resultLaba', 'resultOmset', 'resultTipeBarang', 'resultBrand', 'formattedTanggalAwal', 'formattedTanggalAkhir', 'jumlahTotalBarang'));
-    			break;
-    		case 'printout':
+                break;
+            case 'printout':
                 foreach ($penjualans as $p) {
                     $laba = 0;
-
+                    $hpp = 0;
+                    $dpp = 0;
                     $barangs = $p->barangs;
                     foreach($barangs as $b) {
-                        $laba += ($b->pivot->hjual - $b->pivot->hbeli) * $b->pivot->quantity;
+                        $hpp += $b->pivot->hbeli * $b->pivot->quantity;
+                        $dpp += ($b->pivot->hjual - $b->pivot->discount) * $b->pivot->quantity;
+                        $laba += $dpp - $hpp;
                     }
                     $p->laba = $laba;
-                    $p->labaText = number_format($laba, 2, '.','.');
+                    $p->hpp = $hpp;
+                    $p->dpp = $dpp;
                     $p->tanggal = Carbon::createFromFormat("Y-m-d", $p->tanggal)->format("d/m/Y");
                     $p->totalText = number_format($p->total, 2, '.', '.');
                 }
 
-    			return view('report_penjualan.penjualan_print', compact('formattedTanggalAwal', 'formattedTanggalAkhir', 'penjualans'));
-    			break;
-    		default:
-    			break;
-    	}
+                $pdf = App::make('dompdf.wrapper');
+                $pdf->setPaper('A4', 'landscape');
+
+                $pdf = $pdf->loadView('report_penjualan.penjualan_print', compact('formattedTanggalAwal', 'formattedTanggalAkhir', 'penjualans'));
+                return $pdf->stream();
+                break;
+            default:
+                break;
+        }
     }
 
     public function generatePembelian(Request $request) {
@@ -106,9 +115,12 @@ class ReportController extends Controller
             $p->totalText = number_format($p->total, 2, '.', '.');
             $p->tanggal = Carbon::createFromFormat("Y-m-d", $p->tanggal)->format("d/m/Y");
         }
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->setPaper('A4', 'landscape');
 
-        return view('report_pembelian.pembelian_print', compact('formattedTanggalAwal', 'formattedTanggalAkhir', 'pembelians'));
-    }
+        $pdf = $pdf->loadView('report_pembelian.pembelian_print', compact('formattedTanggalAwal', 'formattedTanggalAkhir', 'pembelians'));
+        return $pdf->stream();
+    }   
 
     public function generateStok(Request $request) {
         $bulan = $request->input('bulan');
