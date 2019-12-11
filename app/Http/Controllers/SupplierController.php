@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Supplier, App\Log, Auth;
+use Carbon\Carbon;
 class SupplierController extends Controller
 {
     public function selectize(Request $request)
@@ -180,7 +181,9 @@ class SupplierController extends Controller
     {
         //
         $supplier = Supplier::find($id);
-        return view('supplier.show', compact('supplier'));
+        $year = Carbon::now()->year;
+
+        return view('supplier.show', compact('supplier', 'year'));
     }
 
     /**

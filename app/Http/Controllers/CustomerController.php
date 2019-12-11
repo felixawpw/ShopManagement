@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Customer, App\Log, Auth;
 use App\Penjualan;
+use Carbon\Carbon;
 class CustomerController extends Controller
 {
     public function penjualanJson(Request $request)
@@ -303,7 +304,9 @@ class CustomerController extends Controller
     {
         //
         $customer = Customer::find($id);
-        return view('customer.show', compact('customer'));
+        $year = Carbon::now()->year;
+
+        return view('customer.show', compact('customer', 'year', 'kp'));
     }
 
     /**
