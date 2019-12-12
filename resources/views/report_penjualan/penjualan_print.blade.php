@@ -63,7 +63,7 @@
           @php
             $totalDpp += $p->dpp;
             $totalHpp += $p->hpp;
-            $totalLabaKotor += $p->laba;
+            $totalLabaKotor += ($p->dpp - $p->hpp);
           @endphp
           <tr>
             <td style="width: 5%; border-right: 1px solid #000; border-bottom: 1px solid #000;" class="text-center">{!! $no++ !!}</td>
@@ -72,7 +72,7 @@
             <td style="width: 20%; border-right: 1px solid #000; border-bottom: 1px solid #000;" class="text-left">{!! $p->customer->nama !!}</td>
             <td style="width: 10%; border-right: 1px solid #000; border-bottom: 1px solid #000;" class="text-right">{!! number_format($p->dpp, 2, ',', '.') !!}</td>
             <td style="width: 10%; border-right: 1px solid #000; border-bottom: 1px solid #000;" class="text-right">{!! number_format($p->hpp, 2, ',', '.') !!}</td>
-            <td style="width: 10%; border-right: 1px solid #000; border-bottom: 1px solid #000;" class="text-right">{!! number_format($p->laba, 2, ',', '.') !!}</td>
+            <td style="width: 10%; border-right: 1px solid #000; border-bottom: 1px solid #000;" class="text-right">{!! number_format($p->dpp - $p->hpp, 2, ',', '.') !!}</td>
           </tr>
         @endforeach
       </tbody>
