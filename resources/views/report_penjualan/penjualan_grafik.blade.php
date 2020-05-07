@@ -51,6 +51,8 @@
 							                  <th>Jumlah Penjualan</th>
   							                  <th>Omset</th>
 							                  <th>Prosentase</th>
+					                 		  <th>Laba</th>
+							                  <th>Prosentase Laba</th>
 							                </tr>
 							              </thead>
 							              <tbody>
