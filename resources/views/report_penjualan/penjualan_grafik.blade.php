@@ -33,7 +33,7 @@
 		    </div>
 		    <div class="card-body">
 		    	<div class="row">
-		    		<div class="col-md-6">
+		    		<div class="col-md-12">
 		    			<div class="card">
 		    				<div class="card-header card-header-success">
 							    <h4 class="card-title">Penjualan per Merk
@@ -60,6 +60,8 @@
 							                  	<td>{!! $value !!}</td>
 							                  	<td>{!! number_format($resultBrandOmset[$key], 0, '.', ',') !!}</td>
 							                  	<td>{!! number_format($resultBrandOmset[$key]/$totalOmset * 100, 2, ',', '.')."%" !!}</td>
+							                  	<td>{!! number_format($resultBrandLaba[$key], 0, '.', ',') !!}</td>
+							                  	<td>{!! number_format($resultBrandLaba[$key]/$totalLaba * 100, 2, ',', '.')."%" !!}</td>
 							                  </tr>
 							                @endforeach
 							              </tbody>
@@ -70,7 +72,9 @@
 		    				</div>
 		    			</div>
 		    		</div>
-		    		<div class="col-md-6">
+		    	</div>
+		    	<div class="row">
+		    		<div class="col-md-12">
 		    			<div class="card">
 		    				<div class="card-header card-header-success">
 							    <h4 class="card-title">Penjualan per Jenis Barang
@@ -87,7 +91,9 @@
 							                  <th>Tipe Barang</th>
 							                  <th>Jumlah Penjualan</th>
   							                  <th>Omset</th>
-							                  <th>Prosentase</th>
+							                  <th>Prosentase Omset</th>
+  							                  <th>Laba</th>
+							                  <th>Prosentase Laba</th>
 							                </tr>
 							              </thead>
 							              <tbody>
@@ -97,6 +103,8 @@
 							                  	<td>{!! $value !!}</td>
 							                  	<td>{!! number_format($resultTipeBarangOmset[$key], 0, '.', ',') !!}</td>
 							                  	<td>{!! number_format($resultTipeBarangOmset[$key]/$totalOmset * 100, 2, ',', '.')."%" !!}</td>
+							                  	<td>{!! number_format($resultTipeBarangLaba[$key], 0, '.', ',') !!}</td>
+							                  	<td>{!! number_format($resultTipeBarangLaba[$key]/$totalLaba * 100, 2, ',', '.')."%" !!}</td>
 							                  </tr>
 							                @endforeach
 							              </tbody>
@@ -107,6 +115,7 @@
 		    				</div>
 		    			</div>
 		    		</div>
+
 		    	</div>
 		    </div>
 		    <div class="class-footer">
