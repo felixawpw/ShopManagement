@@ -53,6 +53,7 @@
 							                  <th>Prosentase</th>
 					                 		  <th>Laba</th>
 							                  <th>Prosentase Laba</th>
+  							                  <th>Prosentase Laba Per Omset</th>
 							                </tr>
 							              </thead>
 							              <tbody>
@@ -64,6 +65,7 @@
 							                  	<td>{!! number_format($resultBrandOmset[$key]/$totalOmset * 100, 2, ',', '.')."%" !!}</td>
 							                  	<td>{!! number_format($resultBrandLaba[$key], 0, '.', ',') !!}</td>
 							                  	<td>{!! number_format($resultBrandLaba[$key]/$totalLaba * 100, 2, ',', '.')."%" !!}</td>
+							                  	<td>{!! number_format($resultBrandLaba[$key]/$resultBrandOmset[$key] * 100, 2, ',', '.')."%" !!}</td>
 							                  </tr>
 							                @endforeach
 							              </tbody>
@@ -95,7 +97,8 @@
   							                  <th>Omset</th>
 							                  <th>Prosentase Omset</th>
   							                  <th>Laba</th>
-							                  <th>Prosentase Laba</th>
+							                  <th>Prosentase Laba Per Total</th>
+							                  <th>Prosentase Laba Per Omset</th>
 							                </tr>
 							              </thead>
 							              <tbody>
@@ -107,6 +110,7 @@
 							                  	<td>{!! number_format($resultTipeBarangOmset[$key]/$totalOmset * 100, 2, ',', '.')."%" !!}</td>
 							                  	<td>{!! number_format($resultTipeBarangLaba[$key], 0, '.', ',') !!}</td>
 							                  	<td>{!! number_format($resultTipeBarangLaba[$key]/$totalLaba * 100, 2, ',', '.')."%" !!}</td>
+							                  	<td>{!! number_format($resultTipeBarangLaba[$key]/$resultTipeBarangOmset[$key] * 100, 2, ',', '.')."%" !!}</td>
 							                  </tr>
 							                @endforeach
 							              </tbody>
