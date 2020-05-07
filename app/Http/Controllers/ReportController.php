@@ -64,7 +64,6 @@ class ReportController extends Controller
                             $resultTipeBarang[$b->product_type->nama] = (isset($resultTipeBarang[$b->product_type->nama]) ? $resultTipeBarang[$b->product_type->nama] : 0) + $b->pivot->quantity;
                             $resultBrand[$b->brand->nama] = (isset($resultBrand[$b->brand->nama]) ? $resultBrand[$b->brand->nama] : 0) + $b->pivot->quantity;
                             $resultTipeBarangOmset[$b->product_type->nama] = (isset($resultTipeBarangOmset[$b->product_type->nama]) ? $resultTipeBarangOmset[$b->product_type->nama] : 0) + ($b->pivot->quantity) * $b->pivot->hjual;
-                            return $resultTipeBarangOmset;
                         }
                         $resultLaba[$temp->toDateString()] = $laba;
                         $resultOmset[$temp->toDateString()] = $omset;
