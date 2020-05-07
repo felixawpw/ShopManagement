@@ -85,6 +85,7 @@
 							                  <th>Tipe Barang</th>
 							                  <th>Jumlah Penjualan</th>
 							                  <th>Prosentase</th>
+							                  <th>Omset</th>
 							                </tr>
 							              </thead>
 							              <tbody>
@@ -93,6 +94,7 @@
 							                  	<td>{!! $key !!}</td>
 							                  	<td>{!! $value !!}</td>
 							                  	<td>{!! number_format($value/$jumlahTotalBarang * 100, 2, ',', '.')."%" !!}</td>
+							                  	<td>{!! $resultTipeBarangOmset[$key] !!}</td>
 							                  </tr>
 							                @endforeach
 							              </tbody>
