@@ -49,8 +49,8 @@
 							                <tr>
 							                  <th>Brand</th>
 							                  <th>Jumlah Penjualan</th>
+  							                  <th>Omset</th>
 							                  <th>Prosentase</th>
-							                  <th>Omset</th>
 							                </tr>
 							              </thead>
 							              <tbody>
@@ -58,8 +58,8 @@
 							                  <tr>
 							                  	<td>{!! $key !!}</td>
 							                  	<td>{!! $value !!}</td>
-							                  	<td>{!! number_format($value/$jumlahTotalBarang * 100, 2, ',', '.')."%" !!}</td>
 							                  	<td>{!! number_format($resultBrandOmset[$key], 0, '.', ',') !!}</td>
+							                  	<td>{!! number_format($resultBrandOmset[$key]/$totalOmset * 100, 2, ',', '.')."%" !!}</td>
 							                  </tr>
 							                @endforeach
 							              </tbody>
@@ -95,8 +95,8 @@
 							                  <tr>
 							                  	<td>{!! $key !!}</td>
 							                  	<td>{!! $value !!}</td>
-							                  	<td>{!! number_format($value/$jumlahTotalBarang * 100, 2, ',', '.')."%" !!}</td>
 							                  	<td>{!! number_format($resultTipeBarangOmset[$key], 0, '.', ',') !!}</td>
+							                  	<td>{!! number_format($resultTipeBarangOmset[$key]/$totalOmset * 100, 2, ',', '.')."%" !!}</td>
 							                  </tr>
 							                @endforeach
 							              </tbody>

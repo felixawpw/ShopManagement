@@ -46,6 +46,7 @@ class ReportController extends Controller
                 $resultTipeBarang = array();
                 $resultBrand = array();
                 $resultBrandOmset = array();
+                $totalOmset = 0;
 
                 while ($temp < $tanggalAkhir) {
                     $penjualans = Penjualan::where("tanggal", "=", $temp->toDateString())->get();
@@ -65,6 +66,7 @@ class ReportController extends Controller
                             $resultBrand[$b->brand->nama] = (isset($resultBrand[$b->brand->nama]) ? $resultBrand[$b->brand->nama] : 0) + $b->pivot->quantity;
                             $resultTipeBarangOmset[$b->product_type->nama] = (isset($resultTipeBarangOmset[$b->product_type->nama]) ? $resultTipeBarangOmset[$b->product_type->nama] : 0) + ($b->pivot->quantity) * $b->pivot->hjual;
                             $resultBrandOmset[$b->brand->nama] = (isset($resultBrandOmset[$b->brand->nama]) ? $resultBrandOmset[$b->brand->nama] : 0) + ($b->pivot->quantity) * $b->pivot->hjual;
+                            $totalOmset = $b->pivot->quantity * $b->pivot->hjual;
                         }
                         $resultLaba[$temp->toDateString()] = $laba;
                         $resultOmset[$temp->toDateString()] = $omset;
@@ -72,7 +74,7 @@ class ReportController extends Controller
 
                     $temp->addDay(1);
                 }
-                return view('report_penjualan.penjualan_grafik', compact('resultLaba', 'resultTipeBarangOmset', 'resultBrandOmset', 'resultOmset', 'resultTipeBarang', 'resultBrand', 'formattedTanggalAwal', 'formattedTanggalAkhir', 'jumlahTotalBarang'));
+                return view('report_penjualan.penjualan_grafik', compact('resultLaba', 'totalOmset', 'resultTipeBarangOmset', 'resultBrandOmset', 'resultOmset', 'resultTipeBarang', 'resultBrand', 'formattedTanggalAwal', 'formattedTanggalAkhir', 'jumlahTotalBarang'));
                 break;
             case 'printout':
                 foreach ($penjualans as $p) {
