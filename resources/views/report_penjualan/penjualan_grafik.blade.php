@@ -50,6 +50,7 @@
 							                  <th>Brand</th>
 							                  <th>Jumlah Penjualan</th>
 							                  <th>Prosentase</th>
+							                  <th>Omset</th>
 							                </tr>
 							              </thead>
 							              <tbody>
