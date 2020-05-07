@@ -86,8 +86,8 @@
 							                <tr>
 							                  <th>Tipe Barang</th>
 							                  <th>Jumlah Penjualan</th>
+  							                  <th>Omset</th>
 							                  <th>Prosentase</th>
-							                  <th>Omset</th>
 							                </tr>
 							              </thead>
 							              <tbody>
