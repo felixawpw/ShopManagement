@@ -110,7 +110,7 @@
 							                  	<td>{!! number_format($resultTipeBarangOmset[$key]/$totalOmset * 100, 2, ',', '.')."%" !!}</td>
 							                  	<td>{!! number_format($resultTipeBarangLaba[$key], 0, '.', ',') !!}</td>
 							                  	<td>{!! number_format($resultTipeBarangLaba[$key]/$totalLaba * 100, 2, ',', '.')."%" !!}</td>
-							                  	<td>{!! number_format($resultTipeBarangLaba[$key]/$resultTipeBarangOmsetz[$key] * 100, 2, ',', '.')."%" !!}</td>
+							                  	<td>{!! number_format($resultTipeBarangLaba[$key]/$resultTipeBarangOmset[$key] * 100, 2, ',', '.')."%" !!}</td>
 							                  </tr>
 							                @endforeach
 							              </tbody>
