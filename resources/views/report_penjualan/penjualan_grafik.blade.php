@@ -58,7 +58,7 @@
 							                  	<td>{!! $key !!}</td>
 							                  	<td>{!! $value !!}</td>
 							                  	<td>{!! number_format($value/$jumlahTotalBarang * 100, 2, ',', '.')."%" !!}</td>
-							                  	<td>{!! number_format($resultBrandOmset[$key], 2, ',', '.') !!}</td>
+							                  	<td>{!! number_format($resultBrandOmset[$key], 0, '.', ',') !!}</td>
 							                  </tr>
 							                @endforeach
 							              </tbody>
@@ -95,7 +95,7 @@
 							                  	<td>{!! $key !!}</td>
 							                  	<td>{!! $value !!}</td>
 							                  	<td>{!! number_format($value/$jumlahTotalBarang * 100, 2, ',', '.')."%" !!}</td>
-							                  	<td>{!! number_format($resultTipeBarangOmset[$key], 2, ',', '.') !!}</td>
+							                  	<td>{!! number_format($resultTipeBarangOmset[$key], 0, '.', ',') !!}</td>
 							                  </tr>
 							                @endforeach
 							              </tbody>
