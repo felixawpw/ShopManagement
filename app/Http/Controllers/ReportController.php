@@ -120,10 +120,11 @@ class ReportController extends Controller
                         where a.tanggal >= '$tempAwal' and a.tanggal <= '$tanggalAkhir'
                         group by c.product_type_id, c.id
                         order by c.product_type_id) t on x.id = t.barang_id
-                        order by category, t.quantity
+                        order by category, t.quantity DESC
                         
                     "
                 );
+                return view('report_penjualan.penjualan_category', compact('formattedTanggalAwal', 'formattedTanggalAkhir', 'sales'));
                 $pdf = App::make('dompdf.wrapper');
                 $pdf->setPaper('A4', 'landscape');
 
