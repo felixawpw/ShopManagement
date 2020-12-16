@@ -124,7 +124,7 @@ class ReportController extends Controller
                         
                     "
                 );
-                return view('report_penjualan.penjualan_category', compact('formattedTanggalAwal', 'formattedTanggalAkhir', 'sales'));
+                //return view('report_penjualan.penjualan_category', compact('formattedTanggalAwal', 'formattedTanggalAkhir', 'sales'));
                 $pdf = App::make('dompdf.wrapper');
                 $pdf->setPaper('A4', 'landscape');
 
