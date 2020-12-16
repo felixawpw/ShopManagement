@@ -43,10 +43,10 @@
     <table style="width: 100%; border-top: 1px solid #000; border-left: 1px solid #000;">
       <thead class="text-center">
         <tr>
-          <th style="width: 5%; border-right: 1px solid #000; border-bottom: 1px solid #000;">Kategori</th>         
-          <th style="width: 10%; border-right: 1px solid #000; border-bottom: 1px solid #000;">Qty</th>
-          <th style="width: 15%; border-right: 1px solid #000; border-bottom: 1px solid #000;">Nama</th>
-          <th style="width: 15%; border-right: 1px solid #000; border-bottom: 1px solid #000;">HPP</th>
+          <th style="width: 10%; border-right: 1px solid #000; border-bottom: 1px solid #000;">Kategori</th>         
+          <th style="width: 5%; border-right: 1px solid #000; border-bottom: 1px solid #000;">Qty</th>
+          <th style="width: 40%; border-right: 1px solid #000; border-bottom: 1px solid #000;">Nama</th>
+          <th style="width: 10%; border-right: 1px solid #000; border-bottom: 1px solid #000;">HPP</th>
           <th style="width: 10%; border-right: 1px solid #000; border-bottom: 1px solid #000;">H.Jual</th>
         </tr>
       </thead>
@@ -58,7 +58,7 @@
           <tr>
             <td style="width: 10%; border-right: 1px solid #000; border-bottom: 1px solid #000;">{!! $prev == $s->category ? "" : $s->category !!}</td>         
             <td style="width: 5%; border-right: 1px solid #000; border-bottom: 1px solid #000;">{!! $s->quantity !!}</td>         
-            <td style="width: 20%; border-right: 1px solid #000; border-bottom: 1px solid #000;">{!! $s->nama !!}</td>         
+            <td style="width: 40%; border-right: 1px solid #000; border-bottom: 1px solid #000;">{!! $s->nama !!}</td>         
             <td style="width: 10%; border-right: 1px solid #000; border-bottom: 1px solid #000;">{!! number_format($s->hbeli, 0, '.', '.') !!}</td>         
             <td style="width: 10%; border-right: 1px solid #000; border-bottom: 1px solid #000;">{!! number_format($s->hjual, 0, '.', '.') !!}</td>         
           </tr>
