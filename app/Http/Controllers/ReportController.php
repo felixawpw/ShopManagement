@@ -120,6 +120,7 @@ class ReportController extends Controller
                         where a.tanggal >= '$tempAwal' and a.tanggal <= '$tanggalAkhir'
                         group by c.product_type_id, c.id
                         order by c.product_type_id) t on x.id = t.barang_id
+                        order by category, x.nama
                         
                     "
                 );

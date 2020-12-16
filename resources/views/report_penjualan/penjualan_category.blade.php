@@ -51,14 +51,20 @@
         </tr>
       </thead>
       <tbody>
+        @php
+          $prev = "";
+        @endphp
         @foreach($sales as $s)
           <tr>
-            <td style="width: 5%; border-right: 1px solid #000; border-bottom: 1px solid #000;">{!! $s['category'] !!}</td>         
-            <td style="width: 5%; border-right: 1px solid #000; border-bottom: 1px solid #000;">{!! $s['nama'] !!}</td>         
-            <td style="width: 5%; border-right: 1px solid #000; border-bottom: 1px solid #000;">{!! $s['quantity'] !!}</td>         
-            <td style="width: 5%; border-right: 1px solid #000; border-bottom: 1px solid #000;">{!! $s['hbeli'] !!}</td>         
-            <td style="width: 5%; border-right: 1px solid #000; border-bottom: 1px solid #000;">{!! $s['hjual'] !!}</td>         
+            <td style="width: 5%; border-right: 1px solid #000; border-bottom: 1px solid #000;">{!! $prev == $s->category ? "" : $s->category !!}</td>         
+            <td style="width: 5%; border-right: 1px solid #000; border-bottom: 1px solid #000;">{!! $s->nama !!}</td>         
+            <td style="width: 5%; border-right: 1px solid #000; border-bottom: 1px solid #000;">{!! $s->quantity !!}</td>         
+            <td style="width: 5%; border-right: 1px solid #000; border-bottom: 1px solid #000;">{!! number_format($s->hbeli, 0, '.', '.') !!}</td>         
+            <td style="width: 5%; border-right: 1px solid #000; border-bottom: 1px solid #000;">{!! number_format($s->hjual, 0, '.', '.') !!}</td>         
           </tr>
+          @php
+            $prev = $s->category;
+          @endphp
         @endforeach
       </tbody>
       <tfoot>
