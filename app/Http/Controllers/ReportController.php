@@ -107,6 +107,28 @@ class ReportController extends Controller
                 $pdf = $pdf->loadView('report_penjualan.penjualan_print', compact('formattedTanggalAwal', 'formattedTanggalAkhir', 'penjualans'));
                 return $pdf->stream();
                 break;
+            case 'brand_category':
+                $tempAwal = $tanggalAwal->copy()->addDay(-1);
+                $sales = DB::select("
+                    select y.nama as 'category', x.nama, t.quantity, x.hbeli, x.hjual
+                    from barangs x inner join product_types y on x.product_type_id = y.id
+                        inner join (
+                        select c.product_type_id as product_type_id, c.id as barang_id, sum(b.quantity) as quantity
+                        from penjualans a 
+                            inner join barang_penjualan b on a.id = b.penjualan_id 
+                            inner join barangs c on b.barang_id = c.id
+                        where a.tanggal >= '$tempAwal' and a.tanggal <= '$tanggalAkhir'
+                        group by c.product_type_id, c.id
+                        order by c.product_type_id) t on x.id = t.barang_id
+                        
+                    "
+                );
+                $pdf = App::make('dompdf.wrapper');
+                $pdf->setPaper('A4', 'landscape');
+
+                $pdf = $pdf->loadView('report_penjualan.penjualan_category', compact('formattedTanggalAwal', 'formattedTanggalAkhir', 'sales'));
+                return $pdf->stream();
+
             default:
                 break;
         }

@@ -53,7 +53,7 @@
                 <div class="row justify-content-center">
                   <div class="col-lg-10">
                     <div class="row">
-                      <div class="col-sm-6">
+                      <div class="col-sm-4">
                         <div class="choice" data-toggle="wizard-radio">
                           <input type="radio" name="tipe" value="grafik">
                           <div class="icon">
@@ -62,13 +62,22 @@
                           <h6>Grafik</h6>
                         </div>
                       </div>
-                      <div class="col-sm-6">
+                      <div class="col-sm-4">
                         <div class="choice" data-toggle="wizard-radio">
                           <input type="radio" name="tipe" value="printout">
                           <div class="icon">
                             <i class="material-icons">print</i>
                           </div>
                           <h6>Print Out</h6>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="choice" data-toggle="wizard-radio">
+                          <input type="radio" name="tipe" value="brand_category">
+                          <div class="icon">
+                            <i class="material-icons">print</i>
+                          </div>
+                          <h6>Brand or Category</h6>
                         </div>
                       </div>
                     </div>
