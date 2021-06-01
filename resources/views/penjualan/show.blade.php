@@ -102,6 +102,14 @@
                 <div class="col-md-2 ml-auto">
                   <a target="_blank" href="{!! route('suratjalan', $penjualan->id) !!}" class="btn btn-primary">Print Surat Jalan</a>
                 </div>
+
+                <div class="col-md-2 ml-auto">
+                    <a target="_blank" href="{!! route('invoice_download', $penjualan->id) !!}" class="btn btn-primary">Print Surat Jalan</a>
+                </div>
+
+                <div class="col-md-2 ml-auto">
+                    <a target="_blank" href="wa.me/send?phone={!! $penjualan->customer->telepon == null ? '-' : $penjualan->customer->telepon !!}&attachment=C://users/downloads/{!! $penjualan->id!!}.pdf" class="btn btn-primary">Print Surat Jalan</a>
+                </div>
               </div>
             </div>
           </div>

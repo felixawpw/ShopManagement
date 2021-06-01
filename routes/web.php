@@ -62,6 +62,7 @@ Route::middleware(['auth'])->group(function(){
 	Route::post('/ajax/add/customer', 'AjaxController@storeCustomer');
 	
 	Route::get('/invoice/{id}', 'PenjualanController@invoice')->name('invoice');
+	Route::get('/invoice/download/{id}', 'PenjualanController@invoiceDownload')->name('invoice_download');
 	Route::get('/suratjalan/{id}', 'PenjualanController@suratjalan')->name('suratjalan');
 });
 
