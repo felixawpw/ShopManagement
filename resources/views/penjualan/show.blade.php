@@ -113,7 +113,7 @@
                         $attachment = "C://nota/$penjualan->id.pdf";
                         $message = "Halo ". $penjualan->customer->nama .", terima kasih karena telah melakukan pembelian di Toko Sripuja Elektronik.\nBerikut kami lampirkan nota pembelian anda.";
                     @endphp
-                    <a target="_blank" href="https://wa.me/send?phone=62{!! $noHp!!}" class="btn btn-primary">Kirim Whatsapp</a>
+                    <a target="_blank" href="https://wa.me/send?phone=62{!! $noHp!!}&text={!! $message !!}" class="btn btn-primary">Kirim Whatsapp</a>
                 </div>
               </div>
             </div>
