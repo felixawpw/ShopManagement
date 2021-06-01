@@ -111,7 +111,7 @@
                     @php
                         $noHp = $penjualan->customer->telepon == null ? '-' : substr($penjualan->customer->telepon, 1);
                         $attachment = "C://nota/$penjualan->id.pdf";
-                        $message = "Halo ". $penjualan->customer->nama .", terima kasih karena telah melakukan pembelian di Toko Sripuja Elektronik.\nBerikut kami lampirkan nota pembelian anda.";
+                        $message = "Halo ". $penjualan->customer->nama .", terima kasih karena telah melakukan pembelian di Toko Sripuja Elektronik.%0ABerikut kami lampirkan nota pembelian anda.";
                     @endphp
                     <a target="_blank" href="https://wa.me/send?phone=62{!! $noHp!!}&text={!! $message !!}" class="btn btn-primary">Kirim Whatsapp</a>
                 </div>
