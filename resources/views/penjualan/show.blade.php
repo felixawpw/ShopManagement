@@ -104,11 +104,11 @@
                 </div>
 
                 <div class="col-md-2 ml-auto">
-                    <a target="_blank" href="{!! route('invoice_download', $penjualan->id) !!}" class="btn btn-primary">Print Surat Jalan</a>
+                    <a href="{!! route('invoice_download', $penjualan->id) !!}" class="btn btn-primary">Download Invoice</a>
                 </div>
 
                 <div class="col-md-2 ml-auto">
-                    <a target="_blank" href="wa.me/send?phone={!! $penjualan->customer->telepon == null ? '-' : $penjualan->customer->telepon !!}&attachment=C://users/downloads/{!! $penjualan->id!!}.pdf" class="btn btn-primary">Print Surat Jalan</a>
+                    <a target="_blank" href="https://wa.me/send?phone={!! $penjualan->customer->telepon == null ? '-' : $penjualan->customer->telepon !!}&attachment=C://users/downloads/{!! $penjualan->id!!}.pdf" class="btn btn-primary">Kirim Whatsapp</a>
                 </div>
               </div>
             </div>
