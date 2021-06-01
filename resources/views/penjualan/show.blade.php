@@ -108,7 +108,7 @@
                 </div>
 
                 <div class="col-md-2 ml-auto">
-                    <a target="_blank" href="https://wa.me/send?phone={!! $penjualan->customer->telepon == null ? '-' : $penjualan->customer->telepon !!}&attachment=C://users/downloads/{!! $penjualan->id!!}.pdf" class="btn btn-primary">Kirim Whatsapp</a>
+                    <a target="_blank" href="https://wa.me/send?phone=62{!! $penjualan->customer->telepon == null ? '-' : substr($penjualan->customer->telepon, 1) !!}&attachment=C://users/downloads/{!! $penjualan->id!!}.pdf" class="btn btn-primary">Kirim Whatsapp</a>
                 </div>
               </div>
             </div>
